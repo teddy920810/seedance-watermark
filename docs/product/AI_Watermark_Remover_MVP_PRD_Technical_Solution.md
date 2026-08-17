@@ -1,8 +1,8 @@
-# AI Watermark Remover MVP PRD & 技术方案
+# Seedance Watermark Remover MVP PRD & 技术方案
 
 ## 1. 项目目标
 
-建设一个 SEO 驱动的 AI 图片去水印工具站。
+建设一个 SEO 驱动的 Seedance 水印处理工具站。当前 MVP 只支持图片和视频抽帧，不支持直接视频上传，Provider 仍为 Mock。
 
 第一阶段目标：
 
@@ -25,11 +25,11 @@
 
 ## 产品名称
 
-AI Watermark Remover
+Seedance Watermark Remover
 
 ## 核心价值
 
-Remove watermark from images online with AI technology.
+Process visible Seedance watermarks on authorized images and extracted frames through a private online workflow.
 
 用户上传图片，系统返回去除水印后的结果。
 
@@ -86,15 +86,11 @@ Remove watermark from images online with AI technology.
 核心页面：
 
     /
-     /watermark-remover
+    /remove-seedance-watermark
 
-    /remove-gemini-watermark
+    /seedance-watermark-from-video
 
-    /ai-watermark-remover
-
-    /remove-logo-from-image
-
-    /remove-text-from-image
+    /seedance-watermark-from-image
 
     /blog/*
 
@@ -102,10 +98,10 @@ Remove watermark from images online with AI technology.
 
 覆盖：
 
--   watermark remover
--   remove watermark online
--   Gemini watermark remover
--   AI image watermark remover
+-   Seedance watermark remover
+-   remove Seedance watermark
+-   Seedance video watermark workflow
+-   Seedance image watermark remover
 
 ------------------------------------------------------------------------
 

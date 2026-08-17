@@ -1,0 +1,12 @@
+{
+  "slug": "seedance-watermark-from-image", "title": "Seedance Image Watermark Remover Workflow",
+  "description": "Prepare and privately process an authorized Seedance image or extracted frame in JPG, PNG, or WebP format.",
+  "eyebrow": "Seedance image guide", "heading": "Prepare Seedance images for private watermark processing",
+  "intro": "Choose a supported still image, sign in with Google, upload directly to private R2 storage, and review the returned preview result.",
+  "benefits": ["JPG, PNG, and WebP", "Private direct upload", "Temporary result links"],
+  "faq": [
+    { "question": "What size is supported?", "answer": "One image from 1 byte through 10 MB." },
+    { "question": "Is the original changed?", "answer": "No. The original remains a separate private object; the provider writes a separate result." },
+    { "question": "Is processing production-ready?", "answer": "No. The current provider returns an unchanged copy and is intended for workflow validation." }
+  ]
+}

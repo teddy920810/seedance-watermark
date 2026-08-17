@@ -21,7 +21,7 @@ const site = siteEntry.data;
     </main>
     <script is:inline>
       if (window.opener) {
-        window.opener.postMessage({ type: 'clearmark-auth-complete' }, window.location.origin);
+        window.opener.postMessage({ type: 'seedance-auth-complete' }, window.location.origin);
         window.close();
       } else {
         window.location.replace('/#tool');

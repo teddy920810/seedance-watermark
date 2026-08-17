@@ -59,16 +59,10 @@ test('all public content routes and 404 have one H1 and no serious accessibility
   }
 });
 
-test('Google tag emits a page_view collection request', async ({ page }) => {
-  await page.route('**/g/collect**', (route) => route.fulfill({ status: 204 }));
-  const pageView = page.waitForRequest((request) => {
-    const url = new URL(request.url());
-    return url.pathname.endsWith('/g/collect') && url.searchParams.get('en') === 'page_view';
-  }, { timeout: 15_000 });
-
+test('does not load Google Analytics until this site has its own measurement ID', async ({ page }) => {
   await page.goto('/');
-  const request = await pageView;
-  expect(request.url()).toMatch(/[?&]tid=G-[A-Z0-9]+/);
+  await expect(page.locator('script[src*="googletagmanager.com/gtag/js"]')).toHaveCount(0);
+  await expect(page.locator('script').filter({ hasText: "gtag('config'" })).toHaveCount(0);
 });
 
 

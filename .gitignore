@@ -6,6 +6,7 @@ dist/
 .env.*
 !.env.example
 S3-info.txt
+client_secret_*.apps.googleusercontent.com.json
 coverage/
 playwright-report/
 test-results/

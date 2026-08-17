@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Seedance Watermark Remover</title><desc id="description">Private Seedance image and extracted-frame cleanup workflow.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f5ff"/><stop offset="1" stop-color="#dcd5ff"/></linearGradient><linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8f7cff"/><stop offset="1" stop-color="#4834d4"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><circle cx="1040" cy="90" r="230" fill="none" stroke="#6c5ce7" stroke-opacity=".1" stroke-width="70"/>
+  <rect x="90" y="80" width="72" height="72" rx="20" fill="url(#mark)"/><path d="M111 105c0-7 5-12 12-12h19v9h-19c-2 0-3 1-3 3 0 1 1 2 3 3l12 5c6 2 9 7 9 13 0 8-6 14-15 14h-18v-9h18c3 0 5-2 5-5 0-2-1-3-4-4l-12-5c-5-2-7-6-7-12Z" fill="#fff"/>
+  <text x="90" y="270" fill="#1d1738" font-family="Arial, sans-serif" font-size="78" font-weight="700">Seedance Watermark</text><text x="90" y="360" fill="#5b45dc" font-family="Arial, sans-serif" font-size="78" font-weight="700">Remover</text><text x="94" y="440" fill="#635e78" font-family="Arial, sans-serif" font-size="28">Private cleanup workflow for authorized Seedance media.</text>
+</svg>

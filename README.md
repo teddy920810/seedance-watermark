@@ -1,93 +1,69 @@
-# ClearMark AI / Watermark Gemini
+# Seedance Watermark Remover
 
-ClearMark AI 是部署在 [www.watermarkgemini.com](https://www.watermarkgemini.com) 的图片水印处理 MVP。项目采用 Astro、React、Vercel 与私有 Cloudflare R2，并通过 Pages CMS 让非技术成员直接维护博客和 SEO 落地页。
+Seedance Watermark Remover 是独立部署在 [seedances.co](https://seedances.co) 的 Seedance 水印处理站点。项目采用 Astro、React islands、Vercel 与私有 Cloudflare R2，并通过 Pages CMS 维护博客和 SEO 落地页。
 
-本仓库也可作为同类站点框架完整 fork：WatermarkGemini 内容继续保留在当前仓库，新站在自己的仓库中初始化品牌并通过 Pages CMS 重建内容。操作见 [新站模板指南](docs/TEMPLATE_GUIDE.md)。
+> 当前状态：用户可以匿名选择和预览一张 JPG、PNG 或 WebP 图片，创建处理任务时需要 Google 登录。上传、私有临时存储、任务归属和下载流程已实现，但处理器仍是 Mock Provider，会返回未修改的副本。当前不支持 MP4/MOV 等视频文件，不应对外宣称已经真实移除 Seedance 水印或支持视频处理。
 
-> 当前状态：匿名用户可以选择和预览图片，创建处理任务时需要通过 Google 登录。上传、临时存储和任务流程已经可用，但处理器仍是 Mock Provider。它会复制原图作为结果，不代表已经真正移除水印。接入正式图像处理服务前，不应对外宣称具备真实去水印效果。
+## 站点边界
 
-## 常用入口
+- 正式域名：[seedances.co](https://seedances.co)
+- GitHub：[teddy920810/seedance-watermark](https://github.com/teddy920810/seedance-watermark)
+- 部署：独立 Vercel 项目
+- Google OAuth 与 R2：与原图片站共享凭据/基础设施
+- 站点身份：`SITE_URL` 和 `BETTER_AUTH_URL` 独立使用 `https://seedances.co`
+- OAuth 回调：`https://seedances.co/api/auth/callback/google`
+- Analytics：默认关闭，配置本站独立 GA4 ID 后才启用
 
-- 正式站点：[www.watermarkgemini.com](https://www.watermarkgemini.com)
-- GitHub：[teddy920810/ai-watermark-remover](https://github.com/teddy920810/ai-watermark-remover)
-- 内容后台：[Pages CMS](https://app.pagescms.org)
-- 部署平台：[Vercel](https://vercel.com)
+共享 R2 时，必须在 Bucket CORS 中同时保留两个站点的明确来源。R2 密钥只允许服务端使用；上传、结果和任务记录仍应由 24 小时生命周期规则清理。两个站点的 Vercel 项目、域名、内容和发布历史相互独立。
 
-## 按角色开始
+## 本地开发
 
-### 内容编辑（不需要写代码）
-
-使用 Pages CMS 新建或修改博客、工具落地页。保存后系统会提交到 GitHub，并由 Vercel 自动发布到生产环境。请先阅读 [Pages CMS 中文操作教程](docs/PAGES_CMS_GUIDE.md)，尤其不要修改已发布内容的 URL 路径。
-
-### 开发者
-
-需要 Node.js 22 和 npm。首次运行：
+需要 Node.js 22 和 npm 10 或更高版本：
 
 ```sh
-git clone https://github.com/teddy920810/ai-watermark-remover.git
-cd ai-watermark-remover
+git clone https://github.com/teddy920810/seedance-watermark.git
+cd seedance-watermark
 npm ci
-copy .env.example .env.local
+cp .env.example .env.local
 npm run dev
 ```
 
-环境变量中的 R2 密钥必须从项目管理员处通过安全渠道获取，不要从仓库、聊天截图或文档中复制真实密钥。详细说明见 [开发者指南](docs/DEVELOPER_GUIDE.md) 和 [贡献指南](CONTRIBUTING.md)。
+Windows 可用 `Copy-Item .env.example .env.local`，但项目实现和脚本本身必须保持跨平台。
 
-### 运维人员
+Google 登录需要 `GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`、`BETTER_AUTH_SECRET` 和 `BETTER_AUTH_URL`。R2 需要 `.env.example` 中列出的 `R2_*` 变量。真实凭据通过安全渠道获取，不得提交 `.env.local`、OAuth JSON、`S3-info.txt` 或任何访问密钥。
 
-域名、Vercel、R2、Analytics、发布与回滚步骤见 [运维手册](docs/OPERATIONS_RUNBOOK.md)。
-
-## 架构概览
+## 架构
 
 ```text
 浏览器
-  ├─ Astro 静态内容页面
-  ├─ React Google 登录与上传组件
+  ├─ Astro 静态 SEO 与内容页面
+  ├─ React 图片上传/Google 登录岛
   └─ Better Auth 加密会话
-       ├─ Vercel API：生成 R2 预签名上传地址
+       ├─ Vercel API 生成 R2 预签名地址
        ├─ 浏览器直传私有 R2
-       └─ Vercel API：创建/查询处理任务
+       └─ Vercel API 创建并查询用户归属任务
                          └─ WatermarkProvider（当前为 Mock）
-
-Pages CMS → GitHub main → Vercel 自动构建 → www.watermarkgemini.com
 ```
 
-R2 Bucket 为 `watermark`，必须保持私有。`uploads/`、`results/`、`jobs/` 应配置 1 天自动过期。上传密钥只允许在服务端环境变量中使用。
+原站和 Seedance 站共享 Google/R2 并不意味着共享域名配置：每个 Vercel 项目都要分别设置自己的 `SITE_URL` 与 `BETTER_AUTH_URL`，Google OAuth Web Client 需要同时允许两个正式回调。
 
-Google OAuth 回调地址为 `/api/auth/callback/google`。本地 3000 端口与正式域名应分别在 Google Cloud 配置完整回调 URI。当前认证采用无数据库加密会话，任务记录会保存会话用户 ID；账户历史列表、额度和订阅仍属于后续 V2 工作。
+## 内容与质量
 
-## 目录说明
+- `src/content/homepage/`：首页内容
+- `src/content/landing-pages/`：Seedance SEO 落地页
+- `src/content/blog/`：Seedance 指南
+- `src/content/legal/`：隐私政策和条款
+- `src/content/settings/`：品牌、导航、Footer、SEO 与 CMS 设置
+- `src/lib/providers/`：可替换处理 Provider
+- `src/pages/api/`：服务端 API
 
-- `src/content/blog/`：博客 Markdown 内容
-- `src/content/landing-pages/`：工具落地页 JSON 内容
-- `src/content/homepage/home.json`：Pages CMS 管理的首页内容
-- `src/content/legal/`：Pages CMS 管理的隐私政策和使用条款
-- `src/content/settings/`：Pages CMS 管理的 Header、Footer、公告、博客列表、落地页公共模块和 404
-- `public/uploads/`：Pages CMS 管理的静态图片资源
-- `.pages.yml`：Pages CMS 字段和权限配置
-- `src/pages/api/`：Vercel 服务端 API
-- `src/lib/providers/`：可替换的图片处理 Provider
-- `public/`：站点根路径静态资源；`/sitemap.xml` 会根据公开内容自动生成
-- `docs/`：产品、开发和运维文档
-
-## 质量检查
-
-行为变更采用 TDD：先写失败测试，再实现。提交前运行：
+行为或配置变化遵循 TDD。提交前运行：
 
 ```sh
+npm run site:validate
 npm run verify
 ```
 
-它会依次执行覆盖率测试、代码检查、生产构建和 Chromium E2E。首次在本机运行 E2E 前执行 `npx playwright install chromium`。生产环境真实链路使用 `npm run test:smoke:production`，该命令会向 R2 写入无敏感的 1×1 测试图片并由生命周期自动清理，不能在不知情的情况下反复运行。
+生产域名、R2、CORS 或 Vercel 环境变量变化后，部署完成再运行 `npm run test:smoke:production`。该命令会向真实 Bucket 写入临时测试对象，不要试探性反复执行。
 
-测试分层、CI、失败处理和共创者操作说明见 [测试与质量指南](docs/TESTING_GUIDE.md)。不要提交 `.env.local`、R2 密钥、`S3-info.txt`、构建输出或本地测试截图。
-
-## 文档索引
-
-- [Pages CMS 中文操作教程](docs/PAGES_CMS_GUIDE.md)
-- [开发者指南](docs/DEVELOPER_GUIDE.md)
-- [运维手册](docs/OPERATIONS_RUNBOOK.md)
-- [测试与质量指南](docs/TESTING_GUIDE.md)
-- [贡献指南](CONTRIBUTING.md)
-- [产品 PRD 与技术方案](docs/product/AI_Watermark_Remover_MVP_PRD_Technical_Solution.md)
-
+详细规则见 [开发者指南](docs/DEVELOPER_GUIDE.md)、[运维手册](docs/OPERATIONS_RUNBOOK.md)、[测试指南](docs/TESTING_GUIDE.md)、[Pages CMS 教程](docs/PAGES_CMS_GUIDE.md) 和 [贡献指南](CONTRIBUTING.md)。

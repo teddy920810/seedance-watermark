@@ -1,27 +1,11 @@
 {
   "process": {
-    "eyebrow": "Three simple steps",
-    "heading": "From upload to clean result",
+    "eyebrow": "Current image workflow", "heading": "From Seedance frame to preview result",
     "steps": [
-      {
-        "number": "01",
-        "title": "Choose your image",
-        "description": "Select one JPG, PNG, or WEBP file up to 10 MB."
-      },
-      {
-        "number": "02",
-        "title": "Process securely",
-        "description": "Your image is uploaded directly to private object storage."
-      },
-      {
-        "number": "03",
-        "title": "Review and download",
-        "description": "Compare the result and download it through a temporary link."
-      }
+      { "number": "01", "title": "Choose an image or frame", "description": "Select one authorized JPG, PNG, or WebP file up to 10 MB." },
+      { "number": "02", "title": "Process privately", "description": "Sign in with Google and upload directly to private object storage." },
+      { "number": "03", "title": "Review the preview", "description": "Compare and download the result through a temporary link; the MVP provider currently returns an unchanged copy." }
     ]
   },
-  "faq": {
-    "eyebrow": "Common questions",
-    "heading": "Good to know before uploading"
-  }
+  "faq": { "eyebrow": "Common questions", "heading": "Seedance workflow limits to know before uploading" }
 }

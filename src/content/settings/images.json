@@ -1,16 +1,6 @@
 {
   "images": [
-    {
-      "src": "/uploads/watermarkgemini-logo.svg",
-      "alt": "WatermarkGemini logo",
-      "title": "WatermarkGemini logo"
-    },
-    {
-      "src": "/uploads/og-card.svg",
-      "alt": "WatermarkGemini social sharing card",
-      "title": "Default social sharing image",
-      "width": 1200,
-      "height": 630
-    }
+    { "src": "/uploads/seedance-watermark-logo.svg", "alt": "Seedance Watermark Remover logo", "title": "Seedance Watermark Remover logo", "width": 64, "height": 64 },
+    { "src": "/uploads/seedance-watermark-og.svg", "alt": "Seedance Watermark Remover social card", "title": "Seedance Watermark Remover social sharing image", "width": 1200, "height": 630 }
   ]
 }

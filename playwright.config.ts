@@ -17,7 +17,12 @@ export default defineConfig({
     url: 'http://127.0.0.1:4322',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
-    env: { SITE_URL: 'http://127.0.0.1:4322' },
+    env: {
+      SITE_URL: 'http://127.0.0.1:4322',
+      // Astro 7 otherwise auto-backgrounds dev servers in detected agent environments,
+      // which makes Playwright think its managed web server exited early.
+      ASTRO_DEV_BACKGROUND: '1',
+    },
   },
 });
 

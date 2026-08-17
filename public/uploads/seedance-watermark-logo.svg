@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Seedance Watermark Remover</title>
+  <defs><linearGradient id="g" x1="8" y1="8" x2="56" y2="56"><stop stop-color="#8f7cff"/><stop offset="1" stop-color="#4834d4"/></linearGradient></defs>
+  <rect width="64" height="64" rx="18" fill="url(#g)"/>
+  <path d="M19 22c0-5 4-9 9-9h17v8H28a1 1 0 0 0-1 1c0 1 .5 1.6 1.5 2l10.8 4.3C43 29.8 45 33 45 37c0 7-5 12-12 12H18v-8h15c2.3 0 4-1.5 4-3.5 0-1.2-.7-2-2.1-2.6l-10.8-4.3C20.7 29.2 19 26.3 19 22Z" fill="#fff"/>
+  <circle cx="49" cy="15" r="5" fill="#baffd9"/>
+</svg>

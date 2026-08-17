@@ -1,15 +1,15 @@
 {
-  "name": "WatermarkGemini",
-  "canonicalOrigin": "https://www.watermarkgemini.com",
+  "name": "Seedance Watermark Remover",
+  "canonicalOrigin": "https://seedances.co",
   "locale": "en",
-  "themeColor": "#a06dff",
-  "logo": "/uploads/watermarkgemini-logo.svg",
-  "defaultTitle": "AI Watermark Remover — Remove Watermarks Online",
-  "defaultDescription": "Remove visible watermarks, logos, and text from images online. Fast, private, and easy to use.",
-  "favicon": "/uploads/watermarkgemini-logo.svg",
-  "defaultShareImage": "/uploads/watermarkgemin-share.webp",
+  "themeColor": "#6c5ce7",
+  "logo": "/uploads/seedance-watermark-logo.svg",
+  "defaultTitle": "Seedance Watermark Remover — Clean Seedance Images Online",
+  "defaultDescription": "A private Seedance watermark removal workflow for supported images and extracted video frames you are authorized to edit.",
+  "favicon": "/uploads/seedance-watermark-logo.svg",
+  "defaultShareImage": "/uploads/seedance-watermark-og.svg",
   "analytics": {
-    "googleMeasurementId": "G-52ZWCGEZ7R"
+    "googleMeasurementId": ""
   },
   "structuredData": {
     "applicationCategory": "MultimediaApplication",
@@ -18,28 +18,28 @@
     "priceCurrency": "USD"
   },
   "contentDefaults": {
-    "author": "WatermarkGemini Editorial Team",
-    "category": "Guides"
+    "author": "Seedance Watermark Remover Editorial Team",
+    "category": "Seedance Guides"
   },
   "uploader": {
     "hero": {
-      "eyebrow": "Free Image Watermark Remover",
-      "heading": "Remove a Watermark from Your Image Online for Free",
-      "demoBadge": "100% Free",
-      "demoBadgeTitle": "The MVP returns an unchanged copy"
+      "eyebrow": "Seedance Image Watermark Remover",
+      "heading": "Clean a Seedance Image or Extracted Frame",
+      "demoBadge": "Preview MVP",
+      "demoBadgeTitle": "The current MVP returns an unchanged copy; video files are not yet supported"
     },
     "dropzone": {
       "dropLabel": "Drop Your Image Here",
       "browseLabel": "or click to browse",
       "formatLabel": "JPG, PNG, or WEBP",
       "maxSizeLabel": "up to {maxSize} MB",
-      "fileInputLabel": "Choose an image to remove the watermark"
+      "fileInputLabel": "Choose a Seedance image or extracted frame"
     },
     "preview": {
       "altTemplate": "Preview of {fileName}",
       "processingLabel": "Securely processing your image…",
       "readyLabel": "Ready to process",
-      "removeButton": "Remove watermark",
+      "removeButton": "Process image",
       "uploadingButton": "Uploading…",
       "processingButton": "Processing…",
       "chooseAnotherButton": "Choose another"
@@ -49,14 +49,14 @@
       "resultLabel": "Result",
       "originalAlt": "Original upload",
       "resultAlt": "Processed result",
-      "demoNote": "Demo mode returns a secure copy while the real AI provider is being integrated.",
+      "demoNote": "Preview mode currently returns a secure unchanged copy while Seedance-aware image and video processing are being integrated.",
       "downloadButton": "Download result",
       "processAnotherButton": "Process another"
     },
     "auth": {
       "closeLabel": "Close sign-in dialog",
       "title": "Sign in to start processing",
-      "description": "Your selected image will stay on this page. Processing starts automatically after Google sign-in.",
+      "description": "Your selected Seedance image or extracted frame stays on this page. Processing starts automatically after Google sign-in.",
       "connectingButton": "Connecting to Google…",
       "continueButton": "Continue with Google",
       "dismissButton": "Not now"
@@ -72,19 +72,19 @@
   "header": {
     "navigation": [
       {
-        "label": "AI Watermark Remover",
+        "label": "Seedance Tools",
         "children": [
           {
-            "label": "Remove Text from Image",
-            "href": "/remove-text-from-image"
+            "label": "Seedance Watermark Remover",
+            "href": "/remove-seedance-watermark"
           },
           {
-            "label": "Remove Logo from Image",
-            "href": "/remove-logo-from-image"
+            "label": "Seedance Video Guide",
+            "href": "/seedance-watermark-from-video"
           },
           {
-            "label": "Remove Gemini Watermark",
-            "href": "/remove-gemini-watermark"
+            "label": "Seedance Image Guide",
+            "href": "/seedance-watermark-from-image"
           }
         ]
       },
@@ -99,7 +99,7 @@
     ]
   },
   "footer": {
-    "tagline": "Simple, private image cleanup for work you own.",
+    "tagline": "Private Seedance watermark cleanup guidance for media you own or may edit.",
     "links": [
       {
         "label": "Privacy",
@@ -115,5 +115,5 @@
       }
     ]
   },
-  "themeColorFallback": "#6610f2"
+  "themeColorFallback": "#4834d4"
 }

@@ -1,0 +1,13 @@
+{
+  "slug": "remove-seedance-watermark", "title": "Remove a Visible Seedance Watermark from an Image",
+  "description": "Process a Seedance image or extracted video frame you own or may edit. Current preview processing returns an unchanged copy.",
+  "eyebrow": "Seedance watermark remover", "heading": "Clean visible Seedance marks from authorized images",
+  "intro": "Use the private image workflow for a Seedance still or extracted frame. Direct video processing and invisible provenance removal are outside the current MVP.",
+  "benefits": ["Seedance-focused workflow", "Private temporary storage", "Clear preview-provider status"],
+  "faq": [
+    { "question": "Can I upload a Seedance video?", "answer": "No. The current tool accepts one JPG, PNG, or WebP image up to 10 MB. Export a frame first if you need to test the workflow." },
+    { "question": "Does it remove the mark today?", "answer": "Not yet. The preview provider currently returns an unchanged copy while production processing is integrated." },
+    { "question": "Are files private?", "answer": "Files use private object storage and are scheduled for deletion after 24 hours." },
+    { "question": "What may I process?", "answer": "Only process media you own or have permission to modify." }
+  ]
+}

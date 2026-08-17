@@ -1,0 +1,12 @@
+{
+  "slug": "seedance-watermark-from-video", "title": "Seedance Video Watermark Removal: Current Support and Workflow",
+  "description": "Learn what the Seedance Watermark Remover MVP supports today and how extracted frames fit the future video-processing roadmap.",
+  "eyebrow": "Seedance video guide", "heading": "A clear path from extracted frames to future video support",
+  "intro": "The current MVP does not accept MP4 or MOV files. It can process an authorized still frame while the provider abstraction remains ready for a dedicated video backend.",
+  "benefits": ["No false direct-video claim", "Frame-based testing path", "Provider-ready architecture"],
+  "faq": [
+    { "question": "Which video formats are supported?", "answer": "None yet. Direct video upload is not implemented." },
+    { "question": "Can I upload a frame from a Seedance video?", "answer": "Yes, if it is JPG, PNG, or WebP, no larger than 10 MB, and you own or may edit the source." },
+    { "question": "Will audio or motion be preserved?", "answer": "The current image workflow does not process video, audio, timing, or motion." }
+  ]
+}

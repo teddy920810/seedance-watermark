@@ -1,5 +1,5 @@
 {
-  "lastmod": "2026-08-15",
+  "lastmod": "2026-08-17",
   "groups": {
     "homepage": {
       "changefreq": "weekly",
@@ -24,7 +24,7 @@
   },
   "overrides": [
     {
-      "path": "/remove-gemini-watermark",
+      "path": "/remove-seedance-watermark",
       "priority": 0.9
     }
   ]

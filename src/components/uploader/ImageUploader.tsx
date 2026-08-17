@@ -102,7 +102,7 @@ export default function ImageUploader({ logo, siteName, copy }: Props) {
 
   useEffect(() => {
     async function handleAuthComplete(event: MessageEvent) {
-      if (event.origin !== window.location.origin || event.data?.type !== 'clearmark-auth-complete') return;
+      if (event.origin !== window.location.origin || event.data?.type !== 'seedance-auth-complete') return;
       const refreshed = await authClient.getSession();
       if (!refreshed.data?.user) {
         dispatch({ type: 'error', message: 'Google sign-in could not be confirmed. Please try again.' });
@@ -130,7 +130,7 @@ export default function ImageUploader({ logo, siteName, copy }: Props) {
   async function continueWithGoogle() {
     const popup = window.open(
       'about:blank',
-      'clearmark-google-auth',
+      'seedance-google-auth',
       'popup=yes,width=520,height=680,left=240,top=80',
     );
     if (!popup) {

@@ -1,9 +1,7 @@
 {
-  "title": "Page not found | WatermarkGemini",
-  "description": "The page you requested could not be found.",
-  "eyebrow": "404",
-  "heading": "This page has faded away",
-  "intro": "The link may be outdated, or the page may have moved.",
-  "buttonLabel": "Return home",
-  "buttonHref": "/"
+  "title": "Page not found | Seedance Watermark Remover",
+  "description": "The Seedance watermark guide or page you requested could not be found.",
+  "eyebrow": "404", "heading": "This frame is missing",
+  "intro": "The link may be outdated, or the Seedance resource may have moved.",
+  "buttonLabel": "Return home", "buttonHref": "/"
 }

@@ -1,9 +1,9 @@
 {
-  "title": "Image Cleanup Guides | WatermarkGemini",
-  "description": "Practical guides to image formats, responsible watermark removal, and better image cleanup workflows.",
-  "shareImage": "/uploads/watermarkgemin-share.webp",
-  "eyebrow": "WatermarkGemini guides",
-  "heading": "Better images start with better choices",
-  "intro": "Concise, practical advice for cleaning and exporting images responsibly.",
+  "title": "Seedance Watermark Removal Guides",
+  "description": "Practical guidance for Seedance images, extracted video frames, privacy, current product limits, and responsible watermark cleanup.",
+  "shareImage": "/uploads/seedance-watermark-og.svg",
+  "eyebrow": "Seedance Watermark Remover guides",
+  "heading": "Clear guidance for Seedance media cleanup",
+  "intro": "Learn what the current image workflow supports, what direct video support still requires, and how to process only authorized media.",
   "postsPerPage": 20
 }

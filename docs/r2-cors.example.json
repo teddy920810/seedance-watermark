@@ -3,6 +3,8 @@
     "AllowedOrigins": [
       "https://watermarkgemini.com",
       "https://www.watermarkgemini.com",
+      "https://seedances.co",
+      "https://www.seedances.co",
       "https://ai-watermark-remover-peach.vercel.app",
       "http://localhost:4321"
     ],

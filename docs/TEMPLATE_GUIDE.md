@@ -1,10 +1,10 @@
 # 从当前项目复制新站
 
-本仓库同时承担两个角色：`main` 保存并持续发布 WatermarkGemini；任何新站从整个仓库 fork 或使用 GitHub Template 创建自己的仓库。新站拥有独立内容、提交历史、Pages CMS、Vercel 项目、域名、OAuth 和存储，不与 WatermarkGemini 共用生产数据。
+本仓库保存并持续发布 Seedance Watermark Remover；任何后续新站可以从整个仓库 fork 或使用 GitHub Template 创建自己的仓库。新站应拥有独立内容、提交历史、Pages CMS、Vercel 项目和域名。Seedance 站按当前运维方案与原图片站共享 Google OAuth Web Client、Better Auth 密钥和私有 R2，但两个 Vercel 项目的站点 URL 必须分别配置。
 
 ## 1. 创建新仓库
 
-在 GitHub 使用 **Fork**；若仓库管理员已开启 **Template repository**，也可以使用 **Use this template**。不要在 WatermarkGemini 的 `main` 上直接替换品牌内容。新仓库创建后先建立自己的工作分支。
+在 GitHub 使用 **Fork**；若仓库管理员已开启 **Template repository**，也可以使用 **Use this template**。不要在 Seedance Watermark Remover 的 `main` 上直接替换品牌内容。新仓库创建后先建立自己的工作分支。
 
 ## 2. 准备站点身份配置
 
@@ -42,9 +42,9 @@ Pages CMS 的详细字段说明见 `docs/PAGES_CMS_GUIDE.md`。
 新站必须单独配置：
 
 - Vercel 项目和 `SITE_URL`、`BETTER_AUTH_URL`；
-- Google OAuth Client 与新域名回调；
+- Google OAuth 新域名回调（可以复用同一个 OAuth Web Client）；
 - GA4 Measurement ID（暂不使用时在站点设置留空）；
-- Cloudflare R2 Bucket、生命周期、CORS 和最小权限密钥；
+- Cloudflare R2 的 CORS 来源；若共享现有 Bucket，必须保留所有站点来源和现有生命周期规则；
 - GitHub Pages CMS App 权限与分支保护。
 
 真实图片处理 Provider 不在当前模板初始化范围内；接入前仍会使用 Mock Provider，不能对外宣称已真实移除水印。
@@ -53,6 +53,6 @@ Pages CMS 的详细字段说明见 `docs/PAGES_CMS_GUIDE.md`。
 
 先执行 `npm run site:validate`，它会检查域名一致性、缺失图片、GitHub blob 图片地址、无效站内链接、重复 URL 和保留路由冲突。再执行 `npm run verify`，确认 GitHub CI 通过；浏览器验收会覆盖 sitemap 中的全部公开页面和 404。随后检查桌面端和移动端、登录回调、上传流程、法律内容、Canonical、robots.txt、sitemap.xml 和 GA 收数，最后把根域名 308 重定向到选定的唯一规范域名。
 
-## WatermarkGemini 是否会被保留
+## Seedance Watermark Remover 是否会被保留
 
-会。模板初始化器只在运行它的仓库中生效；fork 后的改动不会反向修改本仓库。WatermarkGemini 的内容仍留在本仓库 `main`，可以继续独立更新和部署。
+会。模板初始化器只在运行它的仓库中生效；fork 后的改动不会反向修改本仓库。Seedance Watermark Remover 的内容仍留在本仓库 `main`，可以继续独立更新和部署。

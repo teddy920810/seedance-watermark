@@ -6,7 +6,7 @@ Pages CMS 是本项目的内容后台。它直接读写 GitHub 中的内容文�
 
 1. 打开 [Pages CMS](https://app.pagescms.org)，选择 **Sign in with GitHub**。
 2. 使用已获得仓库权限的 GitHub 账号登录并授权 Pages CMS。
-3. 选择仓库 `teddy920810/ai-watermark-remover`。
+3. 选择仓库 `teddy920810/seedance-watermark`。
 4. 确认分支是 `main`。
 5. 左侧会显示站点设置、首页、博客列表设置、博客文章、落地页公共模块、工具落地页、法律页面、404 页面和静态图片。
 
@@ -97,7 +97,7 @@ Header 的每个导航项可以选择两种效果：
 - 优点列表
 - 常见问题及答案
 
-新建页面时，URL 路径会决定正式地址，例如 `remove-stamp-from-image` 对应 `https://www.watermarkgemini.com/remove-stamp-from-image/`。发布后不要更改 URL 路径。新建的落地页会自动使用现有页面模板；若需要不同布局，请联系开发者修改代码。
+新建页面时，URL 路径会决定正式地址，例如 `remove-seedance-watermark` 对应 `https://seedances.co/remove-seedance-watermark`。发布后不要更改 URL 路径。新建的落地页会自动使用现有页面模板；若需要不同布局，请联系开发者修改代码。
 
 工具落地页现在可以删除。删除前请确认没有导航、博客或外部广告仍指向该 URL；删除后应安排重定向，避免访客直接进入 404 页面。
 
@@ -114,7 +114,7 @@ Header 的每个导航项可以选择两种效果：
 
 `sitemap.xml` 会在每次构建时根据首页、法律页、已发布博客和工具落地页自动生成；草稿文章和不存在的路径不会进入站点地图。
 
-在 **Sitemap 设置 / Sitemap settings** 中可以维护公共页面 `lastmod`，以及不同页面类型的 `changefreq` 和 `priority`。需要提高单个真实页面的优先级时，在“单个页面覆盖规则”中填写以 `/` 开头且不带末尾斜杠的完整路径。新增或删除内容后，等待部署完成并访问 `https://www.watermarkgemini.com/sitemap.xml` 检查。
+在 **Sitemap 设置 / Sitemap settings** 中可以维护公共页面 `lastmod`，以及不同页面类型的 `changefreq` 和 `priority`。需要提高单个真实页面的优先级时，在“单个页面覆盖规则”中填写以 `/` 开头且不带末尾斜杠的完整路径。新增或删除内容后，等待部署完成并访问 `https://seedances.co/sitemap.xml` 检查。
 
 站点设置里的 **SEO 规范域名 / Canonical origin** 同时控制页面 canonical、robots 和 sitemap 域名。修改站点域名时必须同步检查 Vercel 域名跳转和认证回调地址。
 
