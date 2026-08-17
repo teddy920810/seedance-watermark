@@ -1,17 +1,17 @@
 # Seedance Watermark Remover
 
-Seedance Watermark Remover 是独立部署在 [seedances.co](https://seedances.co) 的 Seedance 水印处理站点。项目采用 Astro、React islands、Vercel 与私有 Cloudflare R2，并通过 Pages CMS 维护博客和 SEO 落地页。
+Seedance Watermark Remover 是独立部署在 [www.seedances.co](https://www.seedances.co) 的 Seedance 水印处理站点。项目采用 Astro、React islands、Vercel 与私有 Cloudflare R2，并通过 Pages CMS 维护博客和 SEO 落地页。
 
 > 当前状态：用户可以匿名选择和预览一张 JPG、PNG 或 WebP 图片，创建处理任务时需要 Google 登录。上传、私有临时存储、任务归属和下载流程已实现，但处理器仍是 Mock Provider，会返回未修改的副本。当前不支持 MP4/MOV 等视频文件，不应对外宣称已经真实移除 Seedance 水印或支持视频处理。
 
 ## 站点边界
 
-- 正式域名：[seedances.co](https://seedances.co)
+- 正式域名：[www.seedances.co](https://www.seedances.co)，根域名 308 跳转到 `www`
 - GitHub：[teddy920810/seedance-watermark](https://github.com/teddy920810/seedance-watermark)
 - 部署：独立 Vercel 项目
 - Google OAuth 与 R2：与原图片站共享凭据/基础设施
-- 站点身份：`SITE_URL` 和 `BETTER_AUTH_URL` 独立使用 `https://seedances.co`
-- OAuth 回调：`https://seedances.co/api/auth/callback/google`
+- 站点身份：`SITE_URL` 和 `BETTER_AUTH_URL` 独立使用 `https://www.seedances.co`
+- OAuth 回调：`https://www.seedances.co/api/auth/callback/google`
 - Analytics：默认关闭，配置本站独立 GA4 ID 后才启用
 
 共享 R2 时，必须在 Bucket CORS 中同时保留两个站点的明确来源。R2 密钥只允许服务端使用；上传、结果和任务记录仍应由 24 小时生命周期规则清理。两个站点的 Vercel 项目、域名、内容和发布历史相互独立。

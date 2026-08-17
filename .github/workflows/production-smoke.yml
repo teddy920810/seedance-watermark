@@ -20,4 +20,4 @@ jobs:
       - run: npm ci
       - run: npm run test:smoke:production
         env:
-          SMOKE_BASE_URL: https://seedances.co
+          SMOKE_BASE_URL: https://www.seedances.co

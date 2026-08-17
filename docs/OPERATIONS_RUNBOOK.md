@@ -2,7 +2,7 @@
 
 ## 生产资源
 
-- 正式域名：`https://seedances.co`
+- 正式域名：`https://www.seedances.co`
 - 备用 Vercel 域名：由 `seedance-watermark` 项目部署后生成
 - GitHub：`teddy920810/seedance-watermark`
 - Cloudflare R2 Bucket：`watermark`
@@ -10,9 +10,9 @@
 
 ## Vercel 必要配置
 
-Production 环境至少配置 `SITE_URL=https://seedances.co`、所有共享的 `R2_*` 变量、`GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`、`BETTER_AUTH_SECRET` 和 `BETTER_AUTH_URL=https://seedances.co`。Preview/Development 如需上传或登录功能，也应单独配置对应变量。密钥变更后需要重新部署才能生效。
+Production 环境至少配置 `SITE_URL=https://www.seedances.co`、所有共享的 `R2_*` 变量、`GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`、`BETTER_AUTH_SECRET` 和 `BETTER_AUTH_URL=https://www.seedances.co`。Preview/Development 如需上传或登录功能，也应单独配置对应变量。密钥变更后需要重新部署才能生效。
 
-Google Cloud OAuth Web Client 必须包含正式回调 `https://seedances.co/api/auth/callback/google`。`https://www.seedances.co` 应使用 308 重定向到根域名。OAuth 修改部署后必须使用真实测试用户完成一次登录、确认回调成功、会话建立、退出登录和处理任务；仅检查按钮或接口 200 不代表集成完成。
+Google Cloud OAuth Web Client 必须包含正式回调 `https://www.seedances.co/api/auth/callback/google`。根域名 `https://seedances.co` 应使用 308 重定向到 `www`。OAuth 修改部署后必须使用真实测试用户完成一次登录、确认回调成功、会话建立、退出登录和处理任务；仅检查按钮或接口 200 不代表集成完成。
 
 Git 页面应保持 `teddy920810/seedance-watermark` 的 `main` 连接到独立 Vercel 项目；域名页面应确保根域名为 Production，`www` 以 308 重定向到根域名。正常情况下 Vercel 自动管理 HTTPS 证书。
 
