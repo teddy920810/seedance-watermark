@@ -65,8 +65,8 @@ describe('Pages CMS maintenance safeguards', () => {
       expect.objectContaining({ name: 'intro', label: expect.stringContaining('P'), description: expect.any(String) }),
     ]));
 
-    const landingCommon = config.content.find((entry) => entry.name === 'landing-common');
-    const process = landingCommon?.fields.find((field) => field.name === 'process');
+    const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
+    const process = landingPages?.fields.find((field) => field.name === 'process');
     expect(process?.fields).toEqual(expect.arrayContaining([
       expect.objectContaining({ name: 'heading', label: expect.stringContaining('H2'), description: expect.any(String) }),
     ]));
@@ -167,6 +167,27 @@ describe('Pages CMS maintenance safeguards', () => {
     expect(blog?.view?.fields).toEqual(['title', 'slug', 'category', 'publishedAt', 'draft']);
   });
 
+  it('keeps process steps and FAQ content inside each landing page', () => {
+    expect(config.content.find((entry) => entry.name === 'landing-common')).toBeUndefined();
+
+    const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
+    const process = landingPages?.fields.find((field) => field.name === 'process');
+    const faq = landingPages?.fields.find((field) => field.name === 'faq');
+
+    expect(process).toMatchObject({ name: 'process', type: 'object' });
+    expect(process?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'eyebrow', type: 'string' }),
+      expect.objectContaining({ name: 'heading', type: 'string' }),
+      expect.objectContaining({ name: 'steps', type: 'object' }),
+    ]));
+    expect(faq).toMatchObject({ name: 'faq', type: 'object' });
+    expect(faq?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'eyebrow', type: 'string' }),
+      expect.objectContaining({ name: 'heading', type: 'string' }),
+      expect.objectContaining({ name: 'items', type: 'object' }),
+    ]));
+  });
+
   it('exposes blog cover, author, category, featured, and draft fields', () => {
     const blog = config.content.find((entry) => entry.name === 'blog');
     expect(blog?.fields).toEqual(expect.arrayContaining([
@@ -183,7 +204,6 @@ describe('Pages CMS maintenance safeguards', () => {
     expect(config.content.map((entry) => entry.name)).toEqual(expect.arrayContaining([
       'legal-pages',
       'blog-index',
-      'landing-common',
       'not-found',
     ]));
     const legalPages = config.content.find((entry) => entry.name === 'legal-pages');
