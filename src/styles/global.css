@@ -16,7 +16,7 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Montserrat", system-ui, "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; line-height: 1.6; }
 body {
-  --green: color-mix(in srgb, var(--theme-color, var(--theme-color-fallback)) 68%, black);
+  --green: color-mix(in srgb, var(--theme-color, var(--theme-color-fallback)) 55%, black);
   --green-dark: color-mix(in srgb, var(--green) 82%, black);
   --mint: color-mix(in srgb, var(--theme-color, var(--theme-color-fallback)) 14%, white);
 }

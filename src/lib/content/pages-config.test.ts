@@ -15,6 +15,12 @@ interface CmsField {
     values?: Array<string | { name: string; label: string }>;
   };
   fields?: CmsField[];
+  list?: {
+    collapsible?: {
+      collapsed: boolean;
+      summary: string;
+    };
+  };
 }
 const config = YAML.parse(configSource) as {
   media: Array<{
@@ -54,6 +60,48 @@ describe('Pages CMS maintenance safeguards', () => {
 
   it('keeps sitemap generation automatic instead of exposing raw XML', () => {
     expect(config.content.find((entry) => entry.name === 'sitemap')).toBeUndefined();
+  });
+
+  it('exposes sitemap metadata without exposing generated XML', () => {
+    const sitemapSettings = config.content.find((entry) => entry.name === 'sitemap-settings');
+    expect(sitemapSettings).toMatchObject({
+      label: 'Sitemap 设置 / Sitemap settings',
+      type: 'file',
+      path: 'src/content/settings/sitemap.json',
+    });
+
+    expect(sitemapSettings?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'lastmod', type: 'date', options: { format: 'yyyy-MM-dd' } }),
+      expect.objectContaining({ name: 'groups', type: 'object' }),
+      expect.objectContaining({
+        name: 'overrides',
+        type: 'object',
+        list: { collapsible: { collapsed: true, summary: '{path}' } },
+      }),
+    ]));
+
+    const groups = sitemapSettings?.fields.find((field) => field.name === 'groups');
+    expect(groups?.fields?.map((field) => field.name)).toEqual([
+      'homepage',
+      'landingPages',
+      'blogIndex',
+      'blogPosts',
+      'legalPages',
+    ]);
+    for (const group of groups?.fields ?? []) {
+      expect(group.fields).toEqual(expect.arrayContaining([
+        expect.objectContaining({ name: 'changefreq', type: 'select' }),
+        expect.objectContaining({ name: 'priority', type: 'number' }),
+      ]));
+    }
+
+    const overrides = sitemapSettings?.fields.find((field) => field.name === 'overrides');
+    expect(overrides?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'path', type: 'string' }),
+      expect.objectContaining({ name: 'lastmod', type: 'date', options: { format: 'yyyy-MM-dd' } }),
+      expect.objectContaining({ name: 'changefreq', type: 'select' }),
+      expect.objectContaining({ name: 'priority', type: 'number' }),
+    ]));
   });
 
   it('explains rendered HTML semantics in operator-facing labels', () => {
