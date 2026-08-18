@@ -4,9 +4,20 @@
   "eyebrow": "Seedance image guide", "heading": "Prepare Seedance images for private watermark processing",
   "intro": "Choose a supported still image, sign in with Google, upload directly to private R2 storage, and review the returned preview result.",
   "benefits": ["JPG, PNG, and WebP", "Private direct upload", "Temporary result links"],
-  "faq": [
-    { "question": "What size is supported?", "answer": "One image from 1 byte through 10 MB." },
-    { "question": "Is the original changed?", "answer": "No. The original remains a separate private object; the provider writes a separate result." },
-    { "question": "Is processing production-ready?", "answer": "No. The current provider returns an unchanged copy and is intended for workflow validation." }
-  ]
+  "process": {
+    "eyebrow": "Seedance image workflow", "heading": "Prepare, upload, and review a Seedance still image",
+    "steps": [
+      { "number": "01", "title": "Confirm the image format", "description": "Use one JPG, PNG, or WebP still image between 1 byte and 10 MB." },
+      { "number": "02", "title": "Send it through the private flow", "description": "After Google sign-in, upload directly to private R2 storage without exposing storage credentials in the browser." },
+      { "number": "03", "title": "Compare separate objects", "description": "Open the temporary result and compare it with the untouched source object; the MVP result is currently an unchanged copy." }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Image workflow questions", "heading": "Seedance still-image formats, storage, and preview status",
+    "items": [
+      { "question": "What size is supported?", "answer": "One image from 1 byte through 10 MB." },
+      { "question": "Is the original changed?", "answer": "No. The original remains a separate private object; the provider writes a separate result." },
+      { "question": "Is processing production-ready?", "answer": "No. The current provider returns an unchanged copy and is intended for workflow validation." }
+    ]
+  }
 }

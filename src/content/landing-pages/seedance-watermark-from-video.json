@@ -4,9 +4,20 @@
   "eyebrow": "Seedance video guide", "heading": "A clear path from extracted frames to future video support",
   "intro": "The current MVP does not accept MP4 or MOV files. It can process an authorized still frame while the provider abstraction remains ready for a dedicated video backend.",
   "benefits": ["No false direct-video claim", "Frame-based testing path", "Provider-ready architecture"],
-  "faq": [
-    { "question": "Which video formats are supported?", "answer": "None yet. Direct video upload is not implemented." },
-    { "question": "Can I upload a frame from a Seedance video?", "answer": "Yes, if it is JPG, PNG, or WebP, no larger than 10 MB, and you own or may edit the source." },
-    { "question": "Will audio or motion be preserved?", "answer": "The current image workflow does not process video, audio, timing, or motion." }
-  ]
+  "process": {
+    "eyebrow": "Frame-based video workflow", "heading": "Test one Seedance video frame while direct video support is in development",
+    "steps": [
+      { "number": "01", "title": "Export a representative frame", "description": "Save an authorized frame from the video as JPG, PNG, or WebP; MP4 and MOV uploads are not supported." },
+      { "number": "02", "title": "Upload the still image", "description": "Sign in and upload the exported frame, no larger than 10 MB, through the private image workflow." },
+      { "number": "03", "title": "Evaluate only the frame result", "description": "Review the returned still-image preview without assuming that motion, audio, timing, or the full video was processed." }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Video support questions", "heading": "Current limits for Seedance video watermark workflows",
+    "items": [
+      { "question": "Which video formats are supported?", "answer": "None yet. Direct video upload is not implemented." },
+      { "question": "Can I upload a frame from a Seedance video?", "answer": "Yes, if it is JPG, PNG, or WebP, no larger than 10 MB, and you own or may edit the source." },
+      { "question": "Will audio or motion be preserved?", "answer": "The current image workflow does not process video, audio, timing, or motion." }
+    ]
+  }
 }
