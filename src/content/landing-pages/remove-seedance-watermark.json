@@ -4,10 +4,21 @@
   "eyebrow": "Seedance watermark remover", "heading": "Clean visible Seedance marks from authorized images",
   "intro": "Use the private image workflow for a Seedance still or extracted frame. Direct video processing and invisible provenance removal are outside the current MVP.",
   "benefits": ["Seedance-focused workflow", "Private temporary storage", "Clear preview-provider status"],
-  "faq": [
-    { "question": "Can I upload a Seedance video?", "answer": "No. The current tool accepts one JPG, PNG, or WebP image up to 10 MB. Export a frame first if you need to test the workflow." },
-    { "question": "Does it remove the mark today?", "answer": "Not yet. The preview provider currently returns an unchanged copy while production processing is integrated." },
-    { "question": "Are files private?", "answer": "Files use private object storage and are scheduled for deletion after 24 hours." },
-    { "question": "What may I process?", "answer": "Only process media you own or have permission to modify." }
-  ]
+  "process": {
+    "eyebrow": "Authorized removal workflow", "heading": "Check, upload, and review a visible Seedance mark",
+    "steps": [
+      { "number": "01", "title": "Choose authorized media", "description": "Select a JPG, PNG, or WebP image you own or have permission to modify, up to 10 MB." },
+      { "number": "02", "title": "Upload to private storage", "description": "Sign in with Google and send the image directly to private object storage for the processing workflow." },
+      { "number": "03", "title": "Inspect the returned preview", "description": "Compare the separate result with your source; the current MVP provider returns an unchanged copy." }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Removal questions", "heading": "What to know before removing a visible Seedance watermark",
+    "items": [
+      { "question": "Can I upload a Seedance video?", "answer": "No. The current tool accepts one JPG, PNG, or WebP image up to 10 MB. Export a frame first if you need to test the workflow." },
+      { "question": "Does it remove the mark today?", "answer": "Not yet. The preview provider currently returns an unchanged copy while production processing is integrated." },
+      { "question": "Are files private?", "answer": "Files use private object storage and are scheduled for deletion after 24 hours." },
+      { "question": "What may I process?", "answer": "Only process media you own or have permission to modify." }
+    ]
+  }
 }

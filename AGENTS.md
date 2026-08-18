@@ -10,6 +10,14 @@
 - Before handing off changes, run `npm run verify`; it includes coverage, lint, build, and browser E2E.
 - Run `npm run test:smoke:production` after production environment, domain, R2, CORS, or deployment changes. It writes temporary objects to the real bucket, so do not run it speculatively or in a loop.
 
+## Delivery target confirmation
+
+- Classify each requested change as either **local iteration** or **merge to main** before finishing the task.
+- If the user explicitly states the target, follow it without asking again.
+- If the target is unclear from the current context, ask whether the final goal is local iteration or merge to `main`.
+- Local iteration means implement and verify locally; do not commit, push, open or merge a PR, or deploy unless the user separately authorizes it.
+- Merge to `main` means complete the repository workflow: verify, commit, push, open or update the PR, merge after required checks, wait for deployment, and run the required production verification.
+
 ## Third-party integration contract rules
 
 - Treat vendor-provided installation snippets as integration contracts, not ordinary code to refactor.
