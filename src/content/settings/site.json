@@ -1,13 +1,13 @@
 {
-  "name": "Seedance Watermark Remover",
+  "name": "Seedance Video Generator & Upscale",
   "canonicalOrigin": "https://www.seedances.co",
   "locale": "en",
   "themeColor": "#22D3EE",
   "logo": "/uploads/seedance-logo-concept-2-square.svg",
-  "defaultTitle": "Seedance Watermark Remover — Clean Seedance Images Online",
-  "defaultDescription": "A private Seedance watermark removal workflow for supported images and extracted video frames you are authorized to edit.",
+  "defaultTitle": "Seedance 2.5 Video Generator & Video Upscale",
+  "defaultDescription": "Create AI videos with the Seedance 2.5 Video Generator and enhance quality with Seedance 2.5 Video Upscale.",
   "favicon": "/uploads/seedance-favicon.svg",
-  "defaultShareImage": "/uploads/seedance-watermark-og.svg",
+  "defaultShareImage": "/uploads/seedance-logo-concept-2-2.png",
   "analytics": {
     "googleMeasurementId": "G-3SZ778ZD8F"
   },
@@ -18,7 +18,7 @@
     "priceCurrency": "USD"
   },
   "contentDefaults": {
-    "author": "Seedance Watermark Remover Editorial Team",
+    "author": "lucas",
     "category": "Seedance Guides"
   },
   "uploader": {
@@ -65,7 +65,7 @@
   },
   "announcement": {
     "enabled": false,
-    "text": "New features and service updates will appear here.",
+    "text": "Supports the latest Seedance 2.5 and upscales videos to 4K.",
     "linkLabel": "Learn more",
     "linkHref": "/blog"
   },
