@@ -1,5 +1,10 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const siteSettings = JSON.parse(readFileSync(new URL('../../src/content/settings/site.json', import.meta.url), 'utf8')) as {
+  analytics: { googleMeasurementId: string };
+};
 
 test('critical public routes and SEO files are available', async ({ page, request }) => {
   for (const path of ['/', '/blog', '/privacy', '/robots.txt', '/sitemap.xml']) {
@@ -59,10 +64,20 @@ test('all public content routes and 404 have one H1 and no serious accessibility
   }
 });
 
-test('does not load Google Analytics until this site has its own measurement ID', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.locator('script[src*="googletagmanager.com/gtag/js"]')).toHaveCount(0);
-  await expect(page.locator('script').filter({ hasText: "gtag('config'" })).toHaveCount(0);
+test('renders the CMS-configured Google Analytics state', async ({ request }) => {
+  const html = await (await request.get('/')).text();
+  const analyticsId = siteSettings.analytics.googleMeasurementId;
+
+  if (!analyticsId) {
+    expect(html).not.toContain('googletagmanager.com/gtag/js');
+    expect(html).not.toContain("gtag('config'");
+    return;
+  }
+
+  // Official contract and verification guidance: https://developers.google.com/tag-platform/gtagjs
+  expect(html).toContain(`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`);
+  expect(html).toContain(`const analyticsId = ${JSON.stringify(analyticsId)}`);
+  expect(html).toContain("gtag('config', analyticsId)");
 });
 
 
