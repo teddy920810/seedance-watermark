@@ -2,8 +2,8 @@
   "name": "Seedance Watermark Remover",
   "canonicalOrigin": "https://www.seedances.co",
   "locale": "en",
-  "themeColor": "#6c5ce7",
-  "logo": "/uploads/seedance-logo-concept-2.svg",
+  "themeColor": "#22D3EE",
+  "logo": "/uploads/seedance-logo-concept-2-1.png",
   "defaultTitle": "Seedance Watermark Remover — Clean Seedance Images Online",
   "defaultDescription": "A private Seedance watermark removal workflow for supported images and extracted video frames you are authorized to edit.",
   "favicon": "/uploads/seedance-favicon.svg",
@@ -12,7 +12,7 @@
     "googleMeasurementId": "G-3SZ778ZD8F"
   },
   "structuredData": {
-    "applicationCategory": "MultimediaApplication",
+    "applicationCategory": "Multimedia Application",
     "operatingSystem": "Any",
     "price": "0",
     "priceCurrency": "USD"
@@ -115,5 +115,5 @@
       }
     ]
   },
-  "themeColorFallback": "#4834d4"
+  "themeColorFallback": "#111827"
 }
