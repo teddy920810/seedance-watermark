@@ -56,26 +56,26 @@
     ]
   },
   "privacy": {
-    "eyebrow": "Private by design",
-    "heading": "Your Seedance Media Stays Private",
-    "description": "Uploads and results use private object storage, signed links expire, and objects are scheduled for deletion after 24 hours.",
+    "eyebrow": "PRIVATE BY DESIGN",
+    "heading": "Your Seedance Videos Stay Private",
+    "description": "Uploaded videos and enhanced results are protected with private storage, temporary access links, and automatic deletion after 24 hours.",
     "linkLabel": "Read the privacy policy →",
     "linkHref": "/privacy",
     "features": [
       {
         "icon": "◇",
-        "title": "Private Storage",
-        "description": "Files do not receive permanent public URLs."
+        "title": "Private Video Storage",
+        "description": "Your files are never exposed through permanent public URLs."
       },
       {
         "icon": "◷",
-        "title": "24-Hour Retention",
-        "description": "Uploads, results, and job records are scheduled to expire."
+        "title": "Automatic 24-Hour Deletion",
+        "description": "Uploads, enhanced results, and processing records expire aUploads, results, and job records are scheduled to expire."
       },
       {
         "icon": "⌁",
-        "title": "Short-Lived Links",
-        "description": "Temporary signed links limit access to processing and downloads."
+        "title": "Secure Temporary Links",
+        "description": "Time-limited links protect access during enhancement and download."
       }
     ]
   },
