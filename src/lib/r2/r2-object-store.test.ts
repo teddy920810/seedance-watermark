@@ -1,4 +1,11 @@
-import { CopyObjectCommand, GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  CopyObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { R2ObjectStore } from './r2-object-store';
 
@@ -26,17 +33,34 @@ describe('R2ObjectStore', () => {
     expect(download.searchParams.get('response-content-disposition')).toContain('attachment');
   });
 
-  it('checks whether an object exists and treats only 404 as missing', async () => {
-    const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValueOnce({} as never);
+  it('reads object metadata and treats only 404 as missing', async () => {
+    const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValueOnce({
+      ContentLength: 68,
+      ContentType: 'image/png',
+    } as never);
     const store = createStore();
-    await expect(store.exists('uploads/test.png')).resolves.toBe(true);
+    await expect(store.getMetadata('uploads/test.png')).resolves.toEqual({
+      contentLength: 68,
+      contentType: 'image/png',
+    });
     expect(send.mock.calls[0]?.[0]).toBeInstanceOf(HeadObjectCommand);
 
     send.mockRejectedValueOnce({ $metadata: { httpStatusCode: 404 } });
-    await expect(store.exists('uploads/missing.png')).resolves.toBe(false);
+    await expect(store.getMetadata('uploads/missing.png')).resolves.toBeNull();
 
     send.mockRejectedValueOnce(new Error('R2 unavailable'));
-    await expect(store.exists('uploads/error.png')).rejects.toThrow('R2 unavailable');
+    await expect(store.getMetadata('uploads/error.png')).rejects.toThrow('R2 unavailable');
+  });
+
+  it('deletes an object by exact key', async () => {
+    const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValue({} as never);
+    const store = createStore();
+
+    await store.deleteObject('uploads/user/test.png');
+
+    const command = send.mock.calls[0]?.[0];
+    expect(command).toBeInstanceOf(DeleteObjectCommand);
+    expect((command as DeleteObjectCommand).input).toEqual({ Bucket: 'watermark', Key: 'uploads/user/test.png' });
   });
 
   it('copies objects and writes JSON under the requested keys', async () => {

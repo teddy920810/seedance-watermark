@@ -8,6 +8,12 @@ const extensions = {
 
 export type AllowedContentType = keyof typeof extensions;
 
+const contentTypesByExtension = {
+  jpg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+} as const;
+
 export type ValidationResult =
   | { ok: true }
   | { ok: false; code: 'invalid_type' | 'invalid_size'; message: string };
@@ -24,12 +30,30 @@ export function validateUploadMetadata(input: { contentType: string; size: numbe
   return { ok: true };
 }
 
-export function createUploadKey(contentType: string, id: string = crypto.randomUUID()): string {
+async function ownerNamespace(ownerId: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(ownerId));
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('').slice(0, 32);
+}
+
+export async function createUploadKey(
+  ownerId: string,
+  contentType: string,
+  id: string = crypto.randomUUID(),
+): Promise<string> {
   const extension = extensions[contentType as AllowedContentType];
   if (!extension) throw new Error('Unsupported image type');
-  return `uploads/${id}.${extension}`;
+  return `uploads/${await ownerNamespace(ownerId)}/${id}.${extension}`;
 }
 
 export function isUploadKey(key: string): boolean {
-  return /^uploads\/[0-9a-f-]+\.(?:jpg|png|webp)$/i.test(key);
+  return /^uploads\/[0-9a-f]{32}\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(?:jpg|png|webp)$/i.test(key);
+}
+
+export async function isUploadKeyForOwner(key: string, ownerId: string): Promise<boolean> {
+  return isUploadKey(key) && key.startsWith(`uploads/${await ownerNamespace(ownerId)}/`);
+}
+
+export function contentTypeForUploadKey(key: string): AllowedContentType | null {
+  const extension = key.match(/\.(jpg|png|webp)$/i)?.[1]?.toLowerCase() as keyof typeof contentTypesByExtension | undefined;
+  return extension ? contentTypesByExtension[extension] : null;
 }

@@ -10,7 +10,8 @@
 | 覆盖率 | `npm run test:coverage` | 核心服务与 API，强制阈值 | 否 |
 | 浏览器 E2E | `npm run test:e2e` | 上传 UI、失败提示、GA page_view、SEO、路由、无障碍 | 否，本地 Astro |
 | 完整验证 | `npm run verify` | 覆盖率、Lint、Build、E2E | 否 |
-| Production Smoke | `npm run test:smoke:production` | 正式域名、Vercel Production、真实 R2 上传/处理/下载 | 是 |
+| Production Smoke（公共） | `npm run test:smoke:production:public` | 正式域名、robots、sitemap、匿名 API 鉴权；只读且不创建 R2 对象 | 是，只读 |
+| Production Smoke（登录） | `npm run test:smoke:production:auth` | 有效测试会话下的真实 R2 上传/处理/下载 | 是，会写临时对象 |
 
 ## 首次准备
 
@@ -40,7 +41,7 @@ Pages CMS 保存会提交到 `main`，随后触发 GitHub Actions 和 Vercel。�
 
 ### 运维人员
 
-环境变量、域名、R2 或 CORS 变更后，重新部署 Production 并运行 `npm run test:smoke:production`。Smoke 会产生临时对象，因此只在明确的运维检查中运行。
+环境变量、域名、R2 或 CORS 变更后，重新部署 Production 并运行 `npm run test:smoke:production`。公共检查始终执行；登录检查仅在配置 `SMOKE_SESSION_COOKIE` 时执行，否则明确标记为跳过。只有登录检查会产生临时对象，因此只在明确的运维检查中提供有效测试会话。
 
 ## 自动化保护
 
@@ -56,11 +57,11 @@ Pages CMS 保存会提交到 `main`，随后触发 GitHub Actions 和 Vercel。�
 - Build：检查 Astro content schema、Pages CMS 日期和必填字段。
 - E2E：查看 `test-results/` 中的截图、错误上下文和 trace；这些目录不提交 Git。
 - GA：确认 `g/collect` 中存在 `en=page_view` 和正确 Measurement ID，再看 GA Realtime。
-- Production Smoke：依次检查 Vercel Production 变量作用域、最新部署、R2 凭据、CORS 和生命周期。
+- Production Smoke：先区分公共检查失败、登录检查跳过和登录检查失败；登录检查失败时再依次检查测试会话、Vercel Production 变量作用域、最新部署、R2 凭据、CORS 和生命周期。
 
 ## 安全边界
 
 - 测试代码、日志和 CI 中不得出现真实 R2 凭据或签名 URL。
-- Production Smoke 只报告状态，不打印对象 Key、结果 URL或下载 URL。
+- Production Smoke 只报告状态，不打印会话 Cookie、对象 Key、结果 URL 或下载 URL。
 - 本地 `.env.local` 和 `S3-info.txt` 永远不能提交。
 - 不使用真实用户图片作为夹具，只使用仓库内生成或内嵌的无敏感测试图片。

@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: production-smoke
+  cancel-in-progress: true
+
 jobs:
   smoke:
     runs-on: ubuntu-latest
@@ -18,6 +22,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run test:smoke:production
+      - name: Public read-only checks
+        run: npm run test:smoke:production:public
         env:
           SMOKE_BASE_URL: https://www.seedances.co
+      - name: Authenticated upload and processing checks
+        run: npm run test:smoke:production:auth
+        env:
+          SMOKE_BASE_URL: https://www.seedances.co
+          SMOKE_SESSION_COOKIE: ${{ secrets.SMOKE_SESSION_COOKIE }}
