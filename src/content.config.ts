@@ -51,6 +51,7 @@ const homepage = defineCollection({
 const blogEntrySchema = z.object({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
     title: z.string().min(1),
+    seoTitle: z.string().min(1).optional(),
     description: z.string().min(1),
     publishedAt: publishedAtSchema,
     updatedAt: publishedAtSchema.optional(),
@@ -75,6 +76,7 @@ const blog = defineCollection({
 });
 
 const faqItem = z.object({
+  enabled: z.boolean().default(true),
   question: z.string().min(1),
   answer: z.string().min(1),
 });
@@ -96,6 +98,7 @@ const landingFaqSchema = z.object({
 });
 
 const landingFeatureItemSchema = z.object({
+  enabled: z.boolean().default(true),
   eyebrow: z.string().min(1),
   heading: z.string().min(1),
   description: z.string().min(1),

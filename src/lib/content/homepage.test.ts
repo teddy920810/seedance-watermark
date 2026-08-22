@@ -20,4 +20,10 @@ describe('homepage CMS content', () => {
     expect(parsed.faq.items.length).toBeGreaterThan(0);
     expect(parsed.privacy.features.length).toBeGreaterThan(0);
   });
+
+  it('defaults every true items entry to visible without changing stored content', () => {
+    const parsed = homepageSchema.parse(homepage);
+    expect(parsed.features.items.every((item) => item.enabled)).toBe(true);
+    expect(parsed.faq.items.every((item) => item.enabled)).toBe(true);
+  });
 });
