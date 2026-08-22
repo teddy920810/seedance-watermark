@@ -34,18 +34,18 @@
     }
   ],
   "process": {
-    "eyebrow": "Current workflow",
-    "heading": "How to Process a Seedance Image or Video Frame",
-    "intro": "The current MVP handles a single supported image. For Seedance videos, export a frame first; native video processing is planned but not yet available.",
+    "eyebrow": "SIMPLE WORKFLOW",
+    "heading": "How to Enhance a Seedance Video",
+    "intro": "Upscale and sharpen your Seedance video in three simple steps. Upload your file, sign in, and enhance it for a clearer, higher-quality result.",
     "steps": [
       {
         "number": "01",
-        "title": "Choose an Authorized Asset",
-        "description": "Select a JPG, PNG, or WebP Seedance image or extracted video frame up to 10 MB."
+        "title": "Upload Your Video",
+        "description": "Select and upload the Seedance video you want to enhance from your device."
       },
       {
         "number": "02",
-        "title": "Sign In and Process",
+        "title": "Sign Up or Log In",
         "description": "Sign in with Google, then upload directly to private R2 storage and start the provider-backed job."
       },
       {
