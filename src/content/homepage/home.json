@@ -15,7 +15,7 @@
   },
   "useCases": [
     {
-      "icon": "U",
+      "icon": "▶",
       "title": "Seedance 2.0/2.5 Videos Upscale",
       "description": "Turn Seedance 2.0/2.5 videos into cleaner, sharper UHD.",
       "href": "/seedance-video-upscale"
@@ -25,6 +25,12 @@
       "title": "Seedance Video Watermark Remover",
       "description": "Remove watermarks from Seedance videos for a clean look.",
       "href": "/seedance-video-watermark-remove"
+    },
+    {
+      "icon": "▶",
+      "title": "Seedance 2.0/2.5 AI Generated​",
+      "description": "Create stunning AI videos with Seedance 2.0/2.5 in seconds.",
+      "href": "#"
     }
   ],
   "process": {
