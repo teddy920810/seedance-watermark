@@ -1,11 +1,11 @@
 {
-  "name": "Seedance Video Generator & Upscale",
+  "name": "Seedance Video Upscale",
   "canonicalOrigin": "https://www.seedances.co",
   "locale": "en",
   "themeColor": "#22D3EE",
   "logo": "/uploads/seedance-logo-concept-2-square.svg",
-  "defaultTitle": "Seedance 2.5 Video Generator & Video Upscale",
-  "defaultDescription": "Create AI videos with the Seedance 2.5 Video Generator and enhance quality with Seedance 2.5 Video Upscale.",
+  "defaultTitle": "Free Seedance 2.5 Video Upscaler",
+  "defaultDescription": "Use this free tool to upscale your seedance videos to 4K or 8K instantly.",
   "favicon": "/uploads/seedance-favicon.svg",
   "defaultShareImage": "/uploads/seedance-logo-concept-2-2.png",
   "analytics": {
@@ -18,28 +18,28 @@
     "priceCurrency": "USD"
   },
   "contentDefaults": {
-    "author": "lucas",
+    "author": "Lily",
     "category": "Seedance Guides"
   },
   "uploader": {
     "hero": {
-      "eyebrow": "Seedance Image Watermark Remover",
-      "heading": "Clean a Seedance Image or Extracted Frame",
-      "demoBadge": "Preview MVP",
-      "demoBadgeTitle": "The current MVP returns an unchanged copy; video files are not yet supported"
+      "eyebrow": "Seedance video Upscale",
+      "heading": "Ehance Seedance 2.5 Videos to 4K or 8K",
+      "demoBadge": "Advanced",
+      "demoBadgeTitle": "The current file type is not supported, please try again."
     },
     "dropzone": {
-      "dropLabel": "Drop Your Image Here",
+      "dropLabel": "Drop your video here",
       "browseLabel": "or click to browse",
-      "formatLabel": "JPG, PNG, or WEBP",
+      "formatLabel": "MP3/MOV/MP4/GIF",
       "maxSizeLabel": "up to {maxSize} MB",
-      "fileInputLabel": "Choose a Seedance image or extracted frame"
+      "fileInputLabel": "Select a Seedance video or an extracted frame"
     },
     "preview": {
       "altTemplate": "Preview of {fileName}",
-      "processingLabel": "Securely processing your image…",
+      "processingLabel": "Securely processing your video…",
       "readyLabel": "Ready to process",
-      "removeButton": "Process image",
+      "removeButton": "Process video",
       "uploadingButton": "Uploading…",
       "processingButton": "Processing…",
       "chooseAnotherButton": "Choose another"
@@ -49,14 +49,14 @@
       "resultLabel": "Result",
       "originalAlt": "Original upload",
       "resultAlt": "Processed result",
-      "demoNote": "Preview mode currently returns a secure unchanged copy while Seedance-aware image and video processing are being integrated.",
+      "demoNote": "Preview mode currently returns a secure unchanged copy while Seedance-aware video processing are being integrated.",
       "downloadButton": "Download result",
       "processAnotherButton": "Process another"
     },
     "auth": {
       "closeLabel": "Close sign-in dialog",
       "title": "Sign in to start processing",
-      "description": "Your selected Seedance image or extracted frame stays on this page. Processing starts automatically after Google sign-in.",
+      "description": "Your selected Seedance video or extracted frame stays on this page. Processing starts automatically after Google sign-in.",
       "connectingButton": "Connecting to Google…",
       "continueButton": "Continue with Google",
       "dismissButton": "Not now"
@@ -72,34 +72,29 @@
   "header": {
     "navigation": [
       {
-        "label": "Seedance Tools",
+        "label": "AI Tools",
         "children": [
           {
-            "label": "Seedance Watermark Remover",
-            "href": "/remove-seedance-watermark"
+            "label": "Seedance 2.0/2.5 Video upscale",
+            "href": "/seedance-video-upscale"
           },
           {
-            "label": "Seedance Video Guide",
-            "href": "/seedance-watermark-from-video"
-          },
-          {
-            "label": "Seedance Image Guide",
-            "href": "/seedance-watermark-from-image"
+            "label": "Seedance Video Watermark Remover",
+            "href": "/seedance-video-watermark-remove"
           }
         ]
       },
       {
-        "label": "Guides",
+        "label": "Topics",
         "href": "/blog"
       },
       {
-        "label": "How it works",
-        "href": "/#how-it-works"
+        "label": "How it works"
       }
     ]
   },
   "footer": {
-    "tagline": "Private Seedance watermark cleanup guidance for media you own or may edit.",
+    "tagline": "Free, Fast, High-Quality",
     "links": [
       {
         "label": "Privacy",
