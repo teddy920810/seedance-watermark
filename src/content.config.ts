@@ -109,10 +109,10 @@ const landingFeatureItemSchema = z.object({
 });
 
 const landingFeaturesSchema = z.object({
-  eyebrow: z.string().min(1),
-  heading: z.string().min(1),
-  intro: z.string().min(1),
-  items: z.array(landingFeatureItemSchema).min(1),
+  eyebrow: z.string().default(''),
+  heading: z.string().default(''),
+  intro: z.string().default(''),
+  items: z.array(landingFeatureItemSchema).default([]),
 });
 
 const landingPages = defineCollection({
@@ -126,6 +126,7 @@ const landingPages = defineCollection({
     intro: z.string().min(1),
     benefits: z.array(z.string().min(1)).min(1),
     process: landingProcessSchema,
+    featuresSource: z.enum(['shared', 'custom']).optional(),
     features: landingFeaturesSchema.optional(),
     faq: landingFaqSchema,
   }),

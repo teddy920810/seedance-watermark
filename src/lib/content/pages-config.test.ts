@@ -8,7 +8,7 @@ interface CmsField {
   label?: string;
   type: string;
   description?: string;
-  default?: boolean;
+  default?: boolean | string;
   options?: {
     media?: string;
     format?: string;
@@ -278,6 +278,24 @@ describe('Pages CMS maintenance safeguards', () => {
         expect.objectContaining({ name: 'enabled', type: 'boolean', default: true }),
       ]));
     }
+  });
+
+  it('lets each landing page inherit homepage features or provide a custom module', () => {
+    const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
+    const source = landingPages?.fields.find((field) => field.name === 'featuresSource');
+    const features = landingPages?.fields.find((field) => field.name === 'features');
+
+    expect(source).toMatchObject({
+      type: 'select',
+      default: 'shared',
+      options: {
+        values: [
+          { name: 'shared', label: expect.stringContaining('首页') },
+          { name: 'custom', label: expect.stringContaining('本页') },
+        ],
+      },
+    });
+    expect(features?.description).toContain('本页自定义');
   });
 
   it('exposes legal pages and shared marketing page settings', () => {

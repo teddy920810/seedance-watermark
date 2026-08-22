@@ -5,6 +5,16 @@ import { readFileSync } from 'node:fs';
 const siteSettings = JSON.parse(readFileSync(new URL('../../src/content/settings/site.json', import.meta.url), 'utf8')) as {
   analytics: { googleMeasurementId: string };
 };
+const homepage = JSON.parse(readFileSync(new URL('../../src/content/homepage/home.json', import.meta.url), 'utf8')) as {
+  features: { heading: string; intro: string; items: Array<{ heading: string }> };
+};
+const sharedLanding = JSON.parse(readFileSync(new URL('../../src/content/landing-pages/seedance-watermark-from-image.json', import.meta.url), 'utf8')) as {
+  slug: string;
+};
+const customLanding = JSON.parse(readFileSync(new URL('../../src/content/landing-pages/seedance-watermark-from-video.json', import.meta.url), 'utf8')) as {
+  slug: string;
+  features: { heading: string; items: Array<{ heading: string }> };
+};
 
 test('critical public routes and SEO files are available', async ({ page, request }) => {
   for (const path of ['/', '/blog', '/privacy', '/robots.txt', '/sitemap.xml']) {
@@ -41,6 +51,19 @@ test('mobile visitors can open navigation while invalid editorial links stay hid
   await expect(page.locator('#site-navigation a', { hasText: 'Topics' })).toBeVisible();
   await expect(page.locator('#site-navigation', { hasText: 'Seedance 2.0/2.5 Video upscale' })).toHaveCount(0);
   await expect(page.locator('#site-navigation', { hasText: 'How it works' })).toHaveCount(0);
+});
+
+test('landing pages inherit homepage features and can override them independently', async ({ page }) => {
+  await page.goto(`/${sharedLanding.slug}`);
+  const sharedSection = page.locator('.landing-features-section');
+  await expect(sharedSection.locator('h2')).toHaveText(homepage.features.heading);
+  await expect(sharedSection.locator('.feature-item h3').first()).toHaveText(homepage.features.items[0].heading);
+
+  await page.goto(`/${customLanding.slug}`);
+  const customSection = page.locator('.landing-features-section');
+  await expect(customSection.locator('h2')).toHaveText(customLanding.features.heading);
+  await expect(customSection.locator('.section-heading p')).toHaveText(homepage.features.intro);
+  await expect(customSection.locator('.feature-item h3').first()).toHaveText(customLanding.features.items[0].heading);
 });
 
 test('all public content routes and 404 have one H1 and no serious accessibility violations', async ({ page, request }) => {

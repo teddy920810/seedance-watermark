@@ -5,14 +5,21 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
 import { isCompleteFaq, isCompleteFeature, isCompleteStep, visibleItems } from '../lib/content/item-visibility';
 import { publicAssetAvailable } from '../lib/content/public-asset';
+import { resolveFeatureModule } from '../lib/content/feature-module';
 
 interface Props { page: CollectionEntry<'landingPages'>['data'] }
 const { page } = Astro.props;
-const [siteEntry] = await getCollection('siteSettings');
+const [siteEntries, homepageEntries] = await Promise.all([
+  getCollection('siteSettings'),
+  getCollection('homepage'),
+]);
+const [siteEntry] = siteEntries;
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
+const [homepageEntry] = homepageEntries;
+if (!homepageEntry) throw new Error('Homepage CMS content is missing.');
 const site = siteEntry.data;
-const features = page.features;
-const featureItems = visibleItems(features?.items ?? [], isCompleteFeature).map((item) => ({
+const features = resolveFeatureModule(homepageEntry.data.features, page.features, page.featuresSource);
+const featureItems = visibleItems(features.items, isCompleteFeature).map((item) => ({
   ...item,
   copy: splitFeatureCopy(item.description, item.listItems),
   showImage: publicAssetAvailable(item.image),
@@ -47,7 +54,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     </div>
   </section>
 
-  {features && featureItems.length ? (
+  {featureItems.length ? (
     <section class="section features-section landing-features-section" aria-labelledby="features-heading">
       <div class="section-heading"><span class="eyebrow">{features.eyebrow}</span><h2 id="features-heading">{features.heading}</h2><p>{features.intro}</p></div>
       <div class="feature-list">
