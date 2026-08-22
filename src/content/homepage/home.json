@@ -17,20 +17,14 @@
     {
       "icon": "U",
       "title": "Seedance 2.0/2.5 Videos Upscale",
-      "description": "Process a supported Seedance image or extracted frame.",
+      "description": "Turn Seedance 2.0/2.5 videos into cleaner, sharper UHD.",
       "href": "/seedance-video-upscale"
     },
     {
       "icon": "▶",
-      "title": "Seedance video workflow",
-      "description": "Understand the current frame-based path and video roadmap.",
-      "href": "/seedance-watermark-from-video"
-    },
-    {
-      "icon": "▧",
-      "title": "Seedance image workflow",
-      "description": "Prepare JPG, PNG, or WebP assets for private processing.",
-      "href": "/seedance-watermark-from-image"
+      "title": "Seedance Video Watermark Remover",
+      "description": "Remove watermarks from Seedance videos for a clean look.",
+      "href": "/seedance-video-watermark-remove"
     }
   ],
   "process": {
