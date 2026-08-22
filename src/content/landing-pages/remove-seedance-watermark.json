@@ -4,6 +4,7 @@
   "eyebrow": "Seedance watermark remover", "heading": "Clean visible Seedance marks from authorized images",
   "intro": "Use the private image workflow for a Seedance still or extracted frame. Direct video processing and invisible provenance removal are outside the current MVP.",
   "benefits": ["Seedance-focused workflow", "Private temporary storage", "Clear preview-provider status"],
+  "featuresSource": "shared",
   "process": {
     "eyebrow": "Authorized removal workflow", "heading": "Check, upload, and review a visible Seedance mark",
     "steps": [

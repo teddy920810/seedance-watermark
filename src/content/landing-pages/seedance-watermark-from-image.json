@@ -4,6 +4,7 @@
   "eyebrow": "Seedance image guide", "heading": "Prepare Seedance images for private watermark processing",
   "intro": "Choose a supported still image, sign in with Google, upload directly to private R2 storage, and review the returned preview result.",
   "benefits": ["JPG, PNG, and WebP", "Private direct upload", "Temporary result links"],
+  "featuresSource": "shared",
   "process": {
     "eyebrow": "Seedance image workflow", "heading": "Prepare, upload, and review a Seedance still image",
     "steps": [

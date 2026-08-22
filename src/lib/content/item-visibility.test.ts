@@ -29,5 +29,7 @@ describe('CMS item visibility', () => {
       expect(source).toContain('visibleFaqItems.length > 0');
       expect(source).toContain('mainEntity: visibleFaqItems.map');
     }
+    expect(landingSource).toContain('resolveFeatureModule(');
+    expect(landingSource).toContain("getCollection('homepage')");
   });
 });
