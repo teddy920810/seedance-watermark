@@ -93,38 +93,38 @@
     "items": [
       {
         "eyebrow": "SEEDANCE-FOCUSED ENHANCEMENT",
-        "heading": "Built for Better Seedance Video Quality",
-        "description": "Purpose-built to enhance Seedance videos quickly while preserving natural details a",
+        "heading": "Purpose-Built for Seedance Video Enhancement",
+        "description": "Enhance Seedance 2.0/2.5 videos with sharper details, cleaner frames, and smoother visual quality.",
         "listItems": [
-          "Free and easy to use",
-          "Sharper, clearer video details",
-          "- Fast preview and download"
+          " Sharper, clearer video details",
+          " Cleaner and more polished frames",
+          " Simple preview and download workflow 02"
         ],
-        "image": "/uploads/seedance-watermark-og.svg",
-        "imageAlt": "Seedance Watermark Remover brand preview",
+        "image": "/uploads/seedance-video-enhancer-card.png",
+        "imageAlt": "Seedance Video Enhancer",
         "imagePosition": "right"
       },
       {
-        "eyebrow": "CURRENT SUPPORT",
-        "heading": "JPG, PNG, and WebP Images",
-        "description": "Upload one supported image or extracted video frame up to 10 MB. MP4, MOV, batch, URL, and direct video uploads are not supported yet.",
+        "eyebrow": "FLEXIBLE VIDEO SUPPORT",
+        "heading": "MP4, MOV, and WebM Videos",
+        "description": "Upload your Seedance video directly and start enhancing it without extracting individual frames.",
         "listItems": [
-          "JPG/JPEG, PNG, and WebP",
-          "One file up to 10 MB",
-          "Explicit validation for unsupported files"
+          " Supports MP4, MOV, and WebM",
+          "Direct Seedance video uploads",
+          " Clear validation for unsupported files"
         ],
-        "image": "/uploads/supported-image-formats.webp",
-        "imageAlt": "Supported Seedance image and frame formats",
+        "image": "/uploads/seedance-supported-video-formats.png",
+        "imageAlt": "Supported Seedance videos formats",
         "imagePosition": "left"
       },
       {
-        "eyebrow": "PREVIEW STATUS",
-        "heading": "Provider-Ready, Not Yet a Production Remover",
-        "description": "The processing flow, Google sign-in, private R2 storage, and job ownership are implemented. The current provider copies the input unchanged until a real Seedance-aware processor is connected.",
+        "eyebrow": "FREE TO USE",
+        "heading": "Powerful Video Enhancement at No Cost",
+        "description": "Enhance and download your Seedance videos for free, with no credits or paid subscription required.",
         "listItems": [
-          "Google-authenticated jobs",
-          "Private shared R2 infrastructure",
-          "Replaceable WatermarkProvider interface"
+          " No credits required",
+          " No paid plans",
+          " Free preview and download"
         ],
         "image": "/uploads/free-no-credits-no-paid-plans.webp",
         "imageAlt": "Seedance processing MVP status",
