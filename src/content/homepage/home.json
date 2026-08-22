@@ -134,36 +134,48 @@
   },
   "faq": {
     "eyebrow": "FAQ",
-    "heading": "Seedance Watermark Remover FAQs",
-    "intro": "Current file support, privacy, processing status, and responsible-use answers.",
+    "heading": "Seedance Video Enhancer FAQs",
+    "intro": "Everything you need to know about video quality, supported formats, processing, downloads, and privacy.",
     "items": [
       {
-        "question": "Can this remove a Seedance watermark from a video?",
-        "answer": "Not directly yet. The current tool accepts JPG, PNG, and WebP images, so you may process an extracted frame. Native video upload and processing are planned but not implemented."
+        "question": "What does the Seedance Video Enhancer do?",
+        "answer": "It improves the resolution, sharpness, and overall clarity of Seedance-generated videos while reducing visible blur and noise."
       },
       {
-        "question": "Does the current processor actually remove the watermark?",
-        "answer": "Not yet. The preview provider returns an unchanged secure copy while a production Seedance-aware processor is evaluated."
+        "question": "Does it support Seedance 2.0 and 2.5 videos?",
+        "answer": "Yes. The tool is designed to enhance videos generated with both Seedance 2.0 and Seedance 2.5."
       },
       {
-        "question": "What files can I upload?",
-        "answer": "One JPG/JPEG, PNG, or WebP image up to 10 MB. MP4, MOV, PDF, batch, and URL uploads are not supported."
+        "question": "Can it upscale a Seedance video to HD or UHD?",
+        "answer": "The tool can produce a higher-resolution HD or UHD result when supported. Final quality depends on the resolution and visual detail of the original video."
       },
       {
-        "question": "Is Google sign-in required?",
-        "answer": "You can choose and preview a file anonymously. Google sign-in is required before uploading and creating a processing job."
+        "question": "Which video formats can I upload?",
+        "answer": "You can upload MP4, MOV, and WebM video files. Unsupported formats must be converted before uploading."
       },
       {
-        "question": "How long are files retained?",
-        "answer": "Uploads, results, and job records are designed to expire after 24 hours; signed access links expire sooner."
+        "question": "Can it fix blurry faces and fast-motion scenes?",
+        "answer": "It can sharpen facial details and improve motion clarity, but results vary. Severe blur, compression artifacts, or missing details may not be fully recoverable."
       },
       {
-        "question": "Can I process any Seedance media?",
-        "answer": "Only process media you own or have explicit permission to modify. Do not use the service to hide ownership, evade licensing, or misrepresent authorship."
+        "question": "Will the enhanced video keep its original audio?",
+        "answer": "Yes. The enhancement process focuses on visual quality while retaining the video’s existing audio track."
       },
       {
-        "question": "Does this remove invisible provenance metadata?",
-        "answer": "No. The site concerns visible watermark cleanup and does not claim to detect or remove invisible provenance signals or metadata."
+        "question": "How long does video enhancement take?",
+        "answer": "Processing time depends on the video’s length, resolution, file size, and current demand. Short Seedance clips are generally completed faster."
+      },
+      {
+        "question": "Is the Seedance Video Enhancer free?",
+        "answer": "Yes. You can enhance, preview, and download your video without credits or a paid subscription. Registration and login are required."
+      },
+      {
+        "question": "Does enhancement remove the Seedance watermark?",
+        "answer": "No. This tool improves video quality and resolution; it is not designed to remove watermarks or ownership information."
+      },
+      {
+        "question": "Are my uploaded Seedance videos private?",
+        "answer": "Yes. Files use private storage and temporary access links. Uploaded videos, enhanced results, and processing records are scheduled for deletion after 24 hours."
       }
     ]
   }
