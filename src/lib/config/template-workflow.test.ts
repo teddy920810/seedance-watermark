@@ -22,4 +22,15 @@ describe('reusable fork workflow', () => {
     expect(packageJson.scripts['site:validate']).toBe('node scripts/validate-site.mjs');
     expect(packageJson.scripts['verify:deploy']).toContain('npm run site:validate');
   });
+
+  it('documents copy-time reuse without cross-site runtime coupling', () => {
+    const boundaries = readProjectFile('docs/REPLICATION_BOUNDARIES.md');
+
+    expect(boundaries).toContain('可复刻共享层');
+    expect(boundaries).toContain('站点独立层');
+    expect(boundaries).toContain('不得跨站运行时依赖');
+    expect(boundaries).toContain('WatermarkProvider');
+    expect(boundaries).toContain('品牌、文案与媒体');
+    expect(boundaries).toContain('域名与 OAuth 回调');
+  });
 });
