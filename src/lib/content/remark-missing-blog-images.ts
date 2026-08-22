@@ -5,6 +5,7 @@ type MarkdownNode = {
   type: string;
   url?: string;
   value?: string;
+  identifier?: string;
   children?: MarkdownNode[];
   [key: string]: unknown;
 };
@@ -57,9 +58,22 @@ export function omitMissingBlogImages(options: MissingBlogImageOptions) {
     if (!file.path || !isInside(blogDirectory, file.path)) return;
 
     const source = relative(blogDirectory, resolve(file.path));
+    const definitions = new Map<string, string>();
+    const collectDefinitions = (node: MarkdownNode): void => {
+      if (node.type === 'definition' && node.identifier && node.url) {
+        definitions.set(node.identifier.trim().toLowerCase(), node.url);
+      }
+      node.children?.forEach(collectDefinitions);
+    };
+    collectDefinitions(tree);
     const visit = (node: MarkdownNode): void => {
-      if (node.type === 'image' && node.url && isRelativeAsset(node.url) && !exists(assetPath(file.path!, node.url))) {
-        const missingUrl = node.url;
+      const imageUrl = node.type === 'image'
+        ? node.url
+        : node.type === 'imageReference' && node.identifier
+          ? definitions.get(node.identifier.trim().toLowerCase())
+          : undefined;
+      if (imageUrl && isRelativeAsset(imageUrl) && !exists(assetPath(file.path!, imageUrl))) {
+        const missingUrl = imageUrl;
         omitImage(node, missingUrl);
         warn(`[content] Missing blog image omitted: ${source} -> ${missingUrl}`);
         return;

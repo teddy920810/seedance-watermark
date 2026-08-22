@@ -77,17 +77,17 @@ const blog = defineCollection({
 
 const faqItem = z.object({
   enabled: z.boolean().default(true),
-  question: z.string().min(1),
-  answer: z.string().min(1),
+  question: z.string().default(''),
+  answer: z.string().default(''),
 });
 
 const landingProcessSchema = z.object({
   eyebrow: z.string().min(1),
   heading: z.string().min(1),
   steps: z.array(z.object({
-    number: z.string().min(1),
-    title: z.string().min(1),
-    description: z.string().min(1),
+    number: z.string().default(''),
+    title: z.string().default(''),
+    description: z.string().default(''),
   })).min(1),
 });
 
@@ -99,12 +99,12 @@ const landingFaqSchema = z.object({
 
 const landingFeatureItemSchema = z.object({
   enabled: z.boolean().default(true),
-  eyebrow: z.string().min(1),
-  heading: z.string().min(1),
-  description: z.string().min(1),
+  eyebrow: z.string().default(''),
+  heading: z.string().default(''),
+  description: z.string().default(''),
   listItems: z.array(z.string().min(1)).default([]),
-  image: z.string().min(1),
-  imageAlt: z.string().min(1),
+  image: z.string().default(''),
+  imageAlt: z.string().default(''),
   imagePosition: z.enum(['left', 'right']).default('right'),
 });
 

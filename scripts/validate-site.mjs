@@ -1,7 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-import { collectSiteValidationIssues } from './site-validator.mjs';
+import { collectSiteValidationReport } from './site-validator.mjs';
 
 const root = process.cwd();
 
@@ -38,9 +38,12 @@ if (!siteDocument || typeof siteDocument.value !== 'object' || !siteDocument.val
 }
 const canonicalOrigin = siteDocument.value.canonicalOrigin;
 
-const issues = collectSiteValidationIssues({ envExample, canonicalOrigin, contentDocuments, landingSlugs, blogSlugs, availableAssets });
-if (issues.length > 0) {
-  process.stderr.write(`Site validation failed:\n- ${issues.join('\n- ')}\n`);
+const report = collectSiteValidationReport({ envExample, canonicalOrigin, contentDocuments, landingSlugs, blogSlugs, availableAssets });
+if (report.warnings.length > 0) {
+  process.stderr.write(`Site content warnings (non-blocking):\n- ${report.warnings.join('\n- ')}\n`);
+}
+if (report.errors.length > 0) {
+  process.stderr.write(`Site validation failed:\n- ${report.errors.join('\n- ')}\n`);
   process.exitCode = 1;
 } else {
   process.stdout.write(`Site validation passed for ${contentDocuments.length} content files and ${availableAssets.length} uploaded assets.\n`);

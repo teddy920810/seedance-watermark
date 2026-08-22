@@ -4,7 +4,9 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogEntries } from '../lib/content/entries';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
-import { visibleItems } from '../lib/content/item-visibility';
+import { isCompleteFaq, isCompleteFeature, isCompleteStep, visibleItems } from '../lib/content/item-visibility';
+import { isUsableEditorialHref } from '../lib/content/site-settings';
+import { publicAssetAvailable } from '../lib/content/public-asset';
 
 export const prerender = true;
 const [homepage] = await getCollection('homepage');
@@ -13,12 +15,23 @@ const [siteEntry] = await getCollection('siteSettings');
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
 const home = homepage.data;
 const site = siteEntry.data;
-const blogPosts = sortBlogEntries(await getCollection('blog')).slice(0, 2);
-const featureItems = visibleItems(home.features.items).map((item) => ({
+const [allBlogPosts, landingPages] = await Promise.all([getCollection('blog'), getCollection('landingPages')]);
+const blogPosts = sortBlogEntries(allBlogPosts).slice(0, 2);
+const publicRoutes = new Set([
+  '/', '/blog', '/privacy', '/terms',
+  ...landingPages.map(({ data }) => `/${data.slug}`),
+  ...allBlogPosts.map(({ data }) => `/blog/${data.slug}`),
+]);
+const useCases = visibleItems(home.useCases, (item) => Boolean(
+  item.title.trim() && item.description.trim() && isUsableEditorialHref(item.href, publicRoutes),
+));
+const featureItems = visibleItems(home.features.items, isCompleteFeature).map((item) => ({
   ...item,
   copy: splitFeatureCopy(item.description, item.listItems),
+  showImage: publicAssetAvailable(item.image),
 }));
-const visibleFaqItems = visibleItems(home.faq.items);
+const visibleFaqItems = visibleItems(home.faq.items, isCompleteFaq);
+const processSteps = visibleItems(home.process.steps, isCompleteStep);
 const faqSchema = visibleFaqItems.length > 0 ? {
   '@type': 'FAQPage',
   mainEntity: visibleFaqItems.map((item) => ({
@@ -41,13 +54,13 @@ const faqSchema = visibleFaqItems.length > 0 ? {
   </section>
 
   <section class="use-cases" aria-label="Popular tools">
-    {home.useCases.map((item) => <a href={item.href}><span class="case-icon">{item.icon}</span><span><strong>{item.title}</strong><small>{item.description}</small></span><b>→</b></a>)}
+    {useCases.map((item) => <a href={item.href}><span class="case-icon">{item.icon}</span><span><strong>{item.title}</strong><small>{item.description}</small></span><b>→</b></a>)}
   </section>
 
   <section class="section process-section" id="how-it-works">
     <div class="section-heading"><span class="eyebrow">{home.process.eyebrow}</span><h2>{home.process.heading}</h2><p>{home.process.intro}</p></div>
     <div class="steps">
-      {home.process.steps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
+      {processSteps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
     </div>
   </section>
 
@@ -57,7 +70,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     <div class="feature-list">
       {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
         <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
-        <div class="feature-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>
+        {item.showImage && <div class="feature-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>}
       </article>)}
     </div>
   </section>}

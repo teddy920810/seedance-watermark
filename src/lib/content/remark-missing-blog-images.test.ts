@@ -5,6 +5,7 @@ import { omitMissingBlogImages } from './remark-missing-blog-images';
 type TestNode = {
   type: string;
   url?: string;
+  identifier?: string;
   value?: string;
   children?: TestNode[];
 };
@@ -49,5 +50,26 @@ describe('missing blog image tolerance', () => {
 
     expect(tree.children?.[0].children?.map((node) => node.url)).toEqual(urls);
     expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('omits a missing reference-style image using its definition URL', () => {
+    const warn = vi.fn();
+    const tree: TestNode = {
+      type: 'root',
+      children: [
+        { type: 'paragraph', children: [{ type: 'imageReference', identifier: 'diagram' }] },
+        { type: 'definition', identifier: 'diagram', url: 'missing/diagram.png' },
+      ],
+    };
+
+    omitMissingBlogImages({ blogDirectory, exists: () => false, warn })(tree, {
+      path: join(blogDirectory, 'post.md'),
+    });
+
+    expect(tree.children?.[0].children?.[0]).toEqual({
+      type: 'html',
+      value: '<!-- Missing blog image omitted: missing/diagram.png -->',
+    });
+    expect(warn).toHaveBeenCalledWith('[content] Missing blog image omitted: post.md -> missing/diagram.png');
   });
 });

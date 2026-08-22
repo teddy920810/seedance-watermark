@@ -30,12 +30,18 @@ describe('SiteLayout Google Analytics integration', () => {
     expect(layoutSource).toContain('priceCurrency: site.structuredData.priceCurrency');
   });
 
+  it('keeps the default WebApplication schema when a page adds FAQ schema', () => {
+    expect(layoutSource).toContain('const schemas = [defaultSchema');
+    expect(layoutSource).not.toContain("schema ? (Array.isArray(schema) ? schema : [schema]) : [defaultSchema]");
+  });
+
   it('queues commands with the official Google tag arguments object', () => {
     expect(layoutSource).toContain('function gtag(){dataLayer.push(arguments);}');
     expect(layoutSource).not.toContain('function gtag(...args)');
   });
 
   it('renders CMS navigation children as a hover and keyboard dropdown', () => {
+    expect(layoutSource).toContain('usableHeaderNavigation(');
     expect(layoutSource).toContain('(item.children?.length ?? 0) > 0');
     expect(layoutSource).toContain('class="nav-dropdown"');
     expect(layoutSource).toContain('class="nav-dropdown-trigger"');
