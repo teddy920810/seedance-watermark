@@ -8,6 +8,7 @@ interface CmsField {
   label?: string;
   type: string;
   description?: string;
+  default?: boolean;
   options?: {
     media?: string;
     format?: string;
@@ -33,6 +34,7 @@ const config = YAML.parse(configSource) as {
     rename: string;
   }>;
   settings: { content: { merge: boolean }; commit: { identity: string } };
+  actions?: Array<{ name: string; label: string; workflow: string; ref?: string }>;
   content: Array<{
     name: string;
     label: string;
@@ -45,6 +47,17 @@ const config = YAML.parse(configSource) as {
 };
 
 describe('Pages CMS maintenance safeguards', () => {
+  it('offers direct-main content validation without a draft-branch publish action', () => {
+    expect(config.actions).toEqual([
+      expect.objectContaining({
+        name: 'validate-cms-content',
+        workflow: 'cms-content-check.yml',
+        ref: 'current',
+      }),
+    ]);
+    expect(config.actions?.some((action) => action.name === 'publish-cms-drafts')).toBe(false);
+  });
+
   it('preserves unmanaged fields and uses the GitHub app identity', () => {
     expect(config.settings.content.merge).toBe(true);
     expect(config.settings.commit.identity).toBe('app');
@@ -239,6 +252,7 @@ describe('Pages CMS maintenance safeguards', () => {
   it('exposes blog cover, author, category, featured, and draft fields', () => {
     const blog = config.content.find((entry) => entry.name === 'blog');
     expect(blog?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'seoTitle', type: 'string', label: expect.stringContaining('TITLE') }),
       expect.objectContaining({ name: 'coverImage', type: 'image', options: { media: 'images' } }),
       expect.objectContaining({ name: 'coverAlt', type: 'string' }),
       expect.objectContaining({ name: 'author', type: 'string' }),
@@ -246,6 +260,24 @@ describe('Pages CMS maintenance safeguards', () => {
       expect.objectContaining({ name: 'featured', type: 'boolean' }),
       expect.objectContaining({ name: 'draft', type: 'boolean' }),
     ]));
+  });
+
+  it('lets operators hide every true items entry without deleting it', () => {
+    const homepage = config.content.find((entry) => entry.name === 'homepage');
+    const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
+    const itemGroups = [
+      homepage?.fields.find((field) => field.name === 'features'),
+      homepage?.fields.find((field) => field.name === 'faq'),
+      landingPages?.fields.find((field) => field.name === 'features'),
+      landingPages?.fields.find((field) => field.name === 'faq'),
+    ];
+
+    for (const group of itemGroups) {
+      const items = group?.fields?.find((field) => field.name === 'items');
+      expect(items?.fields).toEqual(expect.arrayContaining([
+        expect.objectContaining({ name: 'enabled', type: 'boolean', default: true }),
+      ]));
+    }
   });
 
   it('exposes legal pages and shared marketing page settings', () => {

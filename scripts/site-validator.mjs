@@ -23,24 +23,25 @@ function normalizeRoute(value) {
   return route.length > 1 ? route.replace(/\/$/, '') : route;
 }
 
-export function collectSiteValidationIssues(input) {
-  const issues = [];
+export function collectSiteValidationReport(input) {
+  const errors = [];
+  const warnings = [];
   const siteUrl = envValue(input.envExample, 'SITE_URL');
   const authUrl = envValue(input.envExample, 'BETTER_AUTH_URL');
   if (!siteUrl || !authUrl || siteUrl !== authUrl) {
-    issues.push('SITE_URL and BETTER_AUTH_URL must use the same non-empty canonical origin.');
+    errors.push('SITE_URL and BETTER_AUTH_URL must use the same non-empty canonical origin.');
   }
   if (!input.canonicalOrigin || input.canonicalOrigin !== siteUrl) {
-    issues.push('CMS canonical origin must match SITE_URL exactly.');
+    errors.push('CMS canonical origin must match SITE_URL exactly.');
   }
 
   const duplicateLandingSlugs = input.landingSlugs.filter((slug, index, values) => values.indexOf(slug) !== index);
-  duplicateLandingSlugs.forEach((slug) => issues.push(`Landing slug ${slug} is duplicated.`));
+  duplicateLandingSlugs.forEach((slug) => errors.push(`Landing slug ${slug} is duplicated.`));
   input.landingSlugs.forEach((slug) => {
-    if (reservedLandingSlugs.has(slug)) issues.push(`Landing slug ${slug} conflicts with reserved route /${slug}.`);
+    if (reservedLandingSlugs.has(slug)) errors.push(`Landing slug ${slug} conflicts with reserved route /${slug}.`);
   });
   const duplicateBlogSlugs = input.blogSlugs.filter((slug, index, values) => values.indexOf(slug) !== index);
-  duplicateBlogSlugs.forEach((slug) => issues.push(`Blog slug ${slug} is duplicated.`));
+  duplicateBlogSlugs.forEach((slug) => errors.push(`Blog slug ${slug} is duplicated.`));
 
   const allowedRoutes = new Set([
     '/', '/blog', '/privacy', '/terms',
@@ -50,13 +51,27 @@ export function collectSiteValidationIssues(input) {
   const availableAssets = new Set(input.availableAssets);
 
   input.contentDocuments.forEach((document) => {
+    const navigation = document.value?.header?.navigation;
+    if (Array.isArray(navigation)) {
+      navigation.forEach((item) => {
+        const hasHref = typeof item?.href === 'string' && item.href.trim().length > 0;
+        const hasChildren = Array.isArray(item?.children) && item.children.some((child) => (
+          typeof child?.label === 'string' && child.label.trim().length > 0
+          && typeof child?.href === 'string' && child.href.trim().length > 0
+        ));
+        if (!hasHref && !hasChildren) {
+          const label = typeof item?.label === 'string' && item.label.trim() ? item.label.trim() : '(unnamed)';
+          warnings.push(`${document.path}: navigation item "${label}" has no usable link and will be hidden.`);
+        }
+      });
+    }
     visitStrings(document.value, (value) => {
       if (/https:\/\/github\.com\/[^\s)]+\/blob\/[^\s)]+/i.test(value)) {
-        issues.push(`${document.path}: use a public /uploads path instead of a GitHub blob URL.`);
+        warnings.push(`${document.path}: use a public /uploads path instead of a GitHub blob URL.`);
       }
 
       for (const match of value.matchAll(/\/uploads\/[A-Za-z0-9._/-]+/g)) {
-        if (!availableAssets.has(match[0])) issues.push(`${document.path}: referenced asset ${match[0]} does not exist.`);
+        if (!availableAssets.has(match[0])) warnings.push(`${document.path}: referenced asset ${match[0]} does not exist.`);
       }
 
       const internalLinks = [];
@@ -66,10 +81,17 @@ export function collectSiteValidationIssues(input) {
       internalLinks.forEach((link) => {
         if (link.startsWith('/uploads/') || link.startsWith('/api/')) return;
         const route = normalizeRoute(link);
-        if (!allowedRoutes.has(route)) issues.push(`${document.path}: internal link ${link} does not match a public route.`);
+        if (!allowedRoutes.has(route)) warnings.push(`${document.path}: internal link ${link} does not match a public route.`);
       });
     });
   });
 
-  return [...new Set(issues)].sort();
+  return {
+    errors: [...new Set(errors)].sort(),
+    warnings: [...new Set(warnings)].sort(),
+  };
+}
+
+export function collectSiteValidationIssues(input) {
+  return collectSiteValidationReport(input).errors;
 }

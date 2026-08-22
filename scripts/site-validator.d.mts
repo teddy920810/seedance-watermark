@@ -8,3 +8,7 @@ export interface SiteValidationInput {
 }
 
 export function collectSiteValidationIssues(input: SiteValidationInput): string[];
+export function collectSiteValidationReport(input: SiteValidationInput): {
+  errors: string[];
+  warnings: string[];
+};

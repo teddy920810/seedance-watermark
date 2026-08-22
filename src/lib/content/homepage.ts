@@ -1,16 +1,16 @@
 import { z } from 'zod';
 
 const linkedCardSchema = z.object({
-  icon: z.string().min(1),
-  title: z.string().min(1),
-  description: z.string().min(1),
-  href: z.string().min(1),
+  icon: z.string().default(''),
+  title: z.string().default(''),
+  description: z.string().default(''),
+  href: z.string().default(''),
 });
 
 const stepSchema = z.object({
-  number: z.string().min(1),
-  title: z.string().min(1),
-  description: z.string().min(1),
+  number: z.string().default(''),
+  title: z.string().default(''),
+  description: z.string().default(''),
 });
 
 const featureSchema = z.object({
@@ -20,18 +20,20 @@ const featureSchema = z.object({
 });
 
 const homepageFeatureSchema = z.object({
-  eyebrow: z.string().min(1),
-  heading: z.string().min(1),
-  description: z.string().min(1),
+  enabled: z.boolean().default(true),
+  eyebrow: z.string().default(''),
+  heading: z.string().default(''),
+  description: z.string().default(''),
   listItems: z.array(z.string().min(1)).default([]),
-  image: z.string().min(1),
-  imageAlt: z.string().min(1),
-  imagePosition: z.enum(['left', 'right']),
+  image: z.string().default(''),
+  imageAlt: z.string().default(''),
+  imagePosition: z.enum(['left', 'right']).default('right'),
 });
 
 const faqItemSchema = z.object({
-  question: z.string().min(1),
-  answer: z.string().min(1),
+  enabled: z.boolean().default(true),
+  question: z.string().default(''),
+  answer: z.string().default(''),
 });
 
 export const homepageSchema = z.object({

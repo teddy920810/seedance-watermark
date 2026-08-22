@@ -3,6 +3,8 @@ import ImageUploader from './uploader/ImageUploader';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
+import { isCompleteFaq, isCompleteFeature, isCompleteStep, visibleItems } from '../lib/content/item-visibility';
+import { publicAssetAvailable } from '../lib/content/public-asset';
 
 interface Props { page: CollectionEntry<'landingPages'>['data'] }
 const { page } = Astro.props;
@@ -10,18 +12,21 @@ const [siteEntry] = await getCollection('siteSettings');
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
 const site = siteEntry.data;
 const features = page.features;
-const featureItems = features?.items.map((item) => ({
+const featureItems = visibleItems(features?.items ?? [], isCompleteFeature).map((item) => ({
   ...item,
   copy: splitFeatureCopy(item.description, item.listItems),
-})) ?? [];
-const faqSchema = {
+  showImage: publicAssetAvailable(item.image),
+}));
+const visibleFaqItems = visibleItems(page.faq.items, isCompleteFaq);
+const processSteps = visibleItems(page.process.steps, isCompleteStep);
+const faqSchema = visibleFaqItems.length > 0 ? {
   '@type': 'FAQPage',
-  mainEntity: page.faq.items.map((item) => ({
+  mainEntity: visibleFaqItems.map((item) => ({
     '@type': 'Question',
     name: item.question,
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
-};
+} : undefined;
 ---
 
 <SiteLayout title={page.title} description={page.description} schema={faqSchema}>
@@ -38,7 +43,7 @@ const faqSchema = {
   <section class="section process-section" id="how-it-works">
     <div class="section-heading"><span class="eyebrow">{page.process.eyebrow}</span><h2>{page.process.heading}</h2></div>
     <div class="steps">
-      {page.process.steps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
+      {processSteps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
     </div>
   </section>
 
@@ -48,14 +53,14 @@ const faqSchema = {
       <div class="feature-list">
         {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
           <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
-          <div class="feature-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>
+          {item.showImage && <div class="feature-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>}
         </article>)}
       </div>
     </section>
   ) : null}
 
-  <section class="section faq-section">
+  {visibleFaqItems.length > 0 && <section class="section faq-section">
     <div class="section-heading"><span class="eyebrow">{page.faq.eyebrow}</span><h2>{page.faq.heading}</h2></div>
-    <div class="faq-list">{page.faq.items.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
-  </section>
+    <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
+  </section>}
 </SiteLayout>

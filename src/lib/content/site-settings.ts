@@ -6,19 +6,43 @@ const canonicalOriginSchema = z.url().refine((value) => {
 }, 'Canonical origin must be an HTTPS origin without a path, query, or hash.');
 
 const navigationLinkSchema = z.object({
-  label: z.string().min(1),
-  href: z.string().min(1),
+  label: z.string().default(''),
+  href: z.string().default(''),
 });
 
 const headerNavigationItemSchema = z.object({
-  label: z.string().min(1),
+  label: z.string().default(''),
   href: z.string().default(''),
   children: z.array(navigationLinkSchema).default([]),
-}).superRefine((item, context) => {
-  if (item.children.length === 0 && item.href.length === 0) {
-    context.addIssue({ code: 'custom', path: ['href'], message: 'A normal navigation link requires a URL.' });
-  }
 });
+
+type NavigationLink = z.infer<typeof navigationLinkSchema>;
+type HeaderNavigationItem = z.infer<typeof headerNavigationItemSchema>;
+
+export function isUsableEditorialHref(href: string, publicRoutes: ReadonlySet<string>): boolean {
+  const value = href.trim();
+  if (!value) return false;
+  if (value.startsWith('#') || value.startsWith('//') || /^[a-z][a-z\d+.-]*:/i.test(value)) return true;
+  if (!value.startsWith('/')) return false;
+  const route = value.split(/[?#]/, 1)[0].replace(/\/$/, '') || '/';
+  return route.startsWith('/api/') || route.startsWith('/uploads/') || publicRoutes.has(route);
+}
+
+function usableLink(link: NavigationLink, publicRoutes: ReadonlySet<string>): boolean {
+  return Boolean(link.label.trim()) && isUsableEditorialHref(link.href, publicRoutes);
+}
+
+export function usableHeaderNavigation(
+  items: readonly HeaderNavigationItem[],
+  publicRoutes: ReadonlySet<string>,
+): HeaderNavigationItem[] {
+  return items.flatMap((item) => {
+    if (!item.label.trim()) return [];
+    const children = item.children.filter((child) => usableLink(child, publicRoutes));
+    if (children.length > 0) return [{ ...item, children }];
+    return isUsableEditorialHref(item.href, publicRoutes) ? [{ ...item, children: [] }] : [];
+  });
+}
 
 const uploaderCopySchema = z.object({
   hero: z.object({

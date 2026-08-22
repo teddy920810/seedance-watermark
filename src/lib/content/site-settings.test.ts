@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { siteSettingsSchema } from './site-settings';
+import { siteSettingsSchema, usableHeaderNavigation } from './site-settings';
 
 const settings = JSON.parse(
   readFileSync(new URL('../../content/settings/site.json', import.meta.url), 'utf8'),
@@ -51,6 +51,35 @@ describe('site settings CMS content', () => {
 
     const parsed = siteSettingsSchema.parse(dropdownSettings);
     expect(parsed.header.navigation[0].children).toHaveLength(2);
+  });
+
+  it('accepts an incomplete editorial navigation item and omits it at render time', () => {
+    const incomplete = structuredClone(settings);
+    incomplete.header.navigation.push({ label: 'Coming soon' });
+
+    const parsed = siteSettingsSchema.parse(incomplete);
+
+    expect(usableHeaderNavigation(parsed.header.navigation, new Set(['/blog']))).not.toContainEqual(
+      expect.objectContaining({ label: 'Coming soon' }),
+    );
+  });
+
+  it('omits unavailable internal links and keeps valid, fragment, and external links', () => {
+    const navigation = [
+      { label: 'Missing', href: '/missing', children: [] },
+      { label: 'Blog', href: '/blog', children: [] },
+      { label: 'Section', href: '#tool', children: [] },
+      { label: 'External', href: 'https://example.com', children: [] },
+      { label: 'Tools', href: '', children: [
+        { label: 'Missing child', href: '/missing-child' },
+        { label: 'Existing child', href: '/existing' },
+      ] },
+    ];
+
+    expect(usableHeaderNavigation(navigation, new Set(['/blog', '/existing']))).toEqual([
+      navigation[1], navigation[2], navigation[3],
+      { ...navigation[4], children: [navigation[4].children[1]] },
+    ]);
   });
 });
 

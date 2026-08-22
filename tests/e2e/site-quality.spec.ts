@@ -29,7 +29,7 @@ test('critical public routes and SEO files are available', async ({ page, reques
   expect(sitemap).not.toContain('sitemap-index.xml');
 });
 
-test('mobile visitors can open navigation and a dropdown', async ({ page }) => {
+test('mobile visitors can open navigation while invalid editorial links stay hidden', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
@@ -37,10 +37,10 @@ test('mobile visitors can open navigation and a dropdown', async ({ page }) => {
   await menuButton.click();
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
 
-  const dropdown = page.locator('[data-nav-dropdown-trigger]').first();
-  await dropdown.click();
-  await expect(dropdown).toHaveAttribute('aria-expanded', 'true');
-  await expect(dropdown.locator('xpath=..').locator('a').first()).toBeVisible();
+  await expect(page.locator('#site-navigation')).toBeVisible();
+  await expect(page.locator('#site-navigation a', { hasText: 'Topics' })).toBeVisible();
+  await expect(page.locator('#site-navigation', { hasText: 'Seedance 2.0/2.5 Video upscale' })).toHaveCount(0);
+  await expect(page.locator('#site-navigation', { hasText: 'How it works' })).toHaveCount(0);
 });
 
 test('all public content routes and 404 have one H1 and no serious accessibility violations', async ({ page, request }) => {
