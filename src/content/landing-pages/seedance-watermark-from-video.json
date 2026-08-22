@@ -1,23 +1,66 @@
 {
-  "slug": "seedance-watermark-from-video", "title": "Seedance Video Watermark Removal: Current Support and Workflow",
-  "description": "Learn what the Seedance Watermark Remover MVP supports today and how extracted frames fit the future video-processing roadmap.",
-  "eyebrow": "Seedance video guide", "heading": "A clear path from extracted frames to future video support",
-  "intro": "The current MVP does not accept MP4 or MOV files. It can process an authorized still frame while the provider abstraction remains ready for a dedicated video backend.",
-  "benefits": ["No false direct-video claim", "Frame-based testing path", "Provider-ready architecture"],
+  "slug": "seedance-video-watermark-remover",
+  "title": "Seedance Video Watermark Remover – Remove Watermarks Free",
+  "description": "Remove visible Seedance watermarks from authorized videos online. Upload MP4, MOV, or WebM files, preview the clean result, and download for free.",
+  "eyebrow": "SEEDANCE VIDEO CLEANUP",
+  "heading": "Remove Seedance Video Watermarks Online",
+  "intro": "Upload an authorized Seedance video, remove its visible watermark, and download a cleaner result in a few simple steps.",
+  "benefits": [
+    " Free to Us",
+    " MP4, MOV & WebM",
+    " Private Processing"
+  ],
   "process": {
-    "eyebrow": "Frame-based video workflow", "heading": "Test one Seedance video frame while direct video support is in development",
+    "eyebrow": "HOW IT WORKS",
+    "heading": "Remove a Seedance Watermark in Three Steps",
     "steps": [
-      { "number": "01", "title": "Export a representative frame", "description": "Save an authorized frame from the video as JPG, PNG, or WebP; MP4 and MOV uploads are not supported." },
-      { "number": "02", "title": "Upload the still image", "description": "Sign in and upload the exported frame, no larger than 10 MB, through the private image workflow." },
-      { "number": "03", "title": "Evaluate only the frame result", "description": "Review the returned still-image preview without assuming that motion, audio, timing, or the full video was processed." }
+      {
+        "number": "01",
+        "title": "Upload Your Video",
+        "description": "Choose an MP4, MOV, or WebM Seedance video you own or have permission to edit."
+      },
+      {
+        "number": "02",
+        "title": "Sign In and Remove",
+        "description": "Create an account or sign in, then click Remove Watermark to begin processing."
+      },
+      {
+        "number": "03",
+        "title": "Preview and Download",
+        "description": "Review the cleaned result and download the finished video to your device."
+      }
     ]
   },
   "faq": {
-    "eyebrow": "Video support questions", "heading": "Current limits for Seedance video watermark workflows",
+    "eyebrow": "Video support questions",
+    "heading": "Current limits for Seedance video watermark workflows",
     "items": [
-      { "question": "Which video formats are supported?", "answer": "None yet. Direct video upload is not implemented." },
-      { "question": "Can I upload a frame from a Seedance video?", "answer": "Yes, if it is JPG, PNG, or WebP, no larger than 10 MB, and you own or may edit the source." },
-      { "question": "Will audio or motion be preserved?", "answer": "The current image workflow does not process video, audio, timing, or motion." }
+      {
+        "question": "Which video formats are supported?",
+        "answer": "None yet. Direct video upload is not implemented."
+      },
+      {
+        "question": "Can I upload a frame from a Seedance video?",
+        "answer": "Yes, if it is JPG, PNG, or WebP, no larger than 10 MB, and you own or may edit the source."
+      },
+      {
+        "question": "Will audio or motion be preserved?",
+        "answer": "The current image workflow does not process video, audio, timing, or motion."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "WHY CHOOSE THIS TOOL",
+    "heading": "A Simpler Way to Clean Seedance Videos",
+    "items": [
+      {
+        "eyebrow": "01",
+        "heading": "Purpose-Built for Seedance",
+        "description": "Designed specifically for visible watermarks commonly found on Seedance-generated videos.",
+        "image": "/uploads/seedance-100-percent-free.png",
+        "imageAlt": "XX",
+        "imagePosition": "right"
+      }
     ]
   }
 }
