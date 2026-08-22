@@ -1,76 +1,170 @@
 {
   "title": "Seedance Watermark Remover — Clean Seedance Images Online",
-  "description": "Remove visible Seedance watermarks from supported images and extracted video frames you own or may edit. Private uploads, clear limits, and no false video-support claims.",
+  "description": "Use this free tool to upscale your seedance videos to 4K or 8K instantly.",
   "shareImage": "/uploads/seedance-watermark-og.svg",
   "hero": {
     "eyebrow": "Seedance watermark cleanup · Private · Browser-based",
     "heading": "Seedance Watermark Remover",
     "highlightedHeading": " for Images & Frames",
     "intro": "Clean visible Seedance marks from supported images or frames extracted from videos you own or are authorized to edit. Direct video upload is not available in this MVP yet.",
-    "trustItems": ["✓ Private R2 Storage", "✓ Up to 10 MB", "✓ 24-Hour Retention"]
+    "trustItems": [
+      "✓ Private R2 Storage",
+      "✓ Up to 10 MB",
+      "✓ 24-Hour Retention"
+    ]
   },
   "useCases": [
-    { "icon": "S", "title": "Remove Seedance watermark", "description": "Process a supported Seedance image or extracted frame.", "href": "/remove-seedance-watermark" },
-    { "icon": "▶", "title": "Seedance video workflow", "description": "Understand the current frame-based path and video roadmap.", "href": "/seedance-watermark-from-video" },
-    { "icon": "▧", "title": "Seedance image workflow", "description": "Prepare JPG, PNG, or WebP assets for private processing.", "href": "/seedance-watermark-from-image" }
+    {
+      "icon": "S",
+      "title": "Remove Seedance watermark",
+      "description": "Process a supported Seedance image or extracted frame.",
+      "href": "/remove-seedance-watermark"
+    },
+    {
+      "icon": "▶",
+      "title": "Seedance video workflow",
+      "description": "Understand the current frame-based path and video roadmap.",
+      "href": "/seedance-watermark-from-video"
+    },
+    {
+      "icon": "▧",
+      "title": "Seedance image workflow",
+      "description": "Prepare JPG, PNG, or WebP assets for private processing.",
+      "href": "/seedance-watermark-from-image"
+    }
   ],
   "process": {
     "eyebrow": "Current workflow",
     "heading": "How to Process a Seedance Image or Video Frame",
     "intro": "The current MVP handles a single supported image. For Seedance videos, export a frame first; native video processing is planned but not yet available.",
     "steps": [
-      { "number": "01", "title": "Choose an Authorized Asset", "description": "Select a JPG, PNG, or WebP Seedance image or extracted video frame up to 10 MB." },
-      { "number": "02", "title": "Sign In and Process", "description": "Sign in with Google, then upload directly to private R2 storage and start the provider-backed job." },
-      { "number": "03", "title": "Review and Download", "description": "Compare the input and returned result. The preview provider currently returns an unchanged copy." }
+      {
+        "number": "01",
+        "title": "Choose an Authorized Asset",
+        "description": "Select a JPG, PNG, or WebP Seedance image or extracted video frame up to 10 MB."
+      },
+      {
+        "number": "02",
+        "title": "Sign In and Process",
+        "description": "Sign in with Google, then upload directly to private R2 storage and start the provider-backed job."
+      },
+      {
+        "number": "03",
+        "title": "Review and Download",
+        "description": "Compare the input and returned result. The preview provider currently returns an unchanged copy."
+      }
     ]
   },
   "privacy": {
     "eyebrow": "Private by design",
     "heading": "Your Seedance Media Stays Private",
     "description": "Uploads and results use private object storage, signed links expire, and objects are scheduled for deletion after 24 hours.",
-    "linkLabel": "Read the privacy policy →", "linkHref": "/privacy",
+    "linkLabel": "Read the privacy policy →",
+    "linkHref": "/privacy",
     "features": [
-      { "icon": "◇", "title": "Private Storage", "description": "Files do not receive permanent public URLs." },
-      { "icon": "◷", "title": "24-Hour Retention", "description": "Uploads, results, and job records are scheduled to expire." },
-      { "icon": "⌁", "title": "Short-Lived Links", "description": "Temporary signed links limit access to processing and downloads." }
+      {
+        "icon": "◇",
+        "title": "Private Storage",
+        "description": "Files do not receive permanent public URLs."
+      },
+      {
+        "icon": "◷",
+        "title": "24-Hour Retention",
+        "description": "Uploads, results, and job records are scheduled to expire."
+      },
+      {
+        "icon": "⌁",
+        "title": "Short-Lived Links",
+        "description": "Temporary signed links limit access to processing and downloads."
+      }
     ]
   },
-  "guides": { "eyebrow": "Seedance guides", "heading": "Use Seedance Media Responsibly", "linkLabel": "View all guides →", "linkHref": "/blog", "articleLinkLabel": "Read guide →" },
+  "guides": {
+    "eyebrow": "Seedance guides",
+    "heading": "Use Seedance Media Responsibly",
+    "linkLabel": "View all guides →",
+    "linkHref": "/blog",
+    "articleLinkLabel": "Read guide →"
+  },
   "features": {
     "eyebrow": "Why use Seedance Watermark Remover",
     "heading": "A Focused Seedance Cleanup Workflow with Honest Limits",
     "intro": "The site is designed around Seedance watermark cleanup while keeping the current image-only MVP and preview-provider status explicit.",
     "items": [
       {
-        "eyebrow": "SEEDANCE FOCUS", "heading": "Built Around Seedance Watermark Workflows",
+        "eyebrow": "SEEDANCE FOCUS",
+        "heading": "Built Around Seedance Watermark Workflows",
         "description": "Purpose-built guidance for visible Seedance marks on assets you own or may edit, with responsible-use safeguards.",
-        "image": "/uploads/seedance-watermark-og.svg", "imageAlt": "Seedance Watermark Remover brand preview", "imagePosition": "right",
-        "listItems": ["Seedance-focused pages and SEO", "Clear authorized-use guidance", "No claim to alter invisible provenance signals"]
+        "listItems": [
+          "Seedance-focused pages and SEO",
+          "Clear authorized-use guidance",
+          "No claim to alter invisible provenance signals"
+        ],
+        "image": "/uploads/seedance-watermark-og.svg",
+        "imageAlt": "Seedance Watermark Remover brand preview",
+        "imagePosition": "right"
       },
       {
-        "eyebrow": "CURRENT SUPPORT", "heading": "JPG, PNG, and WebP Images",
+        "eyebrow": "CURRENT SUPPORT",
+        "heading": "JPG, PNG, and WebP Images",
         "description": "Upload one supported image or extracted video frame up to 10 MB. MP4, MOV, batch, URL, and direct video uploads are not supported yet.",
-        "image": "/uploads/supported-image-formats.webp", "imageAlt": "Supported Seedance image and frame formats", "imagePosition": "left",
-        "listItems": ["JPG/JPEG, PNG, and WebP", "One file up to 10 MB", "Explicit validation for unsupported files"]
+        "listItems": [
+          "JPG/JPEG, PNG, and WebP",
+          "One file up to 10 MB",
+          "Explicit validation for unsupported files"
+        ],
+        "image": "/uploads/supported-image-formats.webp",
+        "imageAlt": "Supported Seedance image and frame formats",
+        "imagePosition": "left"
       },
       {
-        "eyebrow": "PREVIEW STATUS", "heading": "Provider-Ready, Not Yet a Production Remover",
+        "eyebrow": "PREVIEW STATUS",
+        "heading": "Provider-Ready, Not Yet a Production Remover",
         "description": "The processing flow, Google sign-in, private R2 storage, and job ownership are implemented. The current provider copies the input unchanged until a real Seedance-aware processor is connected.",
-        "image": "/uploads/free-no-credits-no-paid-plans.webp", "imageAlt": "Seedance processing MVP status", "imagePosition": "right",
-        "listItems": ["Google-authenticated jobs", "Private shared R2 infrastructure", "Replaceable WatermarkProvider interface"]
+        "listItems": [
+          "Google-authenticated jobs",
+          "Private shared R2 infrastructure",
+          "Replaceable WatermarkProvider interface"
+        ],
+        "image": "/uploads/free-no-credits-no-paid-plans.webp",
+        "imageAlt": "Seedance processing MVP status",
+        "imagePosition": "right"
       }
     ]
   },
   "faq": {
-    "eyebrow": "FAQ", "heading": "Seedance Watermark Remover FAQs", "intro": "Current file support, privacy, processing status, and responsible-use answers.",
+    "eyebrow": "FAQ",
+    "heading": "Seedance Watermark Remover FAQs",
+    "intro": "Current file support, privacy, processing status, and responsible-use answers.",
     "items": [
-      { "question": "Can this remove a Seedance watermark from a video?", "answer": "Not directly yet. The current tool accepts JPG, PNG, and WebP images, so you may process an extracted frame. Native video upload and processing are planned but not implemented." },
-      { "question": "Does the current processor actually remove the watermark?", "answer": "Not yet. The preview provider returns an unchanged secure copy while a production Seedance-aware processor is evaluated." },
-      { "question": "What files can I upload?", "answer": "One JPG/JPEG, PNG, or WebP image up to 10 MB. MP4, MOV, PDF, batch, and URL uploads are not supported." },
-      { "question": "Is Google sign-in required?", "answer": "You can choose and preview a file anonymously. Google sign-in is required before uploading and creating a processing job." },
-      { "question": "How long are files retained?", "answer": "Uploads, results, and job records are designed to expire after 24 hours; signed access links expire sooner." },
-      { "question": "Can I process any Seedance media?", "answer": "Only process media you own or have explicit permission to modify. Do not use the service to hide ownership, evade licensing, or misrepresent authorship." },
-      { "question": "Does this remove invisible provenance metadata?", "answer": "No. The site concerns visible watermark cleanup and does not claim to detect or remove invisible provenance signals or metadata." }
+      {
+        "question": "Can this remove a Seedance watermark from a video?",
+        "answer": "Not directly yet. The current tool accepts JPG, PNG, and WebP images, so you may process an extracted frame. Native video upload and processing are planned but not implemented."
+      },
+      {
+        "question": "Does the current processor actually remove the watermark?",
+        "answer": "Not yet. The preview provider returns an unchanged secure copy while a production Seedance-aware processor is evaluated."
+      },
+      {
+        "question": "What files can I upload?",
+        "answer": "One JPG/JPEG, PNG, or WebP image up to 10 MB. MP4, MOV, PDF, batch, and URL uploads are not supported."
+      },
+      {
+        "question": "Is Google sign-in required?",
+        "answer": "You can choose and preview a file anonymously. Google sign-in is required before uploading and creating a processing job."
+      },
+      {
+        "question": "How long are files retained?",
+        "answer": "Uploads, results, and job records are designed to expire after 24 hours; signed access links expire sooner."
+      },
+      {
+        "question": "Can I process any Seedance media?",
+        "answer": "Only process media you own or have explicit permission to modify. Do not use the service to hide ownership, evade licensing, or misrepresent authorship."
+      },
+      {
+        "question": "Does this remove invisible provenance metadata?",
+        "answer": "No. The site concerns visible watermark cleanup and does not claim to detect or remove invisible provenance signals or metadata."
+      }
     ]
   }
 }
