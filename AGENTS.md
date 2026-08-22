@@ -10,6 +10,14 @@
 - Before handing off changes, run `npm run verify`; it includes coverage, lint, build, and browser E2E.
 - Run `npm run test:smoke:production` after production environment, domain, R2, CORS, or deployment changes. It writes temporary objects to the real bucket, so do not run it speculatively or in a loop.
 
+## Project startup
+
+- The canonical repository is `teddy920810/seedance-watermark`; reject similarly named checkouts whose `origin` does not match.
+- Before editing, report the normalized path, `origin`, branch, HEAD, and working-tree status. Preserve unrelated user changes.
+- Read this file, `README.md`, and `docs/DEVELOPER_GUIDE.md` completely before implementing.
+- Separate user-gated prerequisites from work Codex can complete. Continue all unblocked Codex-owned work and batch the minimum user requests.
+- Keep implementation and repository scripts cross-platform; prefer Node/npm scripts over shell-specific logic.
+
 ## Delivery target confirmation
 
 - Classify each requested change as either **local iteration** or **merge to main** before finishing the task.
@@ -17,6 +25,12 @@
 - If the target is unclear from the current context, ask whether the final goal is local iteration or merge to `main`.
 - Local iteration means implement and verify locally; do not commit, push, open or merge a PR, or deploy unless the user separately authorizes it.
 - Merge to `main` means complete the repository workflow: verify, commit, push, open or update the PR, merge after required checks, wait for deployment, and run the required production verification.
+
+## Release status gates
+
+- Report code verification, repository/PR state, Vercel deployment, DNS/certificate state, OAuth flow, and production smoke as separate gates.
+- Do not label a delivery complete when an applicable gate is pending or blocked.
+- If similar failures affect multiple repositories, check provider status and local process conflicts before changing code or branches. Avoid repeated retries during a confirmed platform incident.
 
 ## Third-party integration contract rules
 

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const uploadKey = 'uploads/00000000-0000-4000-8000-000000000001.png';
+const uploadKey = 'uploads/0123456789abcdef0123456789abcdef/00000000-0000-4000-8000-000000000001.png';
 const jobId = '00000000-0000-4000-8000-000000000002';
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=', 'base64');
 

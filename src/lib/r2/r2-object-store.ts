@@ -1,5 +1,6 @@
 import {
   CopyObjectCommand,
+  DeleteObjectCommand,
   GetObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
@@ -12,6 +13,11 @@ export interface R2Config {
   accessKeyId: string;
   secretAccessKey: string;
   bucket: string;
+}
+
+export interface ObjectMetadata {
+  contentLength: number | undefined;
+  contentType: string | undefined;
 }
 
 export class R2ObjectStore {
@@ -57,15 +63,19 @@ export class R2ObjectStore {
     );
   }
 
-  async exists(key: string): Promise<boolean> {
+  async getMetadata(key: string): Promise<ObjectMetadata | null> {
     try {
-      await this.client.send(new HeadObjectCommand({ Bucket: this.config.bucket, Key: key }));
-      return true;
+      const response = await this.client.send(new HeadObjectCommand({ Bucket: this.config.bucket, Key: key }));
+      return { contentLength: response.ContentLength, contentType: response.ContentType };
     } catch (error) {
       const status = (error as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode;
-      if (status === 404) return false;
+      if (status === 404) return null;
       throw error;
     }
+  }
+
+  async deleteObject(key: string): Promise<void> {
+    await this.client.send(new DeleteObjectCommand({ Bucket: this.config.bucket, Key: key }));
   }
 
   async copyObject(sourceKey: string, destinationKey: string): Promise<void> {

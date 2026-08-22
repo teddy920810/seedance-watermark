@@ -11,7 +11,7 @@ describe('API contracts', () => {
   });
 
   it('accepts an opaque upload key', () => {
-    const inputKey = 'uploads/eb8fa168-c11c-4e54-8c63-137d649ed1db.webp';
+    const inputKey = 'uploads/0123456789abcdef0123456789abcdef/eb8fa168-c11c-4e54-8c63-137d649ed1db.webp';
     expect(parseCreateJob({ inputKey })).toEqual({ inputKey });
   });
 
