@@ -15,10 +15,10 @@
   },
   "useCases": [
     {
-      "icon": "S",
-      "title": "Remove Seedance watermark",
+      "icon": "U",
+      "title": "Seedance 2.0/2.5 Videos Upscale",
       "description": "Process a supported Seedance image or extracted frame.",
-      "href": "/remove-seedance-watermark"
+      "href": "/seedance-video-upscale"
     },
     {
       "icon": "▶",
