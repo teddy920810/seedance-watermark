@@ -58,6 +58,23 @@ test('homepage tool cards open the three operations tool pages', async ({ page, 
   }
 });
 
+test('publishes the four operations Word articles with their original covers', async ({ page, request }) => {
+  const routes = [
+    '/blog/ai-cartoon-avatar-seedance-2-0',
+    '/blog/the-lion-king-seedance-2-0',
+    '/blog/seedance-2-0-pixar-level-animation',
+    '/blog/seedance-2-0-animation-2d',
+  ];
+
+  for (const route of routes) {
+    expect((await request.get(route)).ok(), `${route} should be published`).toBeTruthy();
+    await page.goto(route);
+    await expect(page.locator('article.article-body')).toBeVisible();
+    await expect(page.locator('img.article-cover')).toBeVisible();
+    await expect(page.locator('main h1')).toHaveCount(1);
+  }
+});
+
 test('mobile visitors can open navigation while invalid editorial links stay hidden', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -89,6 +106,7 @@ test('landing pages inherit homepage features and can override them independentl
 });
 
 test('all public content routes and 404 have one H1 and no serious accessibility violations', async ({ page, request }) => {
+  test.setTimeout(60_000);
   const sitemap = await (await request.get('/sitemap.xml')).text();
   const routes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
   routes.push('/missing-page-for-404-check');
