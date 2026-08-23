@@ -1,0 +1,48 @@
+{
+  "slug": "seedance-watermark-remover",
+  "title": "Seedance Video Watermark Remover – Workflow Preview | Seedances",
+  "description": "Preview the planned Seedance video watermark removal workflow while production video processing remains clearly marked as not connected.",
+  "eyebrow": "SEEDANCE VIDEO WATERMARK REMOVER",
+  "heading": "Remove watermarks without damaging the scene",
+  "intro": "Explore the planned video watermark removal workspace. Production video upload, detection, and frame reconstruction are not connected yet.",
+  "benefits": ["Permission-first workflow", "Local selection preview", "Clear capability status"],
+  "workspaceMode": "video-preview",
+  "workspace": {
+    "eyebrow": "VIDEO REMOVAL PREVIEW",
+    "heading": "Preview the video cleanup workspace",
+    "inputLabel": "Choose an authorized video for the local interface preview",
+    "inputHelp": "MP4, MOV, or WebM · no file will be uploaded",
+    "placeholder": "",
+    "options": ["Auto detect", "MP4"],
+    "actionLabel": "Preview removal flow",
+    "previewNote": "Video watermark processing is not connected yet; selected files stay local and no removal job is created."
+  },
+  "finalCta": { "heading": "Keep the authorized moment and preview the cleanup flow", "label": "Back to workspace" },
+  "featuresSource": "custom",
+  "process": {
+    "eyebrow": "HOW THE PREVIEW WORKS",
+    "heading": "Explore the planned removal flow in three steps",
+    "steps": [
+      { "number": "01", "title": "Choose authorized media", "description": "Select a video you own or may edit only for a local interface preview." },
+      { "number": "02", "title": "Review detection controls", "description": "See the planned automatic detection and export choices without uploading the file." },
+      { "number": "03", "title": "Check processing status", "description": "The page confirms that production video removal and reconstruction are not available yet." }
+    ]
+  },
+  "features": {
+    "eyebrow": "PLANNED REMOVAL EXPERIENCE",
+    "heading": "A clear workflow for future authorized video cleanup",
+    "intro": "The interface mirrors the intended removal journey while keeping current processing limits visible.",
+    "items": [
+      { "enabled": true, "eyebrow": "PERMISSION FIRST", "heading": "Preview cleanup controls without sending a video", "description": "Review the planned upload, detection, processing, and export journey for media you own or have permission to edit.", "listItems": ["Local-only file selection", "No removal job is created", "Current limits stay explicit"], "image": "/uploads/seedances-tool-remover.png", "imageAlt": "Seedance video watermark removal workflow preview", "imagePosition": "right" }
+    ]
+  },
+  "faq": {
+    "eyebrow": "REMOVAL PREVIEW QUESTIONS",
+    "heading": "What is available on the video remover page today",
+    "items": [
+      { "question": "Does this page remove a video watermark today?", "answer": "No. It previews the planned video interface; production removal is not connected." },
+      { "question": "Is a selected video uploaded?", "answer": "No. The file remains local and the preview does not request storage credentials or create a job." },
+      { "question": "What can the current live processor handle?", "answer": "The existing live workflow accepts authorized JPG, PNG, or WebP images and currently returns an unchanged preview copy." }
+    ]
+  }
+}

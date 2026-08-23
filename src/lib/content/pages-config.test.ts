@@ -247,6 +247,8 @@ describe('Pages CMS maintenance safeguards', () => {
     const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
     const process = landingPages?.fields.find((field) => field.name === 'process');
     const faq = landingPages?.fields.find((field) => field.name === 'faq');
+    const workspaceMode = landingPages?.fields.find((field) => field.name === 'workspaceMode');
+    const workspace = landingPages?.fields.find((field) => field.name === 'workspace');
 
     expect(process).toMatchObject({ name: 'process', type: 'object' });
     expect(process?.fields).toEqual(expect.arrayContaining([
@@ -259,6 +261,12 @@ describe('Pages CMS maintenance safeguards', () => {
       expect.objectContaining({ name: 'eyebrow', type: 'string' }),
       expect.objectContaining({ name: 'heading', type: 'string' }),
       expect.objectContaining({ name: 'items', type: 'object' }),
+    ]));
+    expect(workspaceMode).toMatchObject({ type: 'select' });
+    expect(workspace?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'heading', type: 'string' }),
+      expect.objectContaining({ name: 'actionLabel', type: 'string' }),
+      expect.objectContaining({ name: 'previewNote', type: 'text' }),
     ]));
   });
 

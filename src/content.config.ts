@@ -125,6 +125,19 @@ const landingPages = defineCollection({
     heading: z.string().min(1),
     intro: z.string().min(1),
     benefits: z.array(z.string().min(1)).min(1),
+    workspaceMode: z.enum(['image-upload', 'video-preview', 'prompt-preview']).default('image-upload'),
+    workspace: z.object({
+      eyebrow: z.string().default(''),
+      heading: z.string().default(''),
+      inputLabel: z.string().default(''),
+      inputHelp: z.string().default(''),
+      placeholder: z.string().default(''),
+      options: z.array(z.string().min(1)).default([]),
+      actionLabel: z.string().default(''),
+      previewNote: z.string().default(''),
+    }).default({
+      eyebrow: '', heading: '', inputLabel: '', inputHelp: '', placeholder: '', options: [], actionLabel: '', previewNote: '',
+    }),
     finalCta: z.object({
       heading: z.string().default(''),
       label: z.string().default(''),
