@@ -379,6 +379,17 @@ img { display: block; max-width: 100%; }
 .page-marketing .product-workspace .upload-icon { color: var(--marketing-lime); background: #111; }
 .page-marketing .product-workspace .button { border-radius: 0; }
 .page-marketing .product-workspace .button-primary { background: #181913; }
+.preview-workspace-card { display: grid; }
+.preview-workspace-heading { margin-bottom: 18px; position: relative; }
+.preview-workspace-heading h2 { max-width: 85%; margin: 5px 0 0; font-size: 1.7rem; line-height: 1.12; font-weight: 520; }
+.preview-workspace-heading .demo-badge { position: absolute; top: 0; right: 0; }
+.preview-drop-zone { min-height: 285px; }
+.preview-prompt { width: 100%; min-height: 285px; padding: 22px; resize: vertical; border: 1px solid #c9c7be; color: #181913; background: #eceae1; font: 1rem/1.55 "Geist", sans-serif; }
+.preview-options { margin: 14px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.preview-options span { padding: 8px 12px; border: 1px solid #cfcdc4; background: #fff; font-size: .78rem; }
+.preview-workspace-action { width: 100%; min-height: 52px; border: 0; color: #fff; background: #181913; font: inherit; font-weight: 780; cursor: pointer; }
+.preview-workspace-action:disabled { opacity: .45; cursor: not-allowed; }
+.workspace-preview-note { margin: 14px 0 0; color: #5e6662; font-size: .74rem; text-align: center; }
 .product-how { padding: 110px 7vw; color: #171812; background: var(--marketing-paper); text-align: center; }
 .product-how .section-heading h2 { font-size: clamp(2.8rem, 5vw, 4.3rem); }
 .product-how .steps { max-width: 1100px; margin: auto; gap: 15px; text-align: left; }

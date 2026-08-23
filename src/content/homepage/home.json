@@ -31,23 +31,23 @@
     },
     {
       "icon": "▶",
-      "badge": "CLEAN",
-      "title": "Seedance Video Watermark Remover",
-      "description": "Remove watermarks from Seedance videos for a clean look.",
-      "href": "/seedance-video-watermark-remove",
-      "linkLabel": "Remove watermark",
-      "image": "/uploads/seedances-tool-remover.png",
-      "imageAlt": "Seedance watermark removal preview"
-    },
-    {
-      "icon": "▶",
       "badge": "CREATE",
       "title": "Seedance 2.0/2.5 AI Generated​",
       "description": "Create stunning AI videos with Seedance 2.0/2.5 in seconds.",
-      "href": "#",
+      "href": "/seedance-ai-generated",
       "linkLabel": "Generate video",
       "image": "/uploads/seedances-tool-generator.png",
       "imageAlt": "Seedance AI generated video preview"
+    },
+    {
+      "icon": "▶",
+      "badge": "CLEAN",
+      "title": "Seedance Video Watermark Remover",
+      "description": "Remove watermarks from Seedance videos for a clean look.",
+      "href": "/seedance-watermark-remover",
+      "linkLabel": "Remove watermark",
+      "image": "/uploads/seedances-tool-remover.png",
+      "imageAlt": "Seedance watermark removal preview"
     }
   ],
   "process": {

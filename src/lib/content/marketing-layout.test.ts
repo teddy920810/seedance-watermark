@@ -18,6 +18,8 @@ describe('marketing page structure', () => {
     expect(landingSource).toContain('client:load');
     expect(landingSource).toContain('product-workspace');
     expect(landingSource).toContain('final-cta');
+    expect(landingSource).toContain("import PreviewToolWorkspace");
+    expect(landingSource).toContain("page.workspaceMode === 'image-upload'");
   });
 
   it('supports a marketing visual treatment without forcing it on editorial pages', () => {

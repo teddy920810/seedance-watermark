@@ -1118,6 +1118,48 @@ content:
         list:
           min: 1
         description: 每一项会显示为列表条目，不属于标题层级。
+      - name: workspaceMode
+        label: 工具工作区类型 / Workspace mode
+        type: select
+        default: image-upload
+        description: 已接通的图片流程使用真实上传；视频和生成器页面使用不联网的预览工作区，不会伪造处理结果。
+        options:
+          values:
+            - { name: image-upload, label: 真实图片上传 / Live image upload }
+            - { name: video-preview, label: 视频工具预览 / Video preview }
+            - { name: prompt-preview, label: 文生视频预览 / Prompt preview }
+      - name: workspace
+        label: 预览工作区文案 / Preview workspace
+        type: object
+        description: 仅供 video-preview 和 prompt-preview 使用；所有操作仅停留在浏览器本地。
+        fields:
+          - name: eyebrow
+            label: 工作区小标题｜SPAN
+            type: string
+          - name: heading
+            label: 工作区标题｜H2
+            type: string
+          - name: inputLabel
+            label: 输入区标签
+            type: string
+          - name: inputHelp
+            label: 上传辅助说明
+            type: string
+          - name: placeholder
+            label: Prompt 占位文字
+            type: text
+          - name: options
+            label: 选项标签
+            type: string
+            list:
+              collapsible:
+                collapsed: true
+          - name: actionLabel
+            label: 预览按钮文字｜BUTTON
+            type: string
+          - name: previewNote
+            label: 未接通能力说明｜P
+            type: text
       - name: finalCta
         label: 底部行动按钮 / Final CTA
         type: object

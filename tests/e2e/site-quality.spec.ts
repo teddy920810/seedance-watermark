@@ -49,6 +49,15 @@ test('homepage is a static tool directory while landing pages own the workspace'
   await expect(page.locator('#tool astro-island')).toBeVisible();
 });
 
+test('homepage tool cards open the three operations tool pages', async ({ page, request }) => {
+  const routes = ['/seedance-video-upscale', '/seedance-ai-generated', '/seedance-watermark-remover'];
+  await page.goto('/');
+  for (const route of routes) {
+    await expect(page.locator(`.tool-showcase-grid a[href="${route}"]`)).toBeVisible();
+    expect((await request.get(route)).ok(), `${route} should be published`).toBeTruthy();
+  }
+});
+
 test('mobile visitors can open navigation while invalid editorial links stay hidden', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -59,7 +68,10 @@ test('mobile visitors can open navigation while invalid editorial links stay hid
 
   await expect(page.locator('#site-navigation')).toBeVisible();
   await expect(page.locator('#site-navigation a', { hasText: 'Topics' })).toBeVisible();
-  await expect(page.locator('#site-navigation', { hasText: 'Seedance 2.0/2.5 Video upscale' })).toHaveCount(0);
+  await page.getByRole('button', { name: /AI Tools/ }).click();
+  for (const route of ['/seedance-video-upscale', '/seedance-ai-generated', '/seedance-watermark-remover']) {
+    await expect(page.locator(`#site-navigation a[href="${route}"]`)).toBeVisible();
+  }
   await expect(page.locator('#site-navigation', { hasText: 'How it works' })).toHaveCount(0);
 });
 

@@ -79,8 +79,12 @@
             "href": "/seedance-video-upscale"
           },
           {
+            "label": "Seedance 2.0/2.5 AI Generated",
+            "href": "/seedance-ai-generated"
+          },
+          {
             "label": "Seedance Video Watermark Remover",
-            "href": "/seedance-video-watermark-remove"
+            "href": "/seedance-watermark-remover"
           }
         ]
       },

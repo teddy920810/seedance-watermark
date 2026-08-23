@@ -1,5 +1,6 @@
 ---
 import ImageUploader from './uploader/ImageUploader';
+import PreviewToolWorkspace from './tools/PreviewToolWorkspace';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
@@ -44,7 +45,11 @@ const faqSchema = visibleFaqItems.length > 0 ? {
       <p>{page.intro}</p>
       <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
     </div>
-    <div id="tool" class="product-workspace"><ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load /></div>
+    <div id="tool" class="product-workspace">
+      {page.workspaceMode === 'image-upload'
+        ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
+        : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
+    </div>
   </section>
 
   <section class="product-how" id="how-it-works">
