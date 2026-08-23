@@ -125,6 +125,10 @@ const landingPages = defineCollection({
     heading: z.string().min(1),
     intro: z.string().min(1),
     benefits: z.array(z.string().min(1)).min(1),
+    finalCta: z.object({
+      heading: z.string().default(''),
+      label: z.string().default(''),
+    }).default({ heading: '', label: '' }),
     process: landingProcessSchema,
     featuresSource: z.enum(['shared', 'custom']).optional(),
     features: landingFeaturesSchema.optional(),

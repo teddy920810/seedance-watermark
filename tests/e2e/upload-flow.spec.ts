@@ -41,7 +41,7 @@ test('uploads, processes, and exposes a download through the UI', async ({ page 
     }),
   }));
 
-  await page.goto('/');
+  await page.goto('/remove-seedance-watermark');
   await chooseTestImage(page);
   await page.locator('#tool .preview-panel .button-primary').click();
 
@@ -61,7 +61,7 @@ test('shows a safe message when the upload service is unavailable', async ({ pag
     body: JSON.stringify({ error: 'Upload service is temporarily unavailable.' }),
   }));
 
-  await page.goto('/');
+  await page.goto('/remove-seedance-watermark');
   await chooseTestImage(page);
   await page.locator('#tool .preview-panel .button-primary').click();
 
@@ -82,7 +82,7 @@ test('keeps selection anonymous and asks for Google sign-in only when processing
     return route.abort();
   });
 
-  await page.goto('/');
+  await page.goto('/remove-seedance-watermark');
   await expect(page.getByRole('button', { name: 'Sign in with Google' })).toBeVisible();
   await chooseTestImage(page);
   await page.locator('#tool .preview-panel .button-primary').click();

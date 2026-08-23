@@ -36,18 +36,18 @@ const faqSchema = visibleFaqItems.length > 0 ? {
 } : undefined;
 ---
 
-<SiteLayout title={page.title} description={page.description} schema={faqSchema}>
-  <section class="hero compact-hero">
+<SiteLayout title={page.title} description={page.description} schema={faqSchema} variant="marketing">
+  <section class="product-hero">
     <div class="hero-copy">
       <span class="eyebrow">{page.eyebrow}</span>
       <h1>{page.heading}</h1>
       <p>{page.intro}</p>
       <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
     </div>
-    <div id="tool" class="hero-tool"><ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load /></div>
+    <div id="tool" class="product-workspace"><ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load /></div>
   </section>
 
-  <section class="section process-section" id="how-it-works">
+  <section class="product-how" id="how-it-works">
     <div class="section-heading"><span class="eyebrow">{page.process.eyebrow}</span><h2>{page.process.heading}</h2></div>
     <div class="steps">
       {processSteps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
@@ -66,8 +66,12 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     </section>
   ) : null}
 
-  {visibleFaqItems.length > 0 && <section class="section faq-section">
+  {visibleFaqItems.length > 0 && <section class="section faq-section product-faq">
     <div class="section-heading"><span class="eyebrow">{page.faq.eyebrow}</span><h2>{page.faq.heading}</h2></div>
     <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
   </section>}
+  <section class="final-cta">
+    <h2>{page.finalCta.heading || page.heading}</h2>
+    <a class="marketing-button" href="#tool">{page.finalCta.label || 'Start now'} <span aria-hidden="true">→</span></a>
+  </section>
 </SiteLayout>
