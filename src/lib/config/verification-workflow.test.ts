@@ -62,18 +62,18 @@ describe('tiered verification workflow', () => {
     const base = run(repository, 'git', ['rev-parse', 'HEAD']).stdout.trim();
 
     writeFileSync(join(repository, 'article.md'), 'Safe editorial copy.\n');
-    const ordinaryResult = run(repository, process.execPath, [fileURLToPath(auditScript)]);
+    const ordinaryResult = run(repository, process.execPath, [fileURLToPath(auditScript)], { RELEASE_BASE: '' });
     expect(ordinaryResult.status, ordinaryResult.stderr).toBe(0);
     rmSync(join(repository, 'article.md'));
 
     writeFileSync(join(repository, '.env.local'), 'SAFE_PLACEHOLDER=true\n');
-    const sensitivePathResult = run(repository, process.execPath, [fileURLToPath(auditScript)]);
+    const sensitivePathResult = run(repository, process.execPath, [fileURLToPath(auditScript)], { RELEASE_BASE: '' });
     expect(sensitivePathResult.status).not.toBe(0);
     expect(sensitivePathResult.stderr).toContain('.env.local');
     rmSync(join(repository, '.env.local'));
 
     writeFileSync(join(repository, 'notes.txt'), ['-----BEGIN ', 'PRIVATE KEY-----\nnot-a-real-key\n'].join(''));
-    const secretMaterialResult = run(repository, process.execPath, [fileURLToPath(auditScript)]);
+    const secretMaterialResult = run(repository, process.execPath, [fileURLToPath(auditScript)], { RELEASE_BASE: '' });
     expect(secretMaterialResult.status).not.toBe(0);
     expect(secretMaterialResult.stderr).toContain('potential secret material');
 
