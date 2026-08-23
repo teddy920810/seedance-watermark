@@ -1,20 +1,16 @@
 ---
-import ImageUploader from '../components/uploader/ImageUploader';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection } from 'astro:content';
 import { sortBlogEntries } from '../lib/content/entries';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
-import { isCompleteFaq, isCompleteFeature, isCompleteStep, visibleItems } from '../lib/content/item-visibility';
+import { isCompleteFaq, isCompleteFeature, visibleItems } from '../lib/content/item-visibility';
 import { isUsableEditorialHref } from '../lib/content/site-settings';
 import { publicAssetAvailable } from '../lib/content/public-asset';
 
 export const prerender = true;
 const [homepage] = await getCollection('homepage');
 if (!homepage) throw new Error('Homepage CMS content is missing.');
-const [siteEntry] = await getCollection('siteSettings');
-if (!siteEntry) throw new Error('Site settings CMS content is missing.');
 const home = homepage.data;
-const site = siteEntry.data;
 const [allBlogPosts, landingPages] = await Promise.all([getCollection('blog'), getCollection('landingPages')]);
 const blogPosts = sortBlogEntries(allBlogPosts).slice(0, 2);
 const publicRoutes = new Set([
@@ -22,16 +18,19 @@ const publicRoutes = new Set([
   ...landingPages.map(({ data }) => `/${data.slug}`),
   ...allBlogPosts.map(({ data }) => `/blog/${data.slug}`),
 ]);
-const useCases = visibleItems(home.useCases, (item) => Boolean(
-  item.title.trim() && item.description.trim() && isUsableEditorialHref(item.href, publicRoutes),
-));
+const useCases = visibleItems(home.useCases, (item) => Boolean(item.title.trim() && item.description.trim())).map((item) => ({
+  ...item,
+  usableHref: item.href.trim() !== '#' && isUsableEditorialHref(item.href, publicRoutes) ? item.href : '',
+  showImage: publicAssetAvailable(item.image),
+}));
 const featureItems = visibleItems(home.features.items, isCompleteFeature).map((item) => ({
   ...item,
   copy: splitFeatureCopy(item.description, item.listItems),
   showImage: publicAssetAvailable(item.image),
 }));
 const visibleFaqItems = visibleItems(home.faq.items, isCompleteFaq);
-const processSteps = visibleItems(home.process.steps, isCompleteStep);
+const heroCtaHref = isUsableEditorialHref(home.hero.ctaHref, publicRoutes) ? home.hero.ctaHref : '#tools';
+const showHeroImage = publicAssetAvailable(home.hero.image);
 const faqSchema = visibleFaqItems.length > 0 ? {
   '@type': 'FAQPage',
   mainEntity: visibleFaqItems.map((item) => ({
@@ -42,25 +41,26 @@ const faqSchema = visibleFaqItems.length > 0 ? {
 } : undefined;
 ---
 
-<SiteLayout title={home.title} description={home.description} image={home.shareImage} schema={faqSchema}>
-  <section class="hero home-hero">
+<SiteLayout title={home.title} description={home.description} image={home.shareImage} schema={faqSchema} variant="marketing" structuredDataType="WebSite">
+  <section class="home-hero">
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-copy">
       <span class="eyebrow">{home.hero.eyebrow}</span>
       <h1>{home.hero.heading}<br /><em>{home.hero.highlightedHeading}</em></h1>
       <p>{home.hero.intro}</p>
+      {home.hero.ctaLabel && <a class="marketing-button" href={heroCtaHref}>{home.hero.ctaLabel}<span aria-hidden="true">→</span></a>}
       <div class="trust-row">{home.hero.trustItems.map((item) => <span>{item}</span>)}</div>
     </div>
-    <div id="tool" class="hero-tool"><ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load /></div>
+    {showHeroImage && <div class="home-hero-visual"><img src={home.hero.image} alt={home.hero.imageAlt} fetchpriority="high" /><span>{home.hero.imageBadge}</span></div>}
   </section>
 
-  <section class="use-cases" aria-label="Popular tools">
-    {useCases.map((item) => <a href={item.href}><span class="case-icon">{item.icon}</span><span><strong>{item.title}</strong><small>{item.description}</small></span><b>→</b></a>)}
-  </section>
-
-  <section class="section process-section" id="how-it-works">
-    <div class="section-heading"><span class="eyebrow">{home.process.eyebrow}</span><h2>{home.process.heading}</h2><p>{home.process.intro}</p></div>
-    <div class="steps">
-      {processSteps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
+  <section class="home-tools" id="tools" aria-labelledby="tools-heading">
+    <div class="marketing-heading"><span class="eyebrow">Three tools. One flow.</span><h2 id="tools-heading">Everything your video needs.</h2><p>{home.features.intro}</p></div>
+    <div class="tool-showcase-grid">
+      {useCases.map((item) => <article>
+        {item.showImage && <div class="tool-showcase-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /><span>{item.badge || item.icon}</span></div>}
+        <div class="tool-showcase-copy"><h3>{item.title}</h3><p>{item.description}</p>{item.usableHref ? <a href={item.usableHref}>{item.linkLabel || 'Explore tool'} <span aria-hidden="true">→</span></a> : <span class="tool-coming-soon">Coming soon</span>}</div>
+      </article>)}
     </div>
   </section>
 
@@ -75,17 +75,17 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     </div>
   </section>}
 
-  <section class="section standards-section">
+  <section class="home-why">
     <div><span class="eyebrow">{home.privacy.eyebrow}</span><h2>{home.privacy.heading}</h2><p>{home.privacy.description}</p><a class="text-link" href={home.privacy.linkHref}>{home.privacy.linkLabel}</a></div>
     <div class="standards-card">{home.privacy.features.map((feature) => <div><span>{feature.icon}</span><strong>{feature.title}</strong><small>{feature.description}</small></div>)}</div>
   </section>
 
-  <section class="section guides-section">
+  <section class="section guides-section marketing-paper-section">
     <div class="section-heading row-heading"><div><span class="eyebrow">{home.guides.eyebrow}</span><h2>{home.guides.heading}</h2></div><a class="text-link" href={home.guides.linkHref}>{home.guides.linkLabel}</a></div>
     <div class="guide-grid">{blogPosts.map(({ data: post }) => <article><span>{post.readTime}</span><h3><a href={`/blog/${post.slug}`}>{post.title}</a></h3><p>{post.description}</p><a class="text-link" href={`/blog/${post.slug}`}>{home.guides.articleLinkLabel}</a></article>)}</div>
   </section>
 
-  {visibleFaqItems.length > 0 && <section class="section faq-section home-faq-section" aria-labelledby="faq-heading">
+  {visibleFaqItems.length > 0 && <section class="section faq-section home-faq-section marketing-paper-section" aria-labelledby="faq-heading">
     <div class="section-heading"><span class="eyebrow">{home.faq.eyebrow}</span><h2 id="faq-heading">{home.faq.heading}</h2><p>{home.faq.intro}</p></div>
     <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
   </section>}

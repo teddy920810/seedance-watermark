@@ -11,6 +11,8 @@ interface Props {
   type?: 'website' | 'article';
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
   noindex?: boolean;
+  variant?: 'marketing' | 'editorial';
+  structuredDataType?: 'WebSite' | 'WebApplication';
 }
 
 const [siteEntry] = await getCollection('siteSettings');
@@ -34,22 +36,26 @@ const {
   type = 'website',
   schema,
   noindex = false,
+  variant = 'editorial',
+  structuredDataType = variant === 'marketing' ? 'WebApplication' : 'WebSite',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(image, Astro.site);
 const analyticsId = site.analytics.googleMeasurementId;
 const defaultSchema = {
-  '@type': 'WebApplication',
+  '@type': structuredDataType,
   name: site.name,
-  applicationCategory: site.structuredData.applicationCategory,
-  operatingSystem: site.structuredData.operatingSystem,
   url: canonical.toString(),
   description,
-  offers: {
-    '@type': 'Offer',
-    price: site.structuredData.price,
-    priceCurrency: site.structuredData.priceCurrency,
-  },
+  ...(structuredDataType === 'WebApplication' ? {
+    applicationCategory: site.structuredData.applicationCategory,
+    operatingSystem: site.structuredData.operatingSystem,
+    offers: {
+      '@type': 'Offer',
+      price: site.structuredData.price,
+      priceCurrency: site.structuredData.priceCurrency,
+    },
+  } : {}),
 };
 const schemas = [defaultSchema, ...(schema ? (Array.isArray(schema) ? schema : [schema]) : [])];
 ---
@@ -87,7 +93,7 @@ const schemas = [defaultSchema, ...(schema ? (Array.isArray(schema) ? schema : [
     <link rel="icon" href={site.favicon} />
     {schemas.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...item })} />)}
   </head>
-  <body style={`--theme-color: ${site.themeColor}; --theme-color-fallback: ${site.themeColorFallback};`}>
+  <body class={`page-${variant}`} style={`--theme-color: ${site.themeColor}; --theme-color-fallback: ${site.themeColorFallback};`}>
     {site.announcement.enabled && (
       <aside class="site-announcement" aria-label="Site announcement">
         <span>{site.announcement.text}</span>

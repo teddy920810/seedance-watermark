@@ -39,6 +39,16 @@ test('critical public routes and SEO files are available', async ({ page, reques
   expect(sitemap).not.toContain('sitemap-index.xml');
 });
 
+test('homepage is a static tool directory while landing pages own the workspace', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#tool')).toHaveCount(0);
+  await expect(page.locator('#tool astro-island')).toHaveCount(0);
+  await expect(page.locator('.tool-showcase-grid')).toBeVisible();
+
+  await page.goto(`/${sharedLanding.slug}`);
+  await expect(page.locator('#tool astro-island')).toBeVisible();
+});
+
 test('mobile visitors can open navigation while invalid editorial links stay hidden', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

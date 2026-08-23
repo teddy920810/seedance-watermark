@@ -1,10 +1,15 @@
 import { z } from 'zod';
 
 const linkedCardSchema = z.object({
+  enabled: z.boolean().default(true),
   icon: z.string().default(''),
+  badge: z.string().default(''),
   title: z.string().default(''),
   description: z.string().default(''),
   href: z.string().default(''),
+  linkLabel: z.string().default(''),
+  image: z.string().default(''),
+  imageAlt: z.string().default(''),
 });
 
 const stepSchema = z.object({
@@ -46,6 +51,11 @@ export const homepageSchema = z.object({
     highlightedHeading: z.string().min(1),
     intro: z.string().min(1),
     trustItems: z.array(z.string().min(1)).min(1),
+    ctaLabel: z.string().default(''),
+    ctaHref: z.string().default(''),
+    image: z.string().default(''),
+    imageAlt: z.string().default(''),
+    imageBadge: z.string().default(''),
   }),
   useCases: z.array(linkedCardSchema).min(1),
   process: z.object({

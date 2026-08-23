@@ -161,6 +161,19 @@ describe('Pages CMS maintenance safeguards', () => {
         expect.objectContaining({ name: 'faq', type: 'object' }),
       ]),
     );
+    const hero = homepage?.fields.find((field) => field.name === 'hero');
+    expect(hero?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'image', type: 'image', options: { media: 'images' } }),
+      expect.objectContaining({ name: 'imageAlt', type: 'string' }),
+      expect.objectContaining({ name: 'ctaLabel', type: 'string' }),
+      expect.objectContaining({ name: 'ctaHref', type: 'string' }),
+    ]));
+    const useCases = homepage?.fields.find((field) => field.name === 'useCases');
+    expect(useCases?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'image', type: 'image', options: { media: 'images' } }),
+      expect.objectContaining({ name: 'badge', type: 'string' }),
+      expect.objectContaining({ name: 'linkLabel', type: 'string' }),
+    ]));
   });
 
   it('exposes shared header and footer settings as a single editable file', () => {

@@ -646,6 +646,25 @@ content:
             list:
               min: 1
             description: Hero 下方的短标签，不属于标题层级。
+          - name: ctaLabel
+            label: Hero 按钮文字｜A
+            type: string
+            description: 首页主按钮文字；留空时不显示按钮。
+          - name: ctaHref
+            label: Hero 按钮链接｜HREF
+            type: string
+            description: 可填写站内页面或 #tools 等当前页锚点；无效站内链接会安全回退到工具区。
+          - name: image
+            label: Hero 视觉图片｜IMG
+            type: image
+            options:
+              media: images
+          - name: imageAlt
+            label: Hero 图片替代文字｜IMG ALT
+            type: string
+          - name: imageBadge
+            label: Hero 图片标签｜SPAN
+            type: string
       - name: useCases
         label: 常用工具入口
         type: object
@@ -655,11 +674,20 @@ content:
             collapsed: true
             summary: "{title}"
         fields:
+          - name: enabled
+            label: 显示此工具 / Visible
+            type: boolean
+            default: true
+            description: 关闭后保留内容但不在首页展示。
           - name: icon
             label: 图标字符｜SPAN
             type: string
             required: true
             description: 入口卡片的装饰性图标字符。
+          - name: badge
+            label: 工具分类标签｜SPAN
+            type: string
+            description: 例如 RESTORE、CREATE、CLEAN。
           - name: title
             label: 入口标题｜STRONG
             type: string
@@ -675,6 +703,18 @@ content:
             type: string
             required: true
             description: 点击整个工具入口后打开的页面地址。
+          - name: linkLabel
+            label: 工具按钮文字｜A
+            type: string
+            description: 有效链接显示此按钮；无效链接会显示 Coming soon，不阻塞提交。
+          - name: image
+            label: 工具卡片图片｜IMG
+            type: image
+            options:
+              media: images
+          - name: imageAlt
+            label: 工具图片替代文字｜IMG ALT
+            type: string
       - name: process
         label: 使用步骤
         type: object
@@ -1078,6 +1118,17 @@ content:
         list:
           min: 1
         description: 每一项会显示为列表条目，不属于标题层级。
+      - name: finalCta
+        label: 底部行动按钮 / Final CTA
+        type: object
+        description: 留空时自动复用页面 H1，并显示默认 Start now 按钮。
+        fields:
+          - name: heading
+            label: CTA 标题｜H2
+            type: string
+          - name: label
+            label: CTA 按钮文字｜A
+            type: string
       - name: process
         label: 使用步骤
         type: object
