@@ -23,8 +23,12 @@
     "r2:import": "node scripts/import-r2-credentials.mjs",
     "site:init": "node scripts/initialize-site.mjs",
     "site:validate": "node scripts/validate-site.mjs",
+    "check:content": "npm run site:validate && vitest run src/lib/content",
+    "check:ui": "playwright test tests/e2e/visual-sampling.spec.ts",
+    "check:fast": "npm run site:validate && npm test",
     "verify:deploy": "npm run site:validate && npm run test:coverage && npm run lint && npm run build",
-    "verify": "npm run test:coverage && npm run lint && npm run build && npm run test:e2e"
+    "verify": "npm run test:coverage && npm run lint && npm run build && npm run test:e2e",
+    "release:verify": "npm run site:validate && npm run verify && node scripts/release-audit.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

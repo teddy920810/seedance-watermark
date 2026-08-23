@@ -59,12 +59,19 @@ Astro 负责内容路由和服务端 API；React 只用于上传交互岛。浏�
 若需求或当前上下文没有明确说明最终目标，必须先询问需求方选择哪一种；已明确说明时无需重复询问。
 
 ```sh
+npm run check:content # 内容、SEO、素材引用
+npm run check:ui      # 代表页面的真实浏览器抽查
+npm run check:fast    # Site 校验 + 单元测试
 npm test
 npm run lint
 npm run build
 # 或一次执行全部：
 npm run verify
+# 合并 main 前：
+npm run release:verify
 ```
+
+本地实现阶段根据改动范围选择最小充分验证，不需要每次保存都运行完整套件；准备交付或合并 `main` 时，`npm run verify` 与发布审计仍是硬门禁。所有新增或修改路由必须逐一验证，只有共享组件、共享 CSS 的未修改使用方可以采用风险抽样。抽样至少包含结构最复杂页面、一个历史页面、桌面端和移动端；发现一个问题后，扩大到完整受影响页面集合。
 
 Pages CMS 可能随时提交到 `main`。推送前执行 `git fetch origin main` 并检查分歧；如远端领先，先安全 rebase/merge，禁止 force push。合并到 `main` 后 Vercel 自动发布。
 

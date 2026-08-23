@@ -7,7 +7,9 @@
 - Keep watermark processing behind the `WatermarkProvider` interface.
 - Do not commit `S3-info.txt`, `.env`, or `.env.*` files.
 - Write or update tests before implementing behavior changes.
+- During implementation, select `check:content`, `check:ui`, or `check:fast` from the changed surface instead of repeatedly running the full suite. All new or changed routes must still be checked; representative sampling applies only to unchanged consumers of shared code or CSS.
 - Before handing off changes, run `npm run verify`; it includes coverage, lint, build, and browser E2E.
+- Before a `main` release, run `npm run release:verify`; expand any failed sample to the complete affected route set. CI and production checks remain mandatory release gates.
 - Run `npm run test:smoke:production` after production environment, domain, R2, CORS, or deployment changes. It writes temporary objects to the real bucket, so do not run it speculatively or in a loop.
 
 ## Project startup

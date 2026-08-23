@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -24,7 +26,9 @@ jobs:
       - run: npm ci
       - run: npm audit --audit-level=high
       - run: npx playwright install --with-deps chromium
-      - run: npm run verify
+      - run: npm run release:verify
+        env:
+          RELEASE_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
       - name: Upload browser diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
