@@ -32,7 +32,7 @@ describe('operations Word blog batch', () => {
     expect(existsSync(articlePath)).toBe(true);
     expect(existsSync(coverPath)).toBe(true);
 
-    const article = readFileSync(articlePath, 'utf8');
+    const article = readFileSync(articlePath, 'utf8').replaceAll('\r\n', '\n');
     expect(article).toContain(`slug: ${slug}`);
     expect(article).toContain(`title: "${title}"`);
     expect(article).toContain('publishedAt: 2026-08-23');

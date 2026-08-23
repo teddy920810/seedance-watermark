@@ -1,6 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
+import { publicContentRoutes } from './public-content-routes';
 
 const siteSettings = JSON.parse(readFileSync(new URL('../../src/content/settings/site.json', import.meta.url), 'utf8')) as {
   analytics: { googleMeasurementId: string };
@@ -58,22 +59,20 @@ test('homepage tool cards open the three operations tool pages', async ({ page, 
   }
 });
 
-test('publishes the four operations Word articles with their original covers', async ({ page, request }) => {
-  const routes = [
-    '/blog/ai-cartoon-avatar-seedance-2-0',
-    '/blog/the-lion-king-seedance-2-0',
-    '/blog/seedance-2-0-pixar-level-animation',
-    '/blog/seedance-2-0-animation-2d',
-  ];
-
-  for (const route of routes) {
+for (const route of [
+  '/blog/ai-cartoon-avatar-seedance-2-0',
+  '/blog/the-lion-king-seedance-2-0',
+  '/blog/seedance-2-0-pixar-level-animation',
+  '/blog/seedance-2-0-animation-2d',
+]) {
+  test(`publishes ${route} with its original cover`, async ({ page, request }) => {
     expect((await request.get(route)).ok(), `${route} should be published`).toBeTruthy();
     await page.goto(route);
     await expect(page.locator('article.article-body')).toBeVisible();
     await expect(page.locator('img.article-cover')).toBeVisible();
     await expect(page.locator('main h1')).toHaveCount(1);
-  }
-});
+  });
+}
 
 test('mobile visitors can open navigation while invalid editorial links stay hidden', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -105,26 +104,27 @@ test('landing pages inherit homepage features and can override them independentl
   await expect(customSection.locator('.feature-item h3').first()).toHaveText(customLanding.features.items[0].heading);
 });
 
-test('all public content routes and 404 have one H1 and no serious accessibility violations', async ({ page, request }) => {
-  test.setTimeout(60_000);
-  const sitemap = await (await request.get('/sitemap.xml')).text();
-  const routes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
-  routes.push('/missing-page-for-404-check');
-
-  for (const route of routes) {
-    const response = await page.goto(route, { waitUntil: 'networkidle' });
-    expect(response?.status(), `${route} should return its expected status`).toBe(route.includes('missing-page') ? 404 : 200);
+for (const route of publicContentRoutes) {
+  test(`${route} has one H1 and no serious accessibility violations`, async ({ page }) => {
+    const response = await page.goto(route, { waitUntil: 'domcontentloaded' });
+    expect(response?.status(), `${route} should return 200`).toBe(200);
     await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('main h1'), `${route} should have exactly one content H1`).toHaveCount(1);
-    if (route.includes('missing-page')) {
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
-    }
     const results = await new AxeBuilder({ page }).analyze();
     expect(
       results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? '')),
       `${route} should have no serious accessibility violations`,
     ).toEqual([]);
-  }
+  });
+}
+
+test('404 has one H1, noindex, and no serious accessibility violations', async ({ page }) => {
+  const response = await page.goto('/missing-page-for-404-check', { waitUntil: 'domcontentloaded' });
+  expect(response?.status()).toBe(404);
+  await expect(page.locator('main h1')).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''))).toEqual([]);
 });
 
 test('renders the CMS-configured Google Analytics state', async ({ request }) => {

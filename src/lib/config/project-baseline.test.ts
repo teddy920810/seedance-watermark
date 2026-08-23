@@ -23,8 +23,12 @@ describe('project baseline configuration', () => {
 
   it('audits every public sitemap route and the 404 page for accessibility and heading structure', () => {
     const e2e = readProjectFile('tests/e2e/site-quality.spec.ts');
+    const routes = readProjectFile('tests/e2e/public-content-routes.ts');
     expect(e2e).toContain("request.get('/sitemap.xml')");
-    expect(e2e).toContain("routes.push('/missing-page-for-404-check')");
+    expect(e2e).toContain('for (const route of publicContentRoutes)');
+    expect(e2e).toContain("page.goto('/missing-page-for-404-check'");
+    expect(routes).toContain("readdirSync(blogDirectory)");
+    expect(routes).toContain("readdirSync(landingDirectory)");
     expect(e2e).toContain("page.locator('main h1')");
     expect(e2e).toContain('new AxeBuilder({ page }).analyze()');
   });

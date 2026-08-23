@@ -60,9 +60,15 @@ Google 登录需要 `GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`、`BETTER_AUTH_S
 行为或配置变化遵循 TDD。提交前运行：
 
 ```sh
+npm run check:content # 内容、SEO、素材或 Blog 本地迭代
+npm run check:ui      # 公共视觉改动的代表页面抽查
+npm run check:fast    # 开发中快速回归
 npm run site:validate
 npm run verify
+npm run release:verify # 合并 main 前的完整门禁与敏感文件审计
 ```
+
+开发中按改动风险选择定向命令，避免反复执行完整套件；合并 `main` 前仍必须执行完整发布门禁。所有新增或修改的路由逐一检查，共享样式和组件的未修改使用方按“复杂页面 + 历史页面 + 桌面端 + 移动端”抽查，任一抽查失败即扩大到全部受影响页面。
 
 生产域名、R2、CORS 或 Vercel 环境变量变化后，部署完成再运行 `npm run test:smoke:production`。该命令会向真实 Bucket 写入临时测试对象，不要试探性反复执行。
 
