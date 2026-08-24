@@ -36,7 +36,7 @@ describe('project baseline configuration', () => {
   it('isolates Playwright from local development servers', () => {
     const playwright = readProjectFile('playwright.config.ts');
     expect(playwright).toContain("baseURL: 'http://127.0.0.1:4323'");
-    expect(playwright).toContain("command: 'npx astro dev --host 127.0.0.1 --port 4323'");
+    expect(playwright).toContain("command: 'npm run images:generate --silent && npx astro dev --host 127.0.0.1 --port 4323'");
     expect(playwright).toContain("url: 'http://127.0.0.1:4323'");
     expect(playwright).toContain('reuseExistingServer: false');
     expect(playwright).not.toContain('reuseExistingServer: true');

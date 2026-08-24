@@ -39,6 +39,10 @@ describe('tiered verification workflow', () => {
     expect(packageJson.scripts['check:ui']).toBe('playwright test tests/e2e/visual-sampling.spec.ts');
     expect(packageJson.scripts['check:fast']).toBe('npm run site:validate && npm test');
     expect(packageJson.scripts['release:verify']).toBe('npm run site:validate && npm run verify && node scripts/release-audit.mjs');
+    expect(packageJson.scripts['images:generate']).toBe('node scripts/responsive-images.mjs');
+    expect(packageJson.scripts['images:verify']).toBe('node scripts/responsive-images.mjs --verify');
+    expect(packageJson.scripts.build).toContain('npm run images:generate');
+    expect(packageJson.scripts.build).toContain('npm run images:verify');
   });
 
   it('documents risk-based sampling without weakening the main release gate', () => {

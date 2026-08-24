@@ -15,7 +15,8 @@ describe('blog content mode', () => {
 
   it('renders trusted HTML only when HTML mode is selected', () => {
     expect(blogPageSource).toContain("post.data.contentMode === 'html'");
-    expect(blogPageSource).toContain('set:html={post.data.bodyHtml}');
+    expect(blogPageSource).toContain("transformResponsiveHtml(post.data.bodyHtml ?? '')");
+    expect(blogPageSource).toContain('set:html={bodyHtml}');
     expect(blogPageSource).toContain('<Content />');
   });
 

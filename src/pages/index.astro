@@ -6,6 +6,7 @@ import { splitFeatureCopy } from '../lib/content/feature-copy';
 import { isCompleteFaq, isCompleteFeature, visibleItems } from '../lib/content/item-visibility';
 import { isUsableEditorialHref } from '../lib/content/site-settings';
 import { publicAssetAvailable } from '../lib/content/public-asset';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 
 export const prerender = true;
 const [homepage] = await getCollection('homepage');
@@ -51,14 +52,14 @@ const faqSchema = visibleFaqItems.length > 0 ? {
       {home.hero.ctaLabel && <a class="marketing-button" href={heroCtaHref}>{home.hero.ctaLabel}<span aria-hidden="true">→</span></a>}
       <div class="trust-row">{home.hero.trustItems.map((item) => <span>{item}</span>)}</div>
     </div>
-    {showHeroImage && <div class="home-hero-visual"><img src={home.hero.image} alt={home.hero.imageAlt} fetchpriority="high" /><span>{home.hero.imageBadge}</span></div>}
+    {showHeroImage && <div class="home-hero-visual"><ResponsiveImage src={home.hero.image} alt={home.hero.imageAlt} fetchpriority="high" sizes="(max-width: 900px) 100vw, 50vw" /><span>{home.hero.imageBadge}</span></div>}
   </section>
 
   <section class="home-tools" id="tools" aria-labelledby="tools-heading">
     <div class="marketing-heading"><span class="eyebrow">Three tools. One flow.</span><h2 id="tools-heading">Everything your video needs.</h2><p>{home.features.intro}</p></div>
     <div class="tool-showcase-grid">
       {useCases.map((item) => <article>
-        {item.showImage && <div class="tool-showcase-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /><span>{item.badge || item.icon}</span></div>}
+        {item.showImage && <div class="tool-showcase-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" /><span>{item.badge || item.icon}</span></div>}
         <div class="tool-showcase-copy"><h3>{item.title}</h3><p>{item.description}</p>{item.usableHref ? <a href={item.usableHref}>{item.linkLabel || 'Explore tool'} <span aria-hidden="true">→</span></a> : <span class="tool-coming-soon">Coming soon</span>}</div>
       </article>)}
     </div>
@@ -70,7 +71,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     <div class="feature-list">
       {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
         <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
-        {item.showImage && <div class="feature-media"><img src={item.image} alt={item.imageAlt} loading="lazy" /></div>}
+        {item.showImage && <div class="feature-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 50vw" /></div>}
       </article>)}
     </div>
   </section>}

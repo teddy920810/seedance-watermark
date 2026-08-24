@@ -7,8 +7,8 @@
     "node": ">=22.12.0 <25"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro check && astro build",
+    "dev": "npm run images:generate && astro dev",
+    "build": "npm run images:generate && astro check && astro build && npm run images:verify",
     "preview": "astro preview",
     "lint": "astro check && eslint .",
     "test": "vitest run",
@@ -19,6 +19,8 @@
     "test:smoke:production:public": "node scripts/production-public-smoke.mjs",
     "test:smoke:production:auth": "node scripts/production-smoke.mjs",
     "content:validate": "astro sync",
+    "images:generate": "node scripts/responsive-images.mjs",
+    "images:verify": "node scripts/responsive-images.mjs --verify",
     "auth:import": "node scripts/import-google-credentials.mjs",
     "r2:import": "node scripts/import-r2-credentials.mjs",
     "site:init": "node scripts/initialize-site.mjs",
@@ -54,6 +56,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^9.33.0",
     "eslint-plugin-astro": "^1.3.1",
+    "sharp": "^0.35.3",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.1",
     "vitest": "^4.1.10",

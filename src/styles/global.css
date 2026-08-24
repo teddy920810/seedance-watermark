@@ -7,6 +7,7 @@
   font-weight: 100 900;
   font-display: swap;
 }
+.responsive-picture { display: contents; }
 
 :root {
   --ink: #172321;
