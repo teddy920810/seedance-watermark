@@ -50,6 +50,46 @@ test('homepage is a static tool directory while landing pages own the workspace'
   await expect(page.locator('#tool astro-island')).toBeVisible();
 });
 
+test('CMS raster images use generated WebP sources with original fallbacks', async ({ page, request }) => {
+  await page.goto('/');
+  const png = page.locator('.home-hero-visual img');
+  await expect(png).toBeVisible();
+  await expect(png.locator('xpath=..')).toHaveJSProperty('tagName', 'PICTURE');
+  await expect(png.locator('xpath=..').locator('source[type="image/webp"]')).toHaveAttribute('srcset', /\/generated\/.*\.webp/);
+  await expect(png).toHaveAttribute('src', /\/uploads\/.*\.png/);
+  await expect.poll(() => png.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/generated\/.*\.webp/);
+
+  await page.goto('/blog/ai-cartoon-avatar-seedance-2-0');
+  const blogCover = page.locator('img.article-cover');
+  await expect(blogCover).toBeVisible();
+  await expect(blogCover.locator('xpath=..')).toHaveJSProperty('tagName', 'PICTURE');
+  await expect(blogCover).toHaveAttribute('src', /\/uploads\/.*\.png/);
+  await expect.poll(() => blogCover.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/generated\/.*\.webp/);
+
+  const manifest = await (await request.get('/generated/manifest.json')).json() as {
+    images: Record<string, { variants: Array<{ src: string; width: number }> }>;
+  };
+  const jpegSource = Object.keys(manifest.images).find((src) => /\.jpe?g$/i.test(src));
+  expect(jpegSource, 'an uploaded JPEG should exercise the same browser selection path').toBeTruthy();
+  const jpegSrcset = manifest.images[jpegSource!].variants.map(({ src, width }) => `${src} ${width}w`).join(', ');
+  await page.evaluate(({ src, srcset }) => {
+    const picture = document.createElement('picture');
+    const source = document.createElement('source');
+    source.type = 'image/webp';
+    source.srcset = srcset;
+    const image = document.createElement('img');
+    image.id = 'jpeg-responsive-fixture';
+    image.src = src;
+    image.alt = 'Uploaded JPEG responsive selection fixture';
+    picture.append(source, image);
+    document.body.append(picture);
+  }, { src: jpegSource!, srcset: jpegSrcset });
+  const jpeg = page.locator('#jpeg-responsive-fixture');
+  await expect(jpeg.locator('xpath=..')).toHaveJSProperty('tagName', 'PICTURE');
+  await expect(jpeg).toHaveAttribute('src', /\/uploads\/.*\.jpe?g/i);
+  await expect.poll(() => jpeg.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/generated\/.*\.webp/);
+});
+
 test('homepage tool cards open the three operations tool pages', async ({ page, request }) => {
   const routes = ['/seedance-video-upscale', '/seedance-ai-generated', '/seedance-watermark-remover'];
   await page.goto('/');
