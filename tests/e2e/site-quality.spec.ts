@@ -6,15 +6,13 @@ import { publicContentRoutes } from './public-content-routes';
 const siteSettings = JSON.parse(readFileSync(new URL('../../src/content/settings/site.json', import.meta.url), 'utf8')) as {
   analytics: { googleMeasurementId: string };
 };
-const homepage = JSON.parse(readFileSync(new URL('../../src/content/homepage/home.json', import.meta.url), 'utf8')) as {
-  features: { heading: string; intro: string; items: Array<{ heading: string }> };
-};
 const sharedLanding = JSON.parse(readFileSync(new URL('../../src/content/landing-pages/seedance-watermark-from-image.json', import.meta.url), 'utf8')) as {
   slug: string;
+  features: { heading: string; intro?: string; items: Array<{ heading: string }> };
 };
 const customLanding = JSON.parse(readFileSync(new URL('../../src/content/landing-pages/seedance-watermark-from-video.json', import.meta.url), 'utf8')) as {
   slug: string;
-  features: { heading: string; items: Array<{ heading: string }> };
+  features: { heading: string; intro?: string; items: Array<{ heading: string }> };
 };
 
 test('critical public routes and SEO files are available', async ({ page, request }) => {
@@ -123,24 +121,22 @@ test('mobile visitors can open navigation while invalid editorial links stay hid
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
 
   await expect(page.locator('#site-navigation')).toBeVisible();
-  await expect(page.locator('#site-navigation a', { hasText: 'Topics' })).toBeVisible();
-  await page.getByRole('button', { name: /AI Tools/ }).click();
   for (const route of ['/seedance-video-upscale', '/seedance-ai-generated', '/seedance-watermark-remover']) {
     await expect(page.locator(`#site-navigation a[href="${route}"]`)).toBeVisible();
   }
-  await expect(page.locator('#site-navigation', { hasText: 'How it works' })).toHaveCount(0);
+  await expect(page.locator('#site-navigation a')).toHaveCount(3);
 });
 
-test('landing pages inherit homepage features and can override them independently', async ({ page }) => {
+test('landing pages own their feature content independently from the homepage', async ({ page }) => {
   await page.goto(`/${sharedLanding.slug}`);
   const sharedSection = page.locator('.landing-features-section');
-  await expect(sharedSection.locator('h2')).toHaveText(homepage.features.heading);
-  await expect(sharedSection.locator('.feature-item h3').first()).toHaveText(homepage.features.items[0].heading);
+  await expect(sharedSection.locator('h2')).toHaveText(sharedLanding.features.heading);
+  await expect(sharedSection.locator('.feature-item h3').first()).toHaveText(sharedLanding.features.items[0].heading);
 
   await page.goto(`/${customLanding.slug}`);
   const customSection = page.locator('.landing-features-section');
   await expect(customSection.locator('h2')).toHaveText(customLanding.features.heading);
-  await expect(customSection.locator('.section-heading p')).toHaveText(homepage.features.intro);
+  await expect(customSection.locator('.section-heading p')).toHaveText(customLanding.features.intro ?? '');
   await expect(customSection.locator('.feature-item h3').first()).toHaveText(customLanding.features.items[0].heading);
 });
 

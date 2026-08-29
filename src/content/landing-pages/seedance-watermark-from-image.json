@@ -4,13 +4,22 @@
   "eyebrow": "Seedance image guide", "heading": "Prepare Seedance images for private watermark processing",
   "intro": "Choose a supported still image, sign in with Google, upload directly to private R2 storage, and review the returned preview result.",
   "benefits": ["JPG, PNG, and WebP", "Private direct upload", "Temporary result links"],
-  "featuresSource": "shared",
   "process": {
     "eyebrow": "Seedance image workflow", "heading": "Prepare, upload, and review a Seedance still image",
     "steps": [
       { "number": "01", "title": "Confirm the image format", "description": "Use one JPG, PNG, or WebP still image between 1 byte and 10 MB." },
       { "number": "02", "title": "Send it through the private flow", "description": "After Google sign-in, upload directly to private R2 storage without exposing storage credentials in the browser." },
       { "number": "03", "title": "Compare separate objects", "description": "Open the temporary result and compare it with the untouched source object; the MVP result is currently an unchanged copy." }
+    ]
+  },
+  "features": {
+    "eyebrow": "WHY USE SEEDANCE VIDEO ENHANCER",
+    "heading": "A Smarter Way to Enhance Your Seedance Videos",
+    "intro": "Improve Seedance 2.0/2.5 videos with sharper details, clearer frames, and a simple workflow—all available for free.",
+    "items": [
+      { "eyebrow": "SEEDANCE-FOCUSED ENHANCEMENT", "heading": "Purpose-Built for Seedance Video Enhancement", "description": "Enhance Seedance 2.0/2.5 videos with sharper details, cleaner frames, and smoother visual quality.", "listItems": [" Sharper, clearer video details", " Cleaner and more polished frames", " Simple preview and download workflow 02"], "image": "/uploads/seedance-video-enhancer-card.png", "imageAlt": "Seedance Video Enhancer", "imagePosition": "right" },
+      { "eyebrow": "FLEXIBLE VIDEO SUPPORT", "heading": "MP4, MOV, and WebM Videos", "description": "Upload your Seedance video directly and start enhancing it without extracting individual frames.", "listItems": [" Supports MP4, MOV, and WebM", "Direct Seedance video uploads", " Clear validation for unsupported files"], "image": "/uploads/seedance-supported-video-formats.png", "imageAlt": "Supported Seedance videos formats", "imagePosition": "left" },
+      { "eyebrow": "FREE TO USE", "heading": "Powerful Video Enhancement at No Cost", "description": "Enhance and download your Seedance videos for free, with no credits or paid subscription required.", "listItems": [" No credits required", " No paid plans", " Free preview and download"], "image": "/uploads/free-no-credits-no-paid-plans.webp", "imageAlt": "no credits required", "imagePosition": "right" }
     ]
   },
   "faq": {

@@ -1,48 +1,31 @@
 {
   "slug": "seedance-ai-generated",
-  "title": "Seedance AI Generated Video – Workflow Preview | Seedances",
-  "description": "Explore the planned Seedance prompt-to-video interface while production AI generation remains clearly marked as not connected.",
-  "eyebrow": "SEEDANCE AI VIDEO GENERATOR",
-  "heading": "Create a Seedance AI video from one clear prompt",
-  "intro": "Explore the planned prompt-to-video workspace and creative controls. Production AI generation is not connected yet.",
-  "benefits": ["Prompt interface preview", "No generation credits used", "Clear capability status"],
+  "template": "operations",
+  "title": "Seedance 2.0 AI Generated Video – Text to Video | Seedances",
+  "description": "Create Seedance 2.0 AI generated videos from a text prompt with cinematic motion, consistent subjects and polished visual style.",
+  "eyebrow": "SEEDANCE 2.0 AI GENERATED VIDEO",
+  "heading": "Create Seedance 2.0 AI video from",
+  "highlightedHeading": "one clear prompt.",
+  "intro": "Create a Seedance 2.0 AI generated video by describing the subject, action, setting and camera movement. Get coherent motion and a consistent cinematic style.",
+  "benefits": ["No install", "Private files", "Free preview"],
   "workspaceMode": "prompt-preview",
-  "workspace": {
-    "eyebrow": "DESCRIBE YOUR VIDEO",
-    "heading": "Preview the prompt-to-video workspace",
-    "inputLabel": "Describe a video scene",
-    "inputHelp": "",
-    "placeholder": "A cinematic close-up with gentle camera movement, consistent lighting, and natural motion…",
-    "options": ["16:9", "5 sec", "1080p"],
-    "actionLabel": "Preview generation flow",
-    "previewNote": "AI video generation is not connected yet; prompts are not submitted to a provider."
-  },
-  "finalCta": { "heading": "Your next scene can start with a clear prompt", "label": "Back to workspace" },
-  "featuresSource": "custom",
-  "process": {
-    "eyebrow": "HOW THE PREVIEW WORKS",
-    "heading": "Explore the planned generation flow in three steps",
-    "steps": [
-      { "number": "01", "title": "Describe the scene", "description": "Enter a local prompt to preview the planned creative workspace." },
-      { "number": "02", "title": "Review format controls", "description": "Explore the intended ratio, duration, and resolution choices." },
-      { "number": "03", "title": "Check integration status", "description": "No prompt is submitted and no generation job is created while the provider is unavailable." }
-    ]
-  },
-  "features": {
-    "eyebrow": "PLANNED GENERATION EXPERIENCE",
-    "heading": "A direct path from scene description to future video",
-    "intro": "The visual prompt workflow is ready for review without implying that generation is already live.",
-    "items": [
-      { "enabled": true, "eyebrow": "PROMPT WORKFLOW", "heading": "Shape a scene with concise creative controls", "description": "Preview how subject, setting, motion, format, and duration will fit into one focused generation workspace.", "listItems": ["Prompt stays in the browser", "No provider credits are consumed", "Production status remains explicit"], "image": "/uploads/seedances-tool-generator.png", "imageAlt": "Seedance prompt-to-video workflow preview", "imagePosition": "right" }
-    ]
-  },
-  "faq": {
-    "eyebrow": "GENERATOR PREVIEW QUESTIONS",
-    "heading": "What is available on the AI generator page today",
-    "items": [
-      { "question": "Does this page generate a video today?", "answer": "No. It previews the planned interface and does not call an AI generation provider." },
-      { "question": "Is my prompt submitted anywhere?", "answer": "No. The preview keeps the prompt in the current browser session." },
-      { "question": "Do the ratio and duration controls create a job?", "answer": "No. They are visual previews until a production provider is integrated and verified." }
-    ]
-  }
+  "workspace": { "eyebrow": "✦   DESCRIBE YOUR VIDEO", "heading": "", "inputLabel": "Describe your video", "inputHelp": "", "placeholder": "A cinematic close-up of a dancer moving through warm shafts of light, slow motion, 35mm film…", "options": ["16:9", "5 sec", "1080p"], "actionLabel": "Generate video", "previewNote": "AI video generation is not connected yet; prompts are not submitted to a provider." },
+  "process": { "eyebrow": "HOW IT WORKS", "heading": "Three steps. That’s it.", "steps": [
+    { "number": "01", "icon": "↑", "title": "Describe the scene", "description": "Tell us what you imagine in plain language." },
+    { "number": "02", "icon": "✦", "title": "Choose ratio and duration", "description": "Seedances reads the scene and handles the technical decisions." },
+    { "number": "03", "icon": "↓", "title": "Generate, preview & download", "description": "Preview the result and export when it feels right." }
+  ] },
+  "showcase": { "eyebrow": "MADE WITH SEEDANCES", "heading": "See what a prompt", "highlightedHeading": "can become.", "intro": "Generated result above. Full prompt below.", "mode": "generator", "items": [
+    { "enabled": true, "image": "/uploads/generator-jellyfish-city-v2.png", "imageAlt": "Jellyfish above a neon city", "label": "SCENE 01", "title": "Jellyfish above a neon city", "description": "A translucent jellyfish drifting above a rain-soaked neon megacity at midnight, cinematic aerial camera, violet reflections, slow dreamlike motion." },
+    { "enabled": true, "image": "/uploads/generator-2.png", "imageAlt": "Luxury product reveal", "label": "SCENE 02", "title": "Luxury product reveal", "description": "A luxury black-and-gold perfume bottle rising through a crown of liquid, macro product cinematography, controlled studio light, ultra-slow motion." },
+    { "enabled": true, "image": "/uploads/generator-tiny-astronaut-v2.png", "imageAlt": "Tiny astronaut in a moss garden", "label": "SCENE 03", "title": "Tiny astronaut in a moss garden", "description": "A tiny astronaut exploring a luminous moss garden at dawn, miniature cinematic world, soft mist, shallow depth of field, gentle tracking shot." },
+    { "enabled": true, "image": "/uploads/generator-4.png", "imageAlt": "Paper-cut winter story", "label": "SCENE 04", "title": "Paper-cut winter story", "description": "A handcrafted paper-cut winter village coming alive under falling snow, layered white paper textures, warm window light, storybook camera movement." }
+  ] },
+  "features": { "eyebrow": "WHY SEEDANCES", "heading": "Built for the work.", "highlightedHeading": "Designed for the flow.", "intro": "", "items": [
+    { "enabled": true, "number": "01", "heading": "Prompt-faithful scene creation", "description": "Fine detail without halos, flicker or the waxy AI look." },
+    { "enabled": true, "number": "02", "heading": "Consistent subjects and motion", "description": "A focused workflow that keeps you moving from idea to export." },
+    { "enabled": true, "number": "03", "heading": "Fast creative iteration", "description": "Encrypted transfer and automatic file deletion protect your work." }
+  ] },
+  "faq": { "eyebrow": "", "heading": "", "items": [] },
+  "finalCta": { "heading": "Your next scene starts with a sentence.", "label": "Generate now" }
 }

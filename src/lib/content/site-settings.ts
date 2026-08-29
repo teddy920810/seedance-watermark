@@ -97,11 +97,19 @@ export const siteSettingsSchema = z.object({
     linkHref: z.string(),
   }),
   header: z.object({
+    logo: z.string().min(1),
+    loginLabel: z.string().min(1),
+    connectingLabel: z.string().min(1),
     navigation: z.array(headerNavigationItemSchema).min(1),
   }),
   footer: z.object({
+    logo: z.string().min(1),
     tagline: z.string().min(1),
-    links: z.array(navigationLinkSchema).min(1),
+    groups: z.array(z.object({
+      label: z.string().min(1),
+      links: z.array(navigationLinkSchema).min(1),
+    })).min(1),
+    copyright: z.string().min(1),
   }),
 });
 

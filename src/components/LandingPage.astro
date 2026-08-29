@@ -6,26 +6,20 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
 import { isCompleteFaq, isCompleteFeature, isCompleteStep, visibleItems } from '../lib/content/item-visibility';
 import { publicAssetAvailable } from '../lib/content/public-asset';
-import { resolveFeatureModule } from '../lib/content/feature-module';
 import ResponsiveImage from './ResponsiveImage.astro';
 
 interface Props { page: CollectionEntry<'landingPages'>['data'] }
 const { page } = Astro.props;
-const [siteEntries, homepageEntries] = await Promise.all([
-  getCollection('siteSettings'),
-  getCollection('homepage'),
-]);
-const [siteEntry] = siteEntries;
+const [siteEntry] = await getCollection('siteSettings');
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
-const [homepageEntry] = homepageEntries;
-if (!homepageEntry) throw new Error('Homepage CMS content is missing.');
 const site = siteEntry.data;
-const features = resolveFeatureModule(homepageEntry.data.features, page.features, page.featuresSource);
-const featureItems = visibleItems(features.items, isCompleteFeature).map((item) => ({
+const isOperations = page.template === 'operations';
+const featureItems = visibleItems(page.features.items, isCompleteFeature).map((item) => ({
   ...item,
   copy: splitFeatureCopy(item.description, item.listItems),
   showImage: publicAssetAvailable(item.image),
 }));
+const showcaseItems = visibleItems(page.showcase?.items ?? [], (item) => Boolean(item.image && item.title && item.description));
 const visibleFaqItems = visibleItems(page.faq.items, isCompleteFaq);
 const processSteps = visibleItems(page.process.steps, isCompleteStep);
 const faqSchema = visibleFaqItems.length > 0 ? {
@@ -39,45 +33,85 @@ const faqSchema = visibleFaqItems.length > 0 ? {
 ---
 
 <SiteLayout title={page.title} description={page.description} schema={faqSchema} variant="marketing">
-  <section class="product-hero">
-    <div class="hero-copy">
-      <span class="eyebrow">{page.eyebrow}</span>
-      <h1>{page.heading}</h1>
-      <p>{page.intro}</p>
-      <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
-    </div>
-    <div id="tool" class="product-workspace">
-      {page.workspaceMode === 'image-upload'
-        ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
-        : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
-    </div>
-  </section>
+  <div class:list={{ product: isOperations }}>
+    <section class="product-hero">
+      <div class="hero-copy">
+        <span class="eyebrow">{page.eyebrow}</span>
+        <h1>{page.heading}{page.highlightedHeading && <><br /><em>{page.highlightedHeading}</em></>}</h1>
+        <p>{page.intro}</p>
+        <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
+      </div>
+      <div id="tool" class="product-workspace">
+        {page.workspaceMode === 'image-upload'
+          ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
+          : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
+      </div>
+    </section>
 
-  <section class="product-how" id="how-it-works">
-    <div class="section-heading"><span class="eyebrow">{page.process.eyebrow}</span><h2>{page.process.heading}</h2></div>
-    <div class="steps">
-      {processSteps.map((step) => <article><span>{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
-    </div>
-  </section>
-
-  {featureItems.length ? (
-    <section class="section features-section landing-features-section" aria-labelledby="features-heading">
-      <div class="section-heading"><span class="eyebrow">{features.eyebrow}</span><h2 id="features-heading">{features.heading}</h2><p>{features.intro}</p></div>
-      <div class="feature-list">
-        {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
-          <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
-          {item.showImage && <div class="feature-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 50vw" /></div>}
+    <section class="product-how" id="how-it-works">
+      <div class="section-heading"><span class="eyebrow">{page.process.eyebrow}</span><h2>{page.process.heading}</h2></div>
+      <div class="steps">
+        {processSteps.map((step) => <article>
+          {isOperations ? <b>{step.number}</b> : <span>{step.number}</span>}
+          {isOperations && step.icon && <span aria-hidden="true">{step.icon}</span>}
+          <h3>{step.title}</h3><p>{step.description}</p>
         </article>)}
       </div>
     </section>
-  ) : null}
 
-  {visibleFaqItems.length > 0 && <section class="section faq-section product-faq">
-    <div class="section-heading"><span class="eyebrow">{page.faq.eyebrow}</span><h2>{page.faq.heading}</h2></div>
-    <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
-  </section>}
-  <section class="final-cta">
-    <h2>{page.finalCta.heading || page.heading}</h2>
-    <a class="marketing-button" href="#tool">{page.finalCta.label || 'Start now'} <span aria-hidden="true">→</span></a>
-  </section>
+    {isOperations && page.showcase && showcaseItems.length > 0 && (
+      <section class:list={{ 'tool-results-showcase': true, [`showcase-${page.showcase.mode}`]: true }}>
+        <div class="showcase-heading">
+          <div><span class="eyebrow">{page.showcase.eyebrow}</span><h2>{page.showcase.heading}{page.showcase.highlightedHeading && <><br /><em>{page.showcase.highlightedHeading}</em></>}</h2></div>
+          <p>{page.showcase.intro}</p>
+        </div>
+        <div class="showcase-grid">
+          {showcaseItems.map((item) => <article>
+            <div class="showcase-image">
+              {page.showcase?.mode === 'generator' ? (
+                <ResponsiveImage src={item.image} alt={item.imageAlt} sizes="(max-width: 760px) 100vw, 50vw" />
+              ) : (
+                <div class:list={{ 'compare-frame': true, 'watermark-compare': page.showcase?.mode === 'watermark' }}>
+                  <ResponsiveImage src={item.image} alt={`${item.imageAlt} after`} class="after-image" sizes="(max-width: 760px) 100vw, 50vw" />
+                  <div class="before-image">
+                    <ResponsiveImage src={item.image} alt={`${item.imageAlt} before`} sizes="(max-width: 760px) 100vw, 50vw" />
+                    {page.showcase?.mode === 'watermark' && <i>SEEDANCE<br />PREVIEW</i>}
+                  </div>
+                  <i class="compare-line"></i><b class="before-tag">BEFORE</b><b class="after-tag">{page.showcase?.mode === 'comparison' ? 'AFTER · 4K' : 'AFTER'}</b>
+                </div>
+              )}
+            </div>
+            <div class="showcase-copy"><b>{item.label}</b><h3>{item.title}</h3><p>{item.description}</p></div>
+          </article>)}
+        </div>
+      </section>
+    )}
+
+    {isOperations ? (
+      <section class="product-why">
+        <span class="eyebrow">{page.features.eyebrow}</span>
+        <h2>{page.features.heading}{page.features.highlightedHeading && <><br /><em>{page.features.highlightedHeading}</em></>}</h2>
+        <div>{featureItems.map((item) => <article><b>{item.number}</b><h3>{item.heading}</h3><p>{item.description}</p></article>)}</div>
+      </section>
+    ) : featureItems.length ? (
+      <section class="section features-section landing-features-section" aria-labelledby="features-heading">
+        <div class="section-heading"><span class="eyebrow">{page.features.eyebrow}</span><h2 id="features-heading">{page.features.heading}</h2><p>{page.features.intro}</p></div>
+        <div class="feature-list">
+          {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
+            <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
+            {item.showImage && <div class="feature-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 50vw" /></div>}
+          </article>)}
+        </div>
+      </section>
+    ) : null}
+
+    {!isOperations && visibleFaqItems.length > 0 && <section class="section faq-section product-faq">
+      <div class="section-heading"><span class="eyebrow">{page.faq.eyebrow}</span><h2>{page.faq.heading}</h2></div>
+      <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
+    </section>}
+    <section class="final-cta">
+      <h2>{page.finalCta.heading || page.heading}</h2>
+      <a class="marketing-button" href="#tool">{page.finalCta.label || 'Start now'} <span aria-hidden="true">→</span></a>
+    </section>
+  </div>
 </SiteLayout>

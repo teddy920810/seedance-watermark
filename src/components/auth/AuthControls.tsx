@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { authClient } from './auth-client';
 
-export default function AuthControls() {
+interface Props {
+  loginLabel: string;
+  connectingLabel: string;
+}
+
+export default function AuthControls({ loginLabel, connectingLabel }: Props) {
   const { data: session, isPending } = authClient.useSession();
   const [actionPending, setActionPending] = useState(false);
 
@@ -36,7 +41,7 @@ export default function AuthControls() {
 
   return (
     <button className="header-cta" type="button" onClick={signIn} disabled={isPending || actionPending}>
-      {actionPending ? 'Connecting…' : 'Sign in with Google'}
+      {actionPending ? connectingLabel : loginLabel}
     </button>
   );
 }

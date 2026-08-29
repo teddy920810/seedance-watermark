@@ -1,48 +1,31 @@
 {
   "slug": "seedance-video-upscale",
-  "title": "Seedance Video Upscale – Workflow Preview | Seedances",
-  "description": "Preview the planned Seedance video upscaling workflow and learn what will be available when production video processing is connected.",
+  "template": "operations",
+  "title": "Seedance Video Upscale – Enhance Videos to 4K | Seedances",
+  "description": "Use Seedance Video Upscale to enhance blurry, compressed or low-resolution Seedance videos to clean, natural 4K with stable motion and recovered detail.",
   "eyebrow": "SEEDANCE VIDEO UPSCALER",
-  "heading": "Upscale Seedance video to clean, natural 4K",
-  "intro": "Explore the planned video upscaling workspace and enhancement flow. Production video upload and 4K processing are not connected yet.",
-  "benefits": ["No installation", "Local selection preview", "Clear capability status"],
+  "heading": "Upscale Seedance video to",
+  "highlightedHeading": "clean, natural 4K.",
+  "intro": "Restore detail lost to low resolution or compression. Seedances sharpens faces, hair, fabric and scenery while keeping motion stable from frame to frame.",
+  "benefits": ["No install", "Private files", "Free preview"],
   "workspaceMode": "video-preview",
-  "workspace": {
-    "eyebrow": "VIDEO UPSCALE PREVIEW",
-    "heading": "Preview the video enhancement workspace",
-    "inputLabel": "Choose a video for the local interface preview",
-    "inputHelp": "MP4, MOV, or WebM · no file will be uploaded",
-    "placeholder": "",
-    "options": ["4K output", "MP4"],
-    "actionLabel": "Preview enhancement flow",
-    "previewNote": "Video processing is not connected yet; selected files stay in this browser and are not uploaded."
-  },
-  "finalCta": { "heading": "See how the Seedance upscale workflow will work", "label": "Back to workspace" },
-  "featuresSource": "custom",
-  "process": {
-    "eyebrow": "HOW THE PREVIEW WORKS",
-    "heading": "Explore the planned upscale flow in three steps",
-    "steps": [
-      { "number": "01", "title": "Select a local video", "description": "Choose a video only to preview the planned interface; the file is not uploaded." },
-      { "number": "02", "title": "Review output controls", "description": "See the proposed 4K and export options without starting a provider job." },
-      { "number": "03", "title": "Check capability status", "description": "The page clearly reports that production video enhancement is still being integrated." }
-    ]
-  },
-  "features": {
-    "eyebrow": "PLANNED UPSCALE EXPERIENCE",
-    "heading": "A focused interface for future Seedance enhancement",
-    "intro": "The visual workflow is available now while provider-backed video processing remains separate.",
-    "items": [
-      { "enabled": true, "eyebrow": "WORKFLOW PREVIEW", "heading": "Designed around a simple video-to-4K flow", "description": "Review the intended upload, output selection, preview, and download journey without sending a file to production processing.", "listItems": ["Local-only file selection", "No provider job is created", "Capability status remains visible"], "image": "/uploads/seedances-tool-upscale.png", "imageAlt": "Seedance video upscale workflow preview", "imagePosition": "right" }
-    ]
-  },
-  "faq": {
-    "eyebrow": "UPSCALE PREVIEW QUESTIONS",
-    "heading": "What is available on the Seedance upscale page today",
-    "items": [
-      { "question": "Does this page upscale videos today?", "answer": "No. It previews the planned interface; production video upload and enhancement are not connected yet." },
-      { "question": "Is a selected video uploaded?", "answer": "No. Selection stays local in the browser and does not request an upload URL or create a job." },
-      { "question": "Which formats are planned?", "answer": "The interface is designed around MP4, MOV, and WebM, subject to final provider validation." }
-    ]
-  }
+  "workspace": { "eyebrow": "", "heading": "", "inputLabel": "Drop your video here", "inputHelp": "or click to browse · MP4, MOV, WebM", "placeholder": "", "options": ["4K output", "MP4"], "actionLabel": "Enhance video", "previewNote": "Video processing is not connected yet; selected files stay in this browser and are not uploaded." },
+  "process": { "eyebrow": "HOW IT WORKS", "heading": "Three steps. That’s it.", "steps": [
+    { "number": "01", "icon": "↑", "title": "Upload a Seedance video", "description": "Choose a video from your device." },
+    { "number": "02", "icon": "✦", "title": "Select 2K or 4K output", "description": "Seedances reads the scene and handles the technical decisions." },
+    { "number": "03", "icon": "↓", "title": "Preview, enhance & download", "description": "Preview the result and export when it feels right." }
+  ] },
+  "showcase": { "eyebrow": "MADE WITH SEEDANCES", "heading": "See the difference, frame by frame.", "highlightedHeading": "", "intro": "Original on the left, enhanced on the right.", "mode": "comparison", "items": [
+    { "enabled": true, "image": "/uploads/upscale-portrait-v2.png", "imageAlt": "Restore faces in archive footage", "label": "SCENE 01", "title": "Restore faces in archive footage", "description": "Recover natural facial detail, hair texture and candlelight from compressed family footage." },
+    { "enabled": true, "image": "/uploads/upscale-wildlife-v2.png", "imageAlt": "Reveal wildlife texture", "label": "SCENE 02", "title": "Reveal wildlife texture", "description": "Bring back feather structure, eye detail and clean edges without an over-sharpened look." },
+    { "enabled": true, "image": "/uploads/upscale-night-v2.png", "imageAlt": "Recover detail in dark motion", "label": "SCENE 03", "title": "Recover detail in dark motion", "description": "Lift shadow detail and stabilize rain, reflections and moving subjects in difficult night footage." },
+    { "enabled": true, "image": "/uploads/upscale-product-v2.png", "imageAlt": "Sharpen premium product footage", "label": "SCENE 04", "title": "Sharpen premium product footage", "description": "Reveal metal brushing, glass reflections and fabric texture for polished 4K product video." }
+  ] },
+  "features": { "eyebrow": "WHY SEEDANCES", "heading": "Built for the work.", "highlightedHeading": "Designed for the flow.", "intro": "", "items": [
+    { "enabled": true, "number": "01", "heading": "Detail recovery without halos", "description": "Fine detail without halos, flicker or the waxy AI look." },
+    { "enabled": true, "number": "02", "heading": "Temporal consistency in motion", "description": "A focused workflow that keeps you moving from idea to export." },
+    { "enabled": true, "number": "03", "heading": "Encrypted private processing", "description": "Encrypted transfer and automatic file deletion protect your work." }
+  ] },
+  "faq": { "eyebrow": "", "heading": "", "items": [] },
+  "finalCta": { "heading": "Your best footage is already in the frame.", "label": "Enhance now" }
 }

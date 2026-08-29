@@ -1,9 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection } from 'astro:content';
-import { sortBlogEntries } from '../lib/content/entries';
-import { splitFeatureCopy } from '../lib/content/feature-copy';
-import { isCompleteFaq, isCompleteFeature, visibleItems } from '../lib/content/item-visibility';
+import { visibleItems } from '../lib/content/item-visibility';
 import { isUsableEditorialHref } from '../lib/content/site-settings';
 import { publicAssetAvailable } from '../lib/content/public-asset';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
@@ -13,7 +11,6 @@ const [homepage] = await getCollection('homepage');
 if (!homepage) throw new Error('Homepage CMS content is missing.');
 const home = homepage.data;
 const [allBlogPosts, landingPages] = await Promise.all([getCollection('blog'), getCollection('landingPages')]);
-const blogPosts = sortBlogEntries(allBlogPosts).slice(0, 2);
 const publicRoutes = new Set([
   '/', '/blog', '/privacy', '/terms',
   ...landingPages.map(({ data }) => `/${data.slug}`),
@@ -24,25 +21,15 @@ const useCases = visibleItems(home.useCases, (item) => Boolean(item.title.trim()
   usableHref: item.href.trim() !== '#' && isUsableEditorialHref(item.href, publicRoutes) ? item.href : '',
   showImage: publicAssetAvailable(item.image),
 }));
-const featureItems = visibleItems(home.features.items, isCompleteFeature).map((item) => ({
+const workflowItems = visibleItems(home.workflows.items, (item) => Boolean(item.label.trim() && item.title.trim())).map((item) => ({
   ...item,
-  copy: splitFeatureCopy(item.description, item.listItems),
   showImage: publicAssetAvailable(item.image),
 }));
-const visibleFaqItems = visibleItems(home.faq.items, isCompleteFaq);
 const heroCtaHref = isUsableEditorialHref(home.hero.ctaHref, publicRoutes) ? home.hero.ctaHref : '#tools';
 const showHeroImage = publicAssetAvailable(home.hero.image);
-const faqSchema = visibleFaqItems.length > 0 ? {
-  '@type': 'FAQPage',
-  mainEntity: visibleFaqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: { '@type': 'Answer', text: item.answer },
-  })),
-} : undefined;
 ---
 
-<SiteLayout title={home.title} description={home.description} image={home.shareImage} schema={faqSchema} variant="marketing" structuredDataType="WebSite">
+<SiteLayout title={home.title} description={home.description} image={home.shareImage} variant="marketing" structuredDataType="WebSite">
   <section class="home-hero">
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-copy">
@@ -56,7 +43,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
   </section>
 
   <section class="home-tools" id="tools" aria-labelledby="tools-heading">
-    <div class="marketing-heading"><span class="eyebrow">Three tools. One flow.</span><h2 id="tools-heading">Everything your video needs.</h2><p>{home.features.intro}</p></div>
+    <div class="marketing-heading"><span class="eyebrow">{home.tools.eyebrow}</span><h2 id="tools-heading">{home.tools.heading}</h2><p>{home.tools.intro}</p></div>
     <div class="tool-showcase-grid">
       {useCases.map((item) => <article>
         {item.showImage && <div class="tool-showcase-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 33vw" /><span>{item.badge || item.icon}</span></div>}
@@ -65,29 +52,21 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     </div>
   </section>
 
-
-  {featureItems.length > 0 && <section class="section features-section" aria-labelledby="features-heading">
-    <div class="section-heading"><span class="eyebrow">{home.features.eyebrow}</span><h2 id="features-heading">{home.features.heading}</h2><p>{home.features.intro}</p></div>
-    <div class="feature-list">
-      {featureItems.map((item) => <article class:list={{ 'feature-item': true, 'is-image-left': item.imagePosition === 'left' }}>
-        <div class="feature-copy"><span class="eyebrow">{item.eyebrow}</span><h3>{item.heading}</h3><p>{item.copy.description}</p>{item.copy.listItems.length > 0 && <ul class="feature-list-items">{item.copy.listItems.map((listItem) => <li>{listItem}</li>)}</ul>}</div>
-        {item.showImage && <div class="feature-media"><ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 760px) 100vw, 50vw" /></div>}
-      </article>)}
-    </div>
-  </section>}
-
-  <section class="home-why">
-    <div><span class="eyebrow">{home.privacy.eyebrow}</span><h2>{home.privacy.heading}</h2><p>{home.privacy.description}</p><a class="text-link" href={home.privacy.linkHref}>{home.privacy.linkLabel}</a></div>
-    <div class="standards-card">{home.privacy.features.map((feature) => <div><span>{feature.icon}</span><strong>{feature.title}</strong><small>{feature.description}</small></div>)}</div>
+  <section class="home-why" aria-labelledby="why-heading">
+    <div><span class="eyebrow">{home.why.eyebrow}</span><h2 id="why-heading">{home.why.heading}</h2></div>
+    <div class="home-why-items">{home.why.items.map((item) => <article><b>{item.number}</b><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
   </section>
 
-  <section class="section guides-section marketing-paper-section">
-    <div class="section-heading row-heading"><div><span class="eyebrow">{home.guides.eyebrow}</span><h2>{home.guides.heading}</h2></div><a class="text-link" href={home.guides.linkHref}>{home.guides.linkLabel}</a></div>
-    <div class="guide-grid">{blogPosts.map(({ data: post }) => <article><span>{post.readTime}</span><h3><a href={`/blog/${post.slug}`}>{post.title}</a></h3><p>{post.description}</p><a class="text-link" href={`/blog/${post.slug}`}>{home.guides.articleLinkLabel}</a></article>)}</div>
+  <section class="home-testimonials" aria-label="Creator testimonials">
+    <div><span>{home.testimonials.rating}</span><blockquote>{home.testimonials.primary.quote}</blockquote><b>{home.testimonials.primary.name}</b><small>{home.testimonials.primary.role}</small></div>
+    <aside><p>{home.testimonials.secondary.quote}</p><b>{home.testimonials.secondary.name}</b><small>{home.testimonials.secondary.role}</small></aside>
   </section>
 
-  {visibleFaqItems.length > 0 && <section class="section faq-section home-faq-section marketing-paper-section" aria-labelledby="faq-heading">
-    <div class="section-heading"><span class="eyebrow">{home.faq.eyebrow}</span><h2 id="faq-heading">{home.faq.heading}</h2><p>{home.faq.intro}</p></div>
-    <div class="faq-list">{visibleFaqItems.map((item) => <details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
-  </section>}
+  <section class="home-workflows" aria-labelledby="workflows-heading">
+    <div class="marketing-heading"><span class="eyebrow">{home.workflows.eyebrow}</span><h2 id="workflows-heading">{home.workflows.heading}</h2></div>
+    <div class="home-workflow-grid">{workflowItems.map((item) => <article>
+      {item.showImage && <ResponsiveImage src={item.image} alt={item.imageAlt} loading="lazy" sizes="(max-width: 620px) 100vw, (max-width: 900px) 50vw, 25vw" />}
+      <div><span>{item.label}</span><h3>{item.title}</h3></div>
+    </article>)}</div>
+  </section>
 </SiteLayout>
