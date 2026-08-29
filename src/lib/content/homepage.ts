@@ -18,27 +18,18 @@ const stepSchema = z.object({
   description: z.string().default(''),
 });
 
-const featureSchema = z.object({
-  icon: z.string().min(1),
-  title: z.string().min(1),
-  description: z.string().min(1),
+const testimonialSchema = z.object({
+  quote: z.string().min(1),
+  name: z.string().min(1),
+  role: z.string().min(1),
 });
 
-const homepageFeatureSchema = z.object({
+const workflowSchema = z.object({
   enabled: z.boolean().default(true),
-  eyebrow: z.string().default(''),
-  heading: z.string().default(''),
-  description: z.string().default(''),
-  listItems: z.array(z.string().min(1)).default([]),
   image: z.string().default(''),
   imageAlt: z.string().default(''),
-  imagePosition: z.enum(['left', 'right']).default('right'),
-});
-
-const faqItemSchema = z.object({
-  enabled: z.boolean().default(true),
-  question: z.string().default(''),
-  answer: z.string().default(''),
+  label: z.string().default(''),
+  title: z.string().default(''),
 });
 
 export const homepageSchema = z.object({
@@ -58,38 +49,25 @@ export const homepageSchema = z.object({
     imageBadge: z.string().default(''),
   }),
   useCases: z.array(linkedCardSchema).min(1),
-  process: z.object({
+  tools: z.object({
     eyebrow: z.string().min(1),
     heading: z.string().min(1),
     intro: z.string().min(1),
-    steps: z.array(stepSchema).min(1),
   }),
-  features: z.object({
+  why: z.object({
     eyebrow: z.string().min(1),
     heading: z.string().min(1),
-    intro: z.string().min(1),
-    items: z.array(homepageFeatureSchema).min(1),
+    items: z.array(stepSchema).min(1),
   }),
-  privacy: z.object({
+  testimonials: z.object({
+    rating: z.string().min(1),
+    primary: testimonialSchema,
+    secondary: testimonialSchema,
+  }),
+  workflows: z.object({
     eyebrow: z.string().min(1),
     heading: z.string().min(1),
-    description: z.string().min(1),
-    linkLabel: z.string().min(1),
-    linkHref: z.string().min(1),
-    features: z.array(featureSchema).min(1),
-  }),
-  guides: z.object({
-    eyebrow: z.string().min(1),
-    heading: z.string().min(1),
-    linkLabel: z.string().min(1),
-    linkHref: z.string().min(1),
-    articleLinkLabel: z.string().min(1),
-  }),
-  faq: z.object({
-    eyebrow: z.string().min(1),
-    heading: z.string().min(1),
-    intro: z.string().min(1),
-    items: z.array(faqItemSchema).min(1),
+    items: z.array(workflowSchema).min(1),
   }),
 });
 

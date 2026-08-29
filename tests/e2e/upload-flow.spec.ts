@@ -83,7 +83,7 @@ test('keeps selection anonymous and asks for Google sign-in only when processing
   });
 
   await page.goto('/remove-seedance-watermark');
-  await expect(page.getByRole('button', { name: 'Sign in with Google' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
   await chooseTestImage(page);
   await page.locator('#tool .preview-panel .button-primary').click();
 

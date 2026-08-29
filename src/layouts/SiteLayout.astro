@@ -101,7 +101,7 @@ const schemas = [defaultSchema, ...(schema ? (Array.isArray(schema) ? schema : [
       </aside>
     )}
     <header class="site-header">
-      <a class="brand" href="/" aria-label={`${site.name} home`}><img class="brand-logo" src={site.logo} alt="" /><span>{site.name}</span></a>
+      <a class="brand" href="/" aria-label={`${site.name} home`}><img class="brand-logo" src={site.header.logo} alt="" /></a>
       <button class="mobile-menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-navigation" aria-expanded="false" data-mobile-menu-toggle>
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
@@ -115,13 +115,15 @@ const schemas = [defaultSchema, ...(schema ? (Array.isArray(schema) ? schema : [
           </div>
         ) : <a href={item.href}>{item.label}</a>)}
       </nav>
-      <AuthControls client:load />
+      <AuthControls loginLabel={site.header.loginLabel} connectingLabel={site.header.connectingLabel} client:load />
     </header>
     <main><slot /></main>
     <footer class="site-footer">
-      <div><a class="brand" href="/"><img class="brand-logo" src={site.logo} alt="" /><span>{site.name}</span></a><p>{site.footer.tagline}</p></div>
-      <div class="footer-links">{site.footer.links.map((item) => <a href={item.href}>{item.label}</a>)}</div>
-      <p>© {new Date().getFullYear()} {site.name}</p>
+      <div class="footer-brand"><a class="brand" href="/" aria-label={`${site.name} home`}><img class="brand-logo" src={site.footer.logo} alt="" /></a><p>{site.footer.tagline}</p></div>
+      {site.footer.groups.map((group) => (
+        <div class="footer-group"><b>{group.label}</b>{group.links.map((item) => <a href={item.href}>{item.label}</a>)}</div>
+      ))}
+      <small>{site.footer.copyright}</small>
     </footer>
     <script>
       const header = document.querySelector<HTMLElement>('.site-header');

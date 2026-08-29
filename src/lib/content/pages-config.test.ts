@@ -157,10 +157,15 @@ describe('Pages CMS maintenance safeguards', () => {
     expect(homepage?.fields).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ name: 'shareImage', type: 'image', options: { media: 'images' } }),
-        expect.objectContaining({ name: 'features', type: 'object' }),
-        expect.objectContaining({ name: 'faq', type: 'object' }),
+        expect.objectContaining({ name: 'tools', type: 'object' }),
+        expect.objectContaining({ name: 'why', type: 'object' }),
+        expect.objectContaining({ name: 'testimonials', type: 'object' }),
+        expect.objectContaining({ name: 'workflows', type: 'object' }),
       ]),
     );
+    expect(homepage?.fields.map((field) => field.name)).not.toEqual(expect.arrayContaining([
+      'process', 'features', 'privacy', 'guides', 'faq',
+    ]));
     const hero = homepage?.fields.find((field) => field.name === 'hero');
     expect(hero?.fields).toEqual(expect.arrayContaining([
       expect.objectContaining({ name: 'image', type: 'image', options: { media: 'images' } }),
@@ -195,6 +200,15 @@ describe('Pages CMS maintenance safeguards', () => {
     const navigation = header?.fields?.find((field) => field.name === 'navigation');
     expect(navigation?.fields).toEqual(expect.arrayContaining([
       expect.objectContaining({ name: 'children', type: 'object' }),
+    ]));
+    expect(header?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'loginLabel', type: 'string' }),
+      expect.objectContaining({ name: 'connectingLabel', type: 'string' }),
+    ]));
+    const footer = siteSettings?.fields.find((field) => field.name === 'footer');
+    expect(footer?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'groups', type: 'object' }),
+      expect.objectContaining({ name: 'copyright', type: 'string' }),
     ]));
   });
 
@@ -286,9 +300,12 @@ describe('Pages CMS maintenance safeguards', () => {
   it('lets operators hide every true items entry without deleting it', () => {
     const homepage = config.content.find((entry) => entry.name === 'homepage');
     const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
+    const useCases = homepage?.fields.find((field) => field.name === 'useCases');
+    expect(useCases?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'enabled', type: 'boolean', default: true }),
+    ]));
     const itemGroups = [
-      homepage?.fields.find((field) => field.name === 'features'),
-      homepage?.fields.find((field) => field.name === 'faq'),
+      homepage?.fields.find((field) => field.name === 'workflows'),
       landingPages?.fields.find((field) => field.name === 'features'),
       landingPages?.fields.find((field) => field.name === 'faq'),
     ];
@@ -301,22 +318,25 @@ describe('Pages CMS maintenance safeguards', () => {
     }
   });
 
-  it('lets each landing page inherit homepage features or provide a custom module', () => {
+  it('lets each landing page independently configure its template, workspace, showcase, steps, and features', () => {
     const landingPages = config.content.find((entry) => entry.name === 'landing-pages');
     const source = landingPages?.fields.find((field) => field.name === 'featuresSource');
     const features = landingPages?.fields.find((field) => field.name === 'features');
 
-    expect(source).toMatchObject({
-      type: 'select',
-      default: 'shared',
-      options: {
-        values: [
-          { name: 'shared', label: expect.stringContaining('首页') },
-          { name: 'custom', label: expect.stringContaining('本页') },
-        ],
-      },
-    });
-    expect(features?.description).toContain('本页自定义');
+    const process = landingPages?.fields.find((field) => field.name === 'process');
+    const steps = process?.fields?.find((field) => field.name === 'steps');
+
+    expect(source).toBeUndefined();
+    expect(features).toMatchObject({ name: 'features', type: 'object', required: true });
+    expect(landingPages?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'template', type: 'select' }),
+      expect.objectContaining({ name: 'highlightedHeading', type: 'string' }),
+      expect.objectContaining({ name: 'workspace', type: 'object' }),
+      expect.objectContaining({ name: 'showcase', type: 'object' }),
+    ]));
+    expect(steps?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'icon', type: 'string' }),
+    ]));
   });
 
   it('exposes legal pages and shared marketing page settings', () => {

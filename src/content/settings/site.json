@@ -70,49 +70,46 @@
     "linkHref": "/blog"
   },
   "header": {
+    "logo": "/uploads/seedances-logo-reversed.svg",
+    "loginLabel": "Log in",
+    "connectingLabel": "Connecting…",
     "navigation": [
       {
-        "label": "AI Tools",
-        "children": [
-          {
-            "label": "Seedance 2.0/2.5 Video upscale",
-            "href": "/seedance-video-upscale"
-          },
-          {
-            "label": "Seedance 2.0/2.5 AI Generated",
-            "href": "/seedance-ai-generated"
-          },
-          {
-            "label": "Seedance Video Watermark Remover",
-            "href": "/seedance-watermark-remover"
-          }
-        ]
+        "label": "Seedance Video Upscale",
+        "href": "/seedance-video-upscale"
       },
       {
-        "label": "Topics",
-        "href": "/blog"
+        "label": "AI Video Generator",
+        "href": "/seedance-ai-generated"
       },
       {
-        "label": "How it works"
+        "label": "Video Watermark Remover",
+        "href": "/seedance-watermark-remover"
       }
     ]
   },
   "footer": {
-    "tagline": "Free, Fast, High-Quality",
-    "links": [
+    "logo": "/uploads/seedances-logo-reversed.svg",
+    "tagline": "Make every frame worth watching.",
+    "groups": [
       {
-        "label": "Privacy",
-        "href": "/privacy"
+        "label": "TOOLS",
+        "links": [
+          { "label": "Seedance Video Upscale", "href": "/seedance-video-upscale" },
+          { "label": "AI Video Generator", "href": "/seedance-ai-generated" },
+          { "label": "Video Watermark Remover", "href": "/seedance-watermark-remover" }
+        ]
       },
       {
-        "label": "Terms",
-        "href": "/terms"
-      },
-      {
-        "label": "Guides",
-        "href": "/blog"
+        "label": "COMPANY",
+        "links": [
+          { "label": "Privacy", "href": "/privacy" },
+          { "label": "Terms", "href": "/terms" },
+          { "label": "Contact", "href": "mailto:hello@seedances.co" }
+        ]
       }
-    ]
+    ],
+    "copyright": "© 2026 seedances.co"
   },
   "themeColorFallback": "#22D3EE"
 }

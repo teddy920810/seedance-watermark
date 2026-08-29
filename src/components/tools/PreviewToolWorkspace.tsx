@@ -23,12 +23,11 @@ export default function PreviewToolWorkspace({ mode, copy }: Props) {
   const ready = mode === 'video-preview' ? Boolean(fileName) : Boolean(prompt.trim());
 
   return (
-    <section className="preview-workspace-card" aria-label={copy.heading}>
-      <div className="preview-workspace-heading">
-        <span className="eyebrow">{copy.eyebrow}</span>
-        <h2>{copy.heading}</h2>
-        <span className="demo-badge">Preview</span>
-      </div>
+    <section className="preview-workspace-card" aria-label={copy.heading || copy.inputLabel}>
+      {(copy.eyebrow || copy.heading) && <div className="preview-workspace-heading">
+        {copy.eyebrow && <span className="eyebrow">{copy.eyebrow}</span>}
+        {copy.heading && <h2>{copy.heading}</h2>}
+      </div>}
 
       {mode === 'video-preview' ? (
         <label className="drop-zone preview-drop-zone">
@@ -61,7 +60,7 @@ export default function PreviewToolWorkspace({ mode, copy }: Props) {
 
       {copy.options.length > 0 && <div className="preview-options">{copy.options.map((option) => <span key={option}>{option}</span>)}</div>}
       <button className="preview-workspace-action" type="button" disabled={!ready} onClick={() => setShowNote(true)}>{copy.actionLabel} →</button>
-      <p className="workspace-preview-note" role="status">{showNote ? copy.previewNote : `Preview only · ${copy.previewNote}`}</p>
+      {showNote && <p className="workspace-preview-note" role="status">{copy.previewNote}</p>}
     </section>
   );
 }

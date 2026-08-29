@@ -1,55 +1,90 @@
 {
-  "title": "Free Seedance 2.5 Video Upscaler",
-  "description": "Use this free tool to upscale your seedance videos to 4K or 8K instantly.",
-  "shareImage": "/uploads/seedance-watermark-og.svg",
+  "title": "Seedances — Every frame, more alive",
+  "description": "AI video upscaling, generation and watermark removal made effortless.",
+  "shareImage": "/uploads/seedances-og.png",
   "hero": {
-    "eyebrow": "Free · Fast · High-Quality",
-    "heading": "Best Free",
-    "highlightedHeading": " Seedance 2.0/2.5 Videos Upscaler",
-    "intro": "Upscale Seedance 2.0/2.5 videos for free, sharpen details, reduce blur and noise, and create crisp, smooth results fast.",
+    "eyebrow": "●   AI VIDEO, MADE EFFORTLESS",
+    "heading": "Every frame,",
+    "highlightedHeading": "more alive.",
+    "intro": "Restore, create and refine video with thoughtful AI tools built for the stories you want to tell.",
     "trustItems": [
-      "✓ Free Upscaling",
-      "✓ Sharper Details",
-      "✓ Smoother Videos"
+      "◉ ◉ ◉   Loved by 18,000+ creators"
     ],
-    "ctaLabel": "Explore Seedance tools",
-    "ctaHref": "#tools",
-    "image": "/uploads/seedances-operations-hero.png",
-    "imageAlt": "A video frame transforming into a detailed Seedance visual",
-    "imageBadge": "GENERATED → ENHANCED"
+    "ctaLabel": "Upscale your video",
+    "ctaHref": "/seedance-video-upscale",
+    "image": "/uploads/hero-v2.png",
+    "imageAlt": "A Seedance video evolving from a generated concept into a detailed 4K frame",
+    "imageBadge": "GENERATED → 4K ENHANCED"
   },
   "useCases": [
     {
-      "icon": "▶",
+      "icon": "",
       "badge": "RESTORE",
-      "title": "Seedance 2.0/2.5 Videos Upscale",
-      "description": "Turn Seedance 2.0/2.5 videos into cleaner, sharper UHD.",
+      "title": "Seedance Video Upscale",
+      "description": "Upscale blurry or compressed Seedance videos to 4K. Recover faces, textures and edges without flicker or an artificial over-sharpened look.",
       "href": "/seedance-video-upscale",
       "linkLabel": "Enhance video",
-      "image": "/uploads/seedances-tool-upscale.png",
-      "imageAlt": "Seedance video upscale preview"
+      "image": "/uploads/upscale-2.png",
+      "imageAlt": "Seedance Video Upscale"
     },
     {
-      "icon": "▶",
+      "icon": "",
       "badge": "CREATE",
-      "title": "Seedance 2.0/2.5 AI Generated​",
-      "description": "Create stunning AI videos with Seedance 2.0/2.5 in seconds.",
+      "title": "Seedance 2.0 AI Generated Video",
+      "description": "Turn a text prompt into a polished Seedance video with coherent motion, cinematic camera movement and consistent subjects.",
       "href": "/seedance-ai-generated",
       "linkLabel": "Generate video",
-      "image": "/uploads/seedances-tool-generator.png",
-      "imageAlt": "Seedance AI generated video preview"
+      "image": "/uploads/generator-jellyfish-city-v2.png",
+      "imageAlt": "Seedance 2.0 AI Generated Video"
     },
     {
-      "icon": "▶",
+      "icon": "",
       "badge": "CLEAN",
       "title": "Seedance Video Watermark Remover",
-      "description": "Remove watermarks from Seedance videos for a clean look.",
+      "description": "Remove a Seedance watermark across every frame while rebuilding the hidden background naturally.",
       "href": "/seedance-watermark-remover",
       "linkLabel": "Remove watermark",
-      "image": "/uploads/seedances-tool-remover.png",
-      "imageAlt": "Seedance watermark removal preview"
+      "image": "/uploads/remover-product-v2.png",
+      "imageAlt": "Seedance Video Watermark Remover"
     }
   ],
+  "tools": {
+    "eyebrow": "THREE TOOLS. ONE FLOW.",
+    "heading": "Everything your video needs.",
+    "intro": "From first idea to final export, move faster without losing the details that make your work yours."
+  },
+  "why": {
+    "eyebrow": "WHY SEEDANCES",
+    "heading": "Powerful tools. Refreshingly simple.",
+    "items": [
+      { "number": "01", "title": "Detail that feels natural", "description": "Our models understand motion across frames, preserving texture without the plastic AI look." },
+      { "number": "02", "title": "Built for your momentum", "description": "No complex timeline. Go from input to finished video in a few clicks." },
+      { "number": "03", "title": "Your work stays yours", "description": "Your files are encrypted, processed securely and never used to train our models." }
+    ]
+  },
+  "testimonials": {
+    "rating": "★★★★★",
+    "primary": {
+      "quote": "“Seedances rescued footage I thought was unusable. It looks sharper, cleaner, and still completely real.”",
+      "name": "Alex Kim",
+      "role": "Independent filmmaker"
+    },
+    "secondary": {
+      "quote": "“The first video tool that actually gets out of my way.”",
+      "name": "Maya Chen",
+      "role": "Creative Director"
+    }
+  },
+  "workflows": {
+    "eyebrow": "BUILT FOR REAL VIDEO WORK",
+    "heading": "One studio. Four everyday workflows.",
+    "items": [
+      { "image": "/uploads/upscale-portrait-v2.png", "imageAlt": "FILMMAKERS", "label": "FILMMAKERS", "title": "Restore archive and low-light footage for modern screens." },
+      { "image": "/uploads/generator-2.png", "imageAlt": "MARKETERS", "label": "MARKETERS", "title": "Generate product concepts before the first shoot." },
+      { "image": "/uploads/generator-tiny-astronaut-v2.png", "imageAlt": "EDUCATORS", "label": "EDUCATORS", "title": "Turn complex ideas into memorable visual explanations." },
+      { "image": "/uploads/remover-livestream-v2.png", "imageAlt": "CREATORS", "label": "CREATORS", "title": "Clean approved clips and prepare polished exports." }
+    ]
+  },
   "process": {
     "eyebrow": "SIMPLE WORKFLOW",
     "heading": "How to Enhance a Seedance Video",

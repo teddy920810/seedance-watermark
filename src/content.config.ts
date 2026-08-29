@@ -86,19 +86,21 @@ const landingProcessSchema = z.object({
   heading: z.string().min(1),
   steps: z.array(z.object({
     number: z.string().default(''),
+    icon: z.string().default(''),
     title: z.string().default(''),
     description: z.string().default(''),
   })).min(1),
 });
 
 const landingFaqSchema = z.object({
-  eyebrow: z.string().min(1),
-  heading: z.string().min(1),
-  items: z.array(faqItem).min(1),
+  eyebrow: z.string().default(''),
+  heading: z.string().default(''),
+  items: z.array(faqItem).default([]),
 });
 
 const landingFeatureItemSchema = z.object({
   enabled: z.boolean().default(true),
+  number: z.string().default(''),
   eyebrow: z.string().default(''),
   heading: z.string().default(''),
   description: z.string().default(''),
@@ -111,18 +113,37 @@ const landingFeatureItemSchema = z.object({
 const landingFeaturesSchema = z.object({
   eyebrow: z.string().default(''),
   heading: z.string().default(''),
+  highlightedHeading: z.string().default(''),
   intro: z.string().default(''),
   items: z.array(landingFeatureItemSchema).default([]),
+});
+
+const landingShowcaseSchema = z.object({
+  eyebrow: z.string().default(''),
+  heading: z.string().default(''),
+  highlightedHeading: z.string().default(''),
+  intro: z.string().default(''),
+  mode: z.enum(['comparison', 'generator', 'watermark']).default('generator'),
+  items: z.array(z.object({
+    enabled: z.boolean().default(true),
+    image: z.string().default(''),
+    imageAlt: z.string().default(''),
+    label: z.string().default(''),
+    title: z.string().default(''),
+    description: z.string().default(''),
+  })).default([]),
 });
 
 const landingPages = defineCollection({
   loader: glob({ base: './src/content/landing-pages', pattern: '**/*.json' }),
   schema: z.object({
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    template: z.enum(['legacy', 'operations']).default('legacy'),
     title: z.string().min(1),
     description: z.string().min(1),
     eyebrow: z.string().min(1),
     heading: z.string().min(1),
+    highlightedHeading: z.string().default(''),
     intro: z.string().min(1),
     benefits: z.array(z.string().min(1)).min(1),
     workspaceMode: z.enum(['image-upload', 'video-preview', 'prompt-preview']).default('image-upload'),
@@ -143,9 +164,9 @@ const landingPages = defineCollection({
       label: z.string().default(''),
     }).default({ heading: '', label: '' }),
     process: landingProcessSchema,
-    featuresSource: z.enum(['shared', 'custom']).optional(),
-    features: landingFeaturesSchema.optional(),
-    faq: landingFaqSchema,
+    showcase: landingShowcaseSchema.optional(),
+    features: landingFeaturesSchema,
+    faq: landingFaqSchema.default({ eyebrow: '', heading: '', items: [] }),
   }),
 });
 

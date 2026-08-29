@@ -18,18 +18,20 @@ describe('CMS item visibility', () => {
     expect(visibleItems(items, (item) => Boolean(item.question && item.answer))).toEqual([items[1]]);
   });
 
-  it('filters homepage and landing-page feature and FAQ rendering', () => {
+  it('filters homepage cards and landing-page feature and FAQ rendering', () => {
     const homepageSource = readFileSync(new URL('../../pages/index.astro', import.meta.url), 'utf8');
     const landingSource = readFileSync(new URL('../../components/LandingPage.astro', import.meta.url), 'utf8');
 
-    for (const source of [homepageSource, landingSource]) {
-      expect(source).toContain('visibleItems(');
-      expect(source).toContain('isCompleteFeature');
-      expect(source).toContain('isCompleteFaq');
-      expect(source).toContain('visibleFaqItems.length > 0');
-      expect(source).toContain('mainEntity: visibleFaqItems.map');
-    }
-    expect(landingSource).toContain('resolveFeatureModule(');
-    expect(landingSource).toContain("getCollection('homepage')");
+    expect(homepageSource).toContain('visibleItems(home.useCases');
+    expect(homepageSource).toContain('visibleItems(home.workflows.items');
+    expect(homepageSource).not.toContain('isCompleteFeature');
+    expect(homepageSource).not.toContain('isCompleteFaq');
+    expect(landingSource).toContain('visibleItems(');
+    expect(landingSource).toContain('isCompleteFeature');
+    expect(landingSource).toContain('isCompleteFaq');
+    expect(landingSource).toContain('visibleFaqItems.length > 0');
+    expect(landingSource).toContain('mainEntity: visibleFaqItems.map');
+    expect(landingSource).not.toContain('resolveFeatureModule(');
+    expect(landingSource).not.toContain("getCollection('homepage')");
   });
 });

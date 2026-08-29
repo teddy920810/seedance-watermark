@@ -11,12 +11,19 @@ describe('marketing page structure', () => {
     expect(homepageSource).not.toContain('client:load');
     expect(homepageSource).toContain('home-hero-visual');
     expect(homepageSource).toContain('tool-showcase-grid');
+    expect(homepageSource).toContain('home-why');
+    expect(homepageSource).toContain('home-testimonials');
+    expect(homepageSource).toContain('home-workflows');
+    expect(homepageSource).not.toContain('guides-section');
+    expect(homepageSource).not.toContain('home-faq-section');
   });
 
   it('keeps the interactive workspace on landing pages only', () => {
     expect(landingSource).toContain("import ImageUploader");
     expect(landingSource).toContain('client:load');
     expect(landingSource).toContain('product-workspace');
+    expect(landingSource).toContain('tool-results-showcase');
+    expect(landingSource).toContain('product-why');
     expect(landingSource).toContain('final-cta');
     expect(landingSource).toContain("import PreviewToolWorkspace");
     expect(landingSource).toContain("page.workspaceMode === 'image-upload'");

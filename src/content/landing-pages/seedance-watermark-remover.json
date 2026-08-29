@@ -1,48 +1,31 @@
 {
   "slug": "seedance-watermark-remover",
-  "title": "Seedance Video Watermark Remover – Workflow Preview | Seedances",
-  "description": "Preview the planned Seedance video watermark removal workflow while production video processing remains clearly marked as not connected.",
-  "eyebrow": "SEEDANCE VIDEO WATERMARK REMOVER",
-  "heading": "Remove watermarks without damaging the scene",
-  "intro": "Explore the planned video watermark removal workspace. Production video upload, detection, and frame reconstruction are not connected yet.",
-  "benefits": ["Permission-first workflow", "Local selection preview", "Clear capability status"],
+  "template": "operations",
+  "title": "Seedance Video Watermark Remover – Clean Video Online | Seedances",
+  "description": "Use Seedance Video Watermark Remover to remove watermarks across moving frames and reconstruct the hidden background for a clean, natural export.",
+  "eyebrow": "SEEDANCE WATERMARK REMOVER",
+  "heading": "Remove watermarks without",
+  "highlightedHeading": "damaging the scene.",
+  "intro": "Upload a Seedance video, let AI detect the watermark, and reconstruct the covered background across moving frames for a clean, natural export.",
+  "benefits": ["No install", "Private files", "Free preview"],
   "workspaceMode": "video-preview",
-  "workspace": {
-    "eyebrow": "VIDEO REMOVAL PREVIEW",
-    "heading": "Preview the video cleanup workspace",
-    "inputLabel": "Choose an authorized video for the local interface preview",
-    "inputHelp": "MP4, MOV, or WebM · no file will be uploaded",
-    "placeholder": "",
-    "options": ["Auto detect", "MP4"],
-    "actionLabel": "Preview removal flow",
-    "previewNote": "Video watermark processing is not connected yet; selected files stay local and no removal job is created."
-  },
-  "finalCta": { "heading": "Keep the authorized moment and preview the cleanup flow", "label": "Back to workspace" },
-  "featuresSource": "custom",
-  "process": {
-    "eyebrow": "HOW THE PREVIEW WORKS",
-    "heading": "Explore the planned removal flow in three steps",
-    "steps": [
-      { "number": "01", "title": "Choose authorized media", "description": "Select a video you own or may edit only for a local interface preview." },
-      { "number": "02", "title": "Review detection controls", "description": "See the planned automatic detection and export choices without uploading the file." },
-      { "number": "03", "title": "Check processing status", "description": "The page confirms that production video removal and reconstruction are not available yet." }
-    ]
-  },
-  "features": {
-    "eyebrow": "PLANNED REMOVAL EXPERIENCE",
-    "heading": "A clear workflow for future authorized video cleanup",
-    "intro": "The interface mirrors the intended removal journey while keeping current processing limits visible.",
-    "items": [
-      { "enabled": true, "eyebrow": "PERMISSION FIRST", "heading": "Preview cleanup controls without sending a video", "description": "Review the planned upload, detection, processing, and export journey for media you own or have permission to edit.", "listItems": ["Local-only file selection", "No removal job is created", "Current limits stay explicit"], "image": "/uploads/seedances-tool-remover.png", "imageAlt": "Seedance video watermark removal workflow preview", "imagePosition": "right" }
-    ]
-  },
-  "faq": {
-    "eyebrow": "REMOVAL PREVIEW QUESTIONS",
-    "heading": "What is available on the video remover page today",
-    "items": [
-      { "question": "Does this page remove a video watermark today?", "answer": "No. It previews the planned video interface; production removal is not connected." },
-      { "question": "Is a selected video uploaded?", "answer": "No. The file remains local and the preview does not request storage credentials or create a job." },
-      { "question": "What can the current live processor handle?", "answer": "The existing live workflow accepts authorized JPG, PNG, or WebP images and currently returns an unchanged preview copy." }
-    ]
-  }
+  "workspace": { "eyebrow": "", "heading": "", "inputLabel": "Drop your video here", "inputHelp": "or click to browse · MP4, MOV, WebM", "placeholder": "", "options": ["Auto detect", "MP4"], "actionLabel": "Remove video", "previewNote": "Video watermark processing is not connected yet; selected files stay local and no removal job is created." },
+  "process": { "eyebrow": "HOW IT WORKS", "heading": "Three steps. That’s it.", "steps": [
+    { "number": "01", "icon": "↑", "title": "Upload your Seedance video", "description": "Choose a video from your device." },
+    { "number": "02", "icon": "✦", "title": "Auto-detect or mark the watermark", "description": "Seedances reads the scene and handles the technical decisions." },
+    { "number": "03", "icon": "↓", "title": "Preview, remove & download", "description": "Preview the result and export when it feels right." }
+  ] },
+  "showcase": { "eyebrow": "MADE WITH SEEDANCES", "heading": "Watermark gone. Scene intact.", "highlightedHeading": "", "intro": "Four real-world removal scenarios, before and after.", "mode": "watermark", "items": [
+    { "enabled": true, "image": "/uploads/remover-travel-v2.png", "imageAlt": "Clean a licensed travel clip", "label": "SCENE 01", "title": "Clean a licensed travel clip", "description": "Remove a corner watermark while preserving fine mountain, sky and reflection detail." },
+    { "enabled": true, "image": "/uploads/remover-tutorial-v2.png", "imageAlt": "Prepare a tutorial for publishing", "label": "SCENE 02", "title": "Prepare a tutorial for publishing", "description": "Clean tutorial footage without disturbing hands, ingredients or the original composition." },
+    { "enabled": true, "image": "/uploads/remover-product-v2.png", "imageAlt": "Reuse approved product footage", "label": "SCENE 03", "title": "Reuse approved product footage", "description": "Remove an approval watermark and retain reflective product detail." },
+    { "enabled": true, "image": "/uploads/remover-livestream-v2.png", "imageAlt": "Export an overlay-free livestream", "label": "SCENE 04", "title": "Export an overlay-free livestream", "description": "Prepare a clean replay while preserving the creator, microphone and studio lighting." }
+  ] },
+  "features": { "eyebrow": "WHY SEEDANCES", "heading": "Built for the work.", "highlightedHeading": "Designed for the flow.", "intro": "", "items": [
+    { "enabled": true, "number": "01", "heading": "Frame-aware background reconstruction", "description": "Fine detail without halos, flicker or the waxy AI look." },
+    { "enabled": true, "number": "02", "heading": "Clean results on moving scenes", "description": "A focused workflow that keeps you moving from idea to export." },
+    { "enabled": true, "number": "03", "heading": "Secure automatic file deletion", "description": "Encrypted transfer and automatic file deletion protect your work." }
+  ] },
+  "faq": { "eyebrow": "", "heading": "", "items": [] },
+  "finalCta": { "heading": "Keep the moment. Lose the mark.", "label": "Remove now" }
 }

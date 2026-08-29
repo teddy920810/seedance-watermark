@@ -22,7 +22,7 @@ describe('SiteLayout Google Analytics integration', () => {
     expect(layoutSource).toContain('--theme-color-fallback: ${site.themeColorFallback};');
     expect(globalCss).toContain('--green: color-mix(in srgb, var(--theme-color, var(--theme-color-fallback)) 55%, black);');
     expect(globalCss).not.toContain('--green: #1d6b56;');
-    expect(globalCss).toContain('font-family: "Montserrat", system-ui');
+    expect(globalCss).toContain('font-family: "Geist", sans-serif');
     expect(globalCss).toContain('font-size: clamp(3rem, 4vw, 3.5rem);');
     expect(globalCss).toContain('font-size: clamp(2rem, 3vw, 2.25rem);');
     expect(layoutSource).toContain('applicationCategory: site.structuredData.applicationCategory');
@@ -59,6 +59,16 @@ describe('SiteLayout Google Analytics integration', () => {
     expect(layoutSource.match(/<img class="brand-logo"/g)).toHaveLength(2);
     expect(uploaderSource).toContain('<img className="brand-logo auth-logo"');
     expect(popupSource).toContain('<img class="brand-logo"');
+  });
+
+  it('matches the operations handoff header and grouped footer while keeping the copy in CMS', () => {
+    expect(layoutSource).toContain('loginLabel={site.header.loginLabel}');
+    expect(layoutSource).toContain('connectingLabel={site.header.connectingLabel}');
+    expect(layoutSource).toContain('site.footer.groups.map');
+    expect(layoutSource).toContain('{group.label}');
+    expect(layoutSource).toContain('site.footer.copyright');
+    expect(globalCss).toContain('grid-template-columns: 2fr 1fr 1fr');
+    expect(globalCss).toContain('width: 156px');
   });
 
   it('provides an accessible mobile navigation toggle and dropdown state', () => {
