@@ -5,5 +5,22 @@
   "eyebrow": "Seedance Watermark Remover guides",
   "heading": "Clear guidance for Seedance media cleanup",
   "intro": "Learn what the current image workflow supports, what direct video support still requires, and how to process only authorized media.",
-  "postsPerPage": 20
+  "postsPerPage": 20,
+  "articlePage": {
+    "authorMark": "/uploads/seedances-mark.svg",
+    "bylineLabel": "Written by",
+    "updatedLabel": "Updated",
+    "publishedLabel": "Published",
+    "shareLabel": "Share",
+    "copyLabel": "Copy link",
+    "copiedLabel": "Copied",
+    "tocLabel": "On this page",
+    "breadcrumbHomeLabel": "Home",
+    "breadcrumbBlogLabel": "Blog",
+    "cta": {
+      "heading": "Turn your character system into a finished scene.",
+      "label": "Create with Seedance AI →",
+      "href": "/seedance-ai-generated"
+    }
+  }
 }

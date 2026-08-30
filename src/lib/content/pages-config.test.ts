@@ -297,6 +297,25 @@ describe('Pages CMS maintenance safeguards', () => {
     ]));
   });
 
+  it('lets operators manage the shared article chrome and social-share labels', () => {
+    const blogSettings = config.content.find((entry) => entry.name === 'blog-index');
+    const articlePage = blogSettings?.fields.find((field) => field.name === 'articlePage');
+    const cta = articlePage?.fields?.find((field) => field.name === 'cta');
+
+    expect(articlePage).toMatchObject({ name: 'articlePage', type: 'object' });
+    expect(articlePage?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'shareLabel', type: 'string' }),
+      expect.objectContaining({ name: 'copyLabel', type: 'string' }),
+      expect.objectContaining({ name: 'copiedLabel', type: 'string' }),
+      expect.objectContaining({ name: 'tocLabel', type: 'string' }),
+    ]));
+    expect(cta?.fields).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: 'heading', type: 'string' }),
+      expect.objectContaining({ name: 'label', type: 'string' }),
+      expect.objectContaining({ name: 'href', type: 'string' }),
+    ]));
+  });
+
   it('lets operators hide every true items entry without deleting it', () => {
     const homepage = config.content.find((entry) => entry.name === 'homepage');
     const landingPages = config.content.find((entry) => entry.name === 'landing-pages');

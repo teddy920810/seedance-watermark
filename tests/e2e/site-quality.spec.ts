@@ -58,7 +58,7 @@ test('CMS raster images use generated WebP sources with original fallbacks', asy
   await expect.poll(() => png.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/generated\/.*\.webp/);
 
   await page.goto('/blog/ai-cartoon-avatar-seedance-2-0');
-  const blogCover = page.locator('img.article-cover');
+  const blogCover = page.locator('.blog-cover img');
   await expect(blogCover).toBeVisible();
   await expect(blogCover.locator('xpath=..')).toHaveJSProperty('tagName', 'PICTURE');
   await expect(blogCover).toHaveAttribute('src', /\/uploads\/.*\.png/);
@@ -106,8 +106,8 @@ for (const route of [
   test(`publishes ${route} with its original cover`, async ({ page, request }) => {
     expect((await request.get(route)).ok(), `${route} should be published`).toBeTruthy();
     await page.goto(route);
-    await expect(page.locator('article.article-body')).toBeVisible();
-    await expect(page.locator('img.article-cover')).toBeVisible();
+    await expect(page.locator('article.blog-article-body')).toBeVisible();
+    await expect(page.locator('.blog-cover img')).toBeVisible();
     await expect(page.locator('main h1')).toHaveCount(1);
   });
 }

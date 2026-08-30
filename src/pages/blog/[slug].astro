@@ -7,6 +7,8 @@ import { resolveImageAlt } from '../../lib/content/image-metadata';
 import { buildArticleSchema } from '../../lib/content/seo-schema';
 import { transformResponsiveHtml } from '../../lib/content/responsive-images';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import BlogShare from '../../components/blog/BlogShare.astro';
+import { extractBlogLead, formatBlogDate } from '../../lib/content/blog-presentation';
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -15,9 +17,11 @@ export async function getStaticPaths() {
 }
 interface Props { post: CollectionEntry<'blog'> }
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const [siteEntry] = await getCollection('siteSettings');
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
+const [blogSettingsEntry] = await getCollection('blogIndexSettings');
+if (!blogSettingsEntry) throw new Error('Blog settings CMS content is missing.');
 const metadata = resolveBlogMetadata(post.data, siteEntry.data.contentDefaults, siteEntry.data.name);
 const [imageSettingsEntry] = await getCollection('imageSettings');
 if (!imageSettingsEntry) throw new Error('Image metadata CMS content is missing.');
@@ -37,11 +41,59 @@ const schema = buildArticleSchema({
   image: post.data.coverImage,
 });
 const bodyHtml = post.data.contentMode === 'html' ? transformResponsiveHtml(post.data.bodyHtml ?? '') : '';
+const articleSettings = blogSettingsEntry.data.articlePage;
+const lead = post.data.contentMode === 'markdown' ? extractBlogLead(post.body ?? '') : { hiddenParagraphs: 0 };
+const heroDescription = post.data.heroDescription ?? lead.heroDescription ?? post.data.description;
+const coverCaption = post.data.coverCaption ?? lead.coverCaption;
+const displayDate = post.data.updatedAt ?? post.data.publishedAt;
+const dateLabel = post.data.updatedAt ? articleSettings.updatedLabel : articleSettings.publishedLabel;
+const canonicalUrl = new URL(`/blog/${post.data.slug}`, siteEntry.data.canonicalOrigin);
+const tocHeadings = headings.filter((heading) => heading.depth === 2);
+const cta = {
+  heading: post.data.ctaHeading ?? articleSettings.cta.heading,
+  label: post.data.ctaLabel ?? articleSettings.cta.label,
+  href: post.data.ctaHref ?? articleSettings.cta.href,
+};
 ---
-<SiteLayout title={metadata.title} description={post.data.description} image={post.data.coverImage} type="article" schema={schema}>
-  <header class="article-header"><div class="article-meta">{metadata.category} · {post.data.publishedAt} · {post.data.readTime} · {metadata.author}</div><h1>{post.data.title}</h1><p>{post.data.description}</p></header>
-  {post.data.coverImage && <ResponsiveImage class="article-cover" src={post.data.coverImage} alt={coverAlt ?? ''} sizes="(max-width: 960px) 100vw, 960px" />}
-  <article class="article-body">
-    {post.data.contentMode === 'html' ? <div set:html={bodyHtml} /> : <Content />}
-  </article>
+<SiteLayout title={metadata.title} description={post.data.description} image={post.data.coverImage} type="article" schema={schema} variant="marketing">
+  <div class="blog-page">
+    <section class="blog-hero" aria-labelledby="article-title">
+      <div class="blog-hero-inner">
+        <div class="blog-hero-copy">
+          <p class="blog-eyebrow">{post.data.eyebrow ?? metadata.category}</p>
+          <h1 id="article-title">{post.data.title}</h1>
+          <p class="blog-dek">{heroDescription}</p>
+          <address class="blog-byline">
+            <img src={articleSettings.authorMark} alt="" aria-hidden="true" />
+            <span><small>{articleSettings.bylineLabel}</small><a href="/" rel="author"><strong>{metadata.author}</strong></a></span>
+          </address>
+          <div class="blog-meta" aria-label="Article information">
+            <time datetime={displayDate}>{dateLabel} {formatBlogDate(displayDate, siteEntry.data.locale)}</time>
+            <span>{post.data.readTime}</span>
+            <span>{metadata.category}</span>
+          </div>
+          <BlogShare articleTitle={post.data.title} articleUrl={canonicalUrl} shareLabel={articleSettings.shareLabel} copyLabel={articleSettings.copyLabel} copiedLabel={articleSettings.copiedLabel} />
+        </div>
+        {post.data.coverImage && (
+          <figure class="blog-cover">
+            <ResponsiveImage src={post.data.coverImage} alt={coverAlt ?? ''} sizes="(max-width: 960px) 100vw, 520px" />
+            {coverCaption && <figcaption><em>{coverCaption}</em></figcaption>}
+          </figure>
+        )}
+      </div>
+    </section>
+    <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+      <ol><li><a href="/">{articleSettings.breadcrumbHomeLabel}</a></li><li><a href="/blog">{articleSettings.breadcrumbBlogLabel}</a></li><li aria-current="page"><span>{post.data.title}</span></li></ol>
+    </nav>
+    <div class="blog-layout">
+      <aside class="blog-toc" aria-label={articleSettings.tocLabel}>
+        <strong>{articleSettings.tocLabel}</strong>
+        <nav>{tocHeadings.map((heading) => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+      </aside>
+      <article class:list={['blog-article-body', { 'has-derived-lead': lead.hiddenParagraphs === 2 }]}>
+        {post.data.contentMode === 'html' ? <div set:html={bodyHtml} /> : <Content />}
+      </article>
+    </div>
+    <section class="blog-cta"><h2>{cta.heading}</h2><a href={cta.href}>{cta.label}</a></section>
+  </div>
 </SiteLayout>

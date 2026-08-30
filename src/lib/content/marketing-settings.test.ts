@@ -13,6 +13,9 @@ describe('marketing page CMS settings', () => {
   it('validates the blog listing settings', () => {
     const parsed = blogIndexSettingsSchema.parse(readJson('../../content/settings/blog.json'));
     expect(parsed.postsPerPage).toBeGreaterThan(0);
+    expect(parsed.articlePage.shareLabel).toMatch(/\S/);
+    expect(parsed.articlePage.tocLabel).toMatch(/\S/);
+    expect(parsed.articlePage.cta.href).toMatch(/^\//);
   });
 
   it('validates the 404 page settings', () => {
