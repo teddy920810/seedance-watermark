@@ -62,3 +62,72 @@ No desktop horizontal overflow or browser console warning/error was observed on 
 - [x] Console errors checked on all three tool routes
 
 final result: passed
+
+---
+
+# Design QA — Blog detail static handoff
+
+## Comparison target
+
+- Source visual truth: `E:/xwechat_files/sy236577346_7b05/msg/file/2026-08/seedances-blog-static-html-2026-08-29/seedances-blog-static-html/blog/ai-cartoon-avatar-seedance-2-0/index.html`
+- Source captures: `output/design-qa/reference-blog-ai-cartoon-avatar.jpg` and `reference-blog-ai-cartoon-avatar-mobile.jpg`
+- Implementation captures: `output/design-qa/prototype-blog-ai-cartoon-avatar.jpg` and `prototype-blog-ai-cartoon-avatar-mobile.jpg`
+- Focused hero captures: `output/design-qa/focus-blog-hero-source.jpg` and `focus-blog-hero-prototype.jpg`
+- Desktop viewport: 1280 × 720 CSS px at device scale factor 1; captures are 1265 px wide after the browser scrollbar.
+- Mobile viewport: 390 × 844 CSS px at device scale factor 1; captures are 375 px wide after the browser scrollbar.
+- State: signed out, article loaded, hero and rich-content states visible.
+
+## Full-view comparison
+
+| View | Source | Implementation | Difference |
+| --- | ---: | ---: | ---: |
+| Desktop full page | 10252 px | 10205 px | -47 px |
+| Mobile full page | 14099 px | 14096 px | -3 px |
+
+The final captures align the dark hero, two-column cover treatment, breadcrumb, sticky contents column, 760 px article track, rich text hierarchy, prompt rows, table, violet CTA, and footer. There is no page-level horizontal overflow at 390 px; the wide table scrolls within its own 335 px container.
+
+## Focused comparison
+
+The focused hero pair checks the system Inter stack, 1180 px hero grid, title wrapping, lime eyebrow, muted description, byline mark, metadata, share controls, 4:3 cover crop, border radius, and caption. The source image, logo, and editorial mark are reused as real assets. The prompt module was also compared in-browser at the same desktop viewport; its 118 px label track, row dividers, lime labels, panel color, radius, and wrapping match the handoff.
+
+## Required fidelity surfaces
+
+- Fonts and typography: the Blog route uses the source `Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` stack. Desktop and mobile title wrapping now matches the source; heading, body, metadata, label, and CTA weights retain the same hierarchy.
+- Spacing and layout rhythm: final full-page height differs by under 0.5% on desktop and under 0.1% on mobile. Hero, grid, article, prompt rows, table, CTA, and footer align without overlap or clipping.
+- Colors and tokens: `#10110f`, `#171815`, `#f3f1e9`, `#b7b9b1`, `#7861ee`, and `#d8ff62` map directly to the handoff. The hero description and eyebrow specificity were checked in the browser.
+- Image quality and asset fidelity: the article cover is the existing identical source image; the real logo and editorial mark are used. No placeholder, CSS drawing, emoji, or substitute illustration was introduced.
+- Copy and content: every Markdown article body remains unchanged. Current CMS title, category, author, dates, and read time intentionally remain the project's operational values rather than overwriting them with the static example.
+- Interaction and accessibility: X, LinkedIn, and Facebook links open in a new tab with safe `rel` values; Copy link changes to `Copied`. Breadcrumbs and TOC links are semantic, cover alt text is preserved, mobile has no document overflow, and the existing mobile menu remains keyboard/touch accessible.
+- Browser and console: the implementation was rendered and interacted with in the selected in-app browser. The targeted UI browser suite passed; no user-visible runtime error was observed in the manual article flow.
+
+## Comparison history
+
+1. P2 — The legacy `.blog-hero` rule constrained the new hero to 840 px, producing an over-tall title and 1339 px hero.
+   - Fix: reset the Blog detail hero width/margin and restore the 1180 px two-column source grid.
+   - Post-fix evidence: final desktop hero height and composition align with the source; full-page height differs by 47 px.
+2. P2 — Shiki retained the prompt as a generic code block instead of the source's labeled rows.
+   - Fix: exclude plain-text prompts from highlighting and convert fully labeled prompt blocks into shared semantic row markup without changing words.
+   - Post-fix evidence: seven prompt rows render with source label/value tracks and no generic `pre` on the representative article.
+3. P2 — The 560 px Markdown table widened the entire 390 px page.
+   - Fix: contain wide table tracks in a local horizontal scroller and add browser coverage for document width.
+   - Post-fix evidence: document width is 375 px, table client width is 335 px, and table scroll width is 560 px.
+4. P2 — The project-wide Geist font and a higher-specificity legacy paragraph color changed mobile title wrapping and made the hero description too dark.
+   - Fix: apply the source system Inter stack to Blog detail pages and raise the Blog description/eyebrow selectors to source token specificity.
+   - Post-fix evidence: the mobile title uses the same four-line wrap as the source and the full mobile height differs by 3 px.
+
+## Findings
+
+- P3 — The implementation retains the shared mobile navigation menu button absent from the static mock so site navigation remains available by touch and keyboard.
+- P3 — The generated TOC uses complete current H2 labels instead of the static mock's abbreviated labels. This preserves article text and keeps future CMS articles automatic.
+- Expected content variance — author, category, publication date, read time, and eyebrow use current CMS values. The user explicitly requested Blog copy remain unchanged.
+
+## Implementation checklist
+
+- [x] Desktop and mobile full-page source/implementation captures compared at matched viewport and density
+- [x] Focused hero and prompt regions reviewed
+- [x] Typography, layout, colors, images, copy, interactions, responsiveness, and accessibility checked
+- [x] Social links and Copy link behavior exercised
+- [x] Mobile page overflow removed while keeping table scrolling available
+- [x] Current Blog Markdown files kept unchanged
+
+final result: passed

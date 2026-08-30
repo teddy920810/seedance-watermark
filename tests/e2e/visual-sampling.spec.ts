@@ -4,7 +4,7 @@ const representativeArticle = '/blog/seedance-2-0-animation-2d';
 
 async function installRichContentFixture(page: Page) {
   await page.goto(representativeArticle);
-  await page.locator('article.article-body').evaluate((article) => {
+  await page.locator('article.blog-article-body').evaluate((article) => {
     article.innerHTML = `
       <h2>Rich editorial sample</h2>
       <h3>Lists and quotation</h3>
@@ -25,8 +25,8 @@ test('risk sample covers homepage, tool, blog list, new article, and legacy arti
     { route: '/', marker: '.tool-showcase-grid' },
     { route: '/seedance-video-upscale', marker: '#tool astro-island' },
     { route: '/blog', marker: '.blog-list' },
-    { route: representativeArticle, marker: 'article.article-body' },
-    { route: '/blog/how-to-remove-watermarks-responsibly', marker: 'article.article-body' },
+    { route: representativeArticle, marker: 'article.blog-article-body' },
+    { route: '/blog/how-to-remove-watermarks-responsibly', marker: 'article.blog-article-body' },
   ];
 
   for (const sample of samples) {
@@ -38,7 +38,7 @@ test('risk sample covers homepage, tool, blog list, new article, and legacy arti
 
 test('real article CSS renders rich blocks on desktop', async ({ page }) => {
   await installRichContentFixture(page);
-  const article = page.locator('article.article-body');
+  const article = page.locator('article.blog-article-body');
   const quote = article.locator('blockquote');
   const table = article.locator('table');
 
@@ -47,15 +47,15 @@ test('real article CSS renders rich blocks on desktop', async ({ page }) => {
   await expect(article.locator('ol')).toHaveCSS('list-style-type', 'decimal');
   await expect(table).toHaveCSS('overflow-x', 'auto');
   await expect(article.locator('pre')).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-  expect(await quote.evaluate((element) => Number.parseFloat(getComputedStyle(element).borderLeftWidth))).toBeGreaterThanOrEqual(4);
+  expect(await quote.evaluate((element) => Number.parseFloat(getComputedStyle(element).borderLeftWidth))).toBeGreaterThanOrEqual(3);
 });
 
 test('wide rich content stays contained on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await installRichContentFixture(page);
-  const table = page.locator('article.article-body table');
+  const table = page.locator('article.blog-article-body table');
 
-  await expect(page.locator('article.article-body blockquote')).toBeVisible();
+  await expect(page.locator('article.blog-article-body blockquote')).toBeVisible();
   expect(await table.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

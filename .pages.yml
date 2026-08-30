@@ -517,6 +517,29 @@ content:
         options:
           min: 1
           max: 100
+      - name: articlePage
+        label: 博客详情页公共模块 / Article page
+        type: object
+        required: true
+        fields:
+          - { name: authorMark, label: 作者标识 / Author mark, type: image, required: true, options: { media: images } }
+          - { name: bylineLabel, label: 作者前缀 / Byline label, type: string, required: true }
+          - { name: updatedLabel, label: 更新日期前缀 / Updated label, type: string, required: true }
+          - { name: publishedLabel, label: 发布日期前缀 / Published label, type: string, required: true }
+          - { name: shareLabel, label: 分享模块标题 / Share label, type: string, required: true }
+          - { name: copyLabel, label: 复制链接按钮 / Copy label, type: string, required: true }
+          - { name: copiedLabel, label: 复制成功提示 / Copied label, type: string, required: true }
+          - { name: tocLabel, label: 目录标题 / TOC label, type: string, required: true }
+          - { name: breadcrumbHomeLabel, label: 首页路径文字 / Home breadcrumb, type: string, required: true }
+          - { name: breadcrumbBlogLabel, label: 博客路径文字 / Blog breadcrumb, type: string, required: true }
+          - name: cta
+            label: 底部行动模块 / CTA
+            type: object
+            required: true
+            fields:
+              - { name: heading, label: CTA 标题｜H2, type: string, required: true }
+              - { name: label, label: CTA 按钮文字, type: string, required: true }
+              - { name: href, label: CTA 链接, type: string, required: true }
 
   - name: not-found
     label: 404 页面 / Not found
@@ -869,6 +892,27 @@ content:
         label: 封面图替代文字｜IMG ALT
         type: string
         description: 上传封面图时请填写，用于无障碍和图片 SEO。
+      - name: eyebrow
+        label: 详情页眉题 / Hero eyebrow（可选）
+        type: string
+        description: 留空时使用文章分类。
+      - name: heroDescription
+        label: 详情页简介 / Hero description（可选）
+        type: text
+        description: 留空时复用正文开头的第一段斜体文字，再回退到文章摘要。
+      - name: coverCaption
+        label: 封面图注 / Cover caption（可选）
+        type: text
+        description: 留空时复用正文开头的第二段斜体文字。
+      - name: ctaHeading
+        label: 独立 CTA 标题｜H2（可选）
+        type: string
+      - name: ctaLabel
+        label: 独立 CTA 按钮文字（可选）
+        type: string
+      - name: ctaHref
+        label: 独立 CTA 链接（可选）
+        type: string
       - name: author
         label: 作者｜SPAN
         type: string
