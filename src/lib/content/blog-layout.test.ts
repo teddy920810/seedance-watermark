@@ -16,6 +16,8 @@ describe('blog article layout', () => {
     expect(blogPage).toContain('class="blog-cta"');
     expect(globalCss).toMatch(/\.blog-layout\s*\{[^}]*grid-template-columns:\s*220px minmax\(0,760px\)/s);
     expect(globalCss).toMatch(/\.blog-toc\s*\{[^}]*position:\s*sticky/s);
+    expect(globalCss).toMatch(/\.blog-toc\s*\{[^}]*scrollbar-width:\s*none/s);
+    expect(globalCss).toMatch(/\.blog-toc::-webkit-scrollbar\s*\{[^}]*display:\s*none/s);
     expect(globalCss).toMatch(/body\.page-marketing:has\(\.blog-page\)[^{]*\{[^}]*font-family:\s*Inter/s);
     expect(globalCss).toMatch(/\.blog-hero \.blog-dek\s*\{[^}]*color:\s*var\(--blog-muted\)/s);
   });

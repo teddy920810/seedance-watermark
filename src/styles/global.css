@@ -577,7 +577,8 @@ body.page-marketing:has(.blog-page), .blog-page { font-family: Inter, ui-sans-se
 .blog-breadcrumb a { color: var(--blog-muted); }
 .blog-breadcrumb a:hover { color: var(--blog-text); }
 .blog-layout { max-width: 1080px; margin: 0 auto; padding: 54px 24px 120px; display: grid; grid-template-columns: 220px minmax(0,760px); gap: 72px; }
-.blog-toc { max-height: calc(100vh - 126px); padding-top: 16px; position: sticky; top: 98px; align-self: start; overflow-y: auto; border-top: 1px solid var(--blog-line); scrollbar-width: thin; }
+.blog-toc { max-height: calc(100vh - 126px); padding-top: 16px; position: sticky; top: 98px; align-self: start; overflow-y: auto; border-top: 1px solid var(--blog-line); scrollbar-width: none; }
+.blog-toc::-webkit-scrollbar { display: none; }
 .blog-toc strong { margin-bottom: 14px; display: block; color: var(--blog-text); font-size: 13px; }
 .blog-toc nav { display: grid; gap: 2px; }
 .blog-toc a { padding: 6px 0; color: #92948d; font-size: 13px; line-height: 1.45; }

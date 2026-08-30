@@ -41,11 +41,14 @@ test('real article CSS renders rich blocks on desktop', async ({ page }) => {
   const article = page.locator('article.blog-article-body');
   const quote = article.locator('blockquote');
   const table = article.locator('table');
+  const tableOfContents = page.locator('.blog-toc');
 
   await expect(quote).toBeVisible();
   await expect(article.locator('ul')).toHaveCSS('list-style-type', 'disc');
   await expect(article.locator('ol')).toHaveCSS('list-style-type', 'decimal');
   await expect(table).toHaveCSS('overflow-x', 'auto');
+  await expect(tableOfContents).toHaveCSS('overflow-y', 'auto');
+  await expect(tableOfContents).toHaveCSS('scrollbar-width', 'none');
   await expect(article.locator('pre')).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   expect(await quote.evaluate((element) => Number.parseFloat(getComputedStyle(element).borderLeftWidth))).toBeGreaterThanOrEqual(3);
 });
