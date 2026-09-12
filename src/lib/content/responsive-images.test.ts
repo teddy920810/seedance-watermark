@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { mkdtemp, mkdir, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 import { auditResponsiveHtml, generateResponsiveImages } from '../../../scripts/responsive-images.mjs';
 import { rehypeResponsiveImages, type HastNode } from './rehype-responsive-images';
@@ -88,6 +89,12 @@ const entry: ResponsiveImageEntry = manifest.images['/uploads/example.png'];
 const resolveImage = (src: string) => src.endsWith('.png') || src.endsWith('.jpg') ? entry : undefined;
 
 describe('CMS content rendering', () => {
+  it('renders Blog Markdown at page build time instead of persisting pre-generation HTML', () => {
+    const config = readFileSync(new URL('../../content.config.ts', import.meta.url), 'utf8');
+    const blogLoader = config.match(/const blog = defineCollection\(\{([\s\S]*?)schema:/)?.[1];
+    expect(blogLoader).toContain('deferRender: true');
+  });
+
   it('wraps trusted HTML raster images while preserving the original img tag', () => {
     const html = transformResponsiveHtml('<p><img class="wide" src="/uploads/example.jpg" alt="JPG"></p>', '50vw', resolveImage);
     expect(html).toContain('<picture class="responsive-picture">');

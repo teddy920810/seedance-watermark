@@ -24,6 +24,7 @@ describe('editorial HTML import', () => {
     expect(result.body).toContain('Figure 1. Original caption');
     expect(result.body).toContain('Original CTA explanation.');
     expect(result.body).not.toMatch(/navigation|footer|untrusted|assets\//);
+    expect(result.body).toContain('![](/uploads/blog/example/test.png)');
   });
 
   it('imports Applications as a Blog category as requested by the publisher', () => {
@@ -31,6 +32,27 @@ describe('editorial HTML import', () => {
     expect(result.metadata.slug).toBe('example');
     expect(result.metadata.eyebrow).toBe('SEEDANCE APPLICATIONS');
     expect(result.metadata.category).toBe('Seedance Applications');
+  });
+
+  it('imports the original hero and every body image, retaining alt, captions and order', () => {
+    const source = `<link rel="canonical" href="https://seedances.co/blog/example"><h1>Title</h1><header><img src="assets/logo.svg"></header><figure class="blogCover"><img src="assets/hero.png" alt="Original hero"><figcaption>Original caption</figcaption></figure><article class="blogArticle"><p>Before.</p><figure><img src="assets/figure-1.jpg" alt="A &amp; [B]"><figcaption>Figure one.</figcaption></figure><p>After.</p><img src="assets/figure-2.jpeg" alt="Two"></article>`;
+    const result = importBlogHtml(source, '2026-09-13');
+    expect(result.metadata.coverImage).toBe('/uploads/blog/example/hero.png');
+    expect(result.metadata.coverAlt).toBe('Original hero');
+    expect(result.metadata.coverCaption).toBe('Original caption');
+    expect(result.body).toContain('![A & \\[B\\]](/uploads/blog/example/figure-1.jpg)');
+    expect(result.body).toContain('![Two](/uploads/blog/example/figure-2.jpeg)');
+    expect(result.body.indexOf('figure-1.jpg')).toBeLessThan(result.body.indexOf('Figure one.'));
+    expect(result.images).toEqual([
+      { source: 'assets/hero.png', target: '/uploads/blog/example/hero.png', alt: 'Original hero', role: 'cover' },
+      { source: 'assets/figure-1.jpg', target: '/uploads/blog/example/figure-1.jpg', alt: 'A & [B]', role: 'body' },
+      { source: 'assets/figure-2.jpeg', target: '/uploads/blog/example/figure-2.jpeg', alt: 'Two', role: 'body' },
+    ]);
+    expect(result.bodyText).toBe('Before.Figure one.After.');
+  });
+
+  it.each(['../private.png', 'assets/../private.png', 'assets//x.png', 'https://example.com/x.png', 'data:image/png;base64,abc', 'assets/x.svg', 'assets/x.png?download=1'])('does not silently drop or copy unsupported image path %s', (src) => {
+    expect(() => importBlogHtml(`<link rel="canonical" href="https://seedances.co/blog/example"><h1>Title</h1><article class="blogArticle"><img src="${src}"></article>`, '2026-09-13')).toThrow(/image/i);
   });
 
   it('renders literal brackets and punctuation without changing the source text', async () => {

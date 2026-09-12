@@ -13,6 +13,8 @@ eyebrow: SEEDANCE GUIDES
 heroDescription: Learn how to use Seedance step by step, choose text or image
   input, write a workable prompt, set video options, fix common errors, and
   export your clip.
+coverImage: /uploads/blog/how-to-use-seedance/hero.png
+coverAlt: How to Use Seedance Without Wasting Your First Credits
 coverCaption: Original editorial illustration generated for this article.
 ctaHeading: Generate your first clip
 ctaLabel: Create with Seedance AI →
@@ -37,6 +39,8 @@ This guide takes you from that first choice to a downloaded clip. It also shows 
 5. Generate, review the clip while it is moving, and revise one variable.
 6. Download the keeper and finish captions, audio, and timing in an editor.
 
+![How to use Seedance step by step](/uploads/blog/how-to-use-seedance/figure-1.png)
+
 Figure 1. How to use Seedance step by step
 
 ## Seedance is a model rather than one universal app
@@ -46,6 +50,8 @@ ByteDance develops Seedance, but an access platform wraps the model in its own p
 First-party access is useful when you want the workflow ByteDance currently supports. A third-party tool can be convenient when you want a simpler interface or several models in one place. Neither label tells you everything. Check the model version, privacy terms, export conditions, and support policy on the page you actually use.
 
 Do not assume Seedances.co is the official ByteDance site. It is an independent third-party tool. The distinction should remain visible wherever access is discussed.
+
+![Official Seedance model versus access platforms](/uploads/blog/how-to-use-seedance/figure-2.png)
 
 Figure 2. Official Seedance model versus access platforms
 
@@ -79,6 +85,8 @@ Model names and settings change, so treat the interface in front of you as the s
 
 Choose **16:9** for standard YouTube and desktop video, **9:16** for Shorts, Reels, and TikTok, and **1:1** only when a square feed placement truly needs it. Compose for the final ratio from the beginning. Cropping a wide shot into vertical video can remove faces, products, and important movement.
 
+![Seedance video settings for duration and aspect ratio](/uploads/blog/how-to-use-seedance/figure-3.png)
+
 Figure 3. Seedance video settings for duration and aspect ratio
 
 ## Step 4 Generate and review the moving result
@@ -97,6 +105,8 @@ Review eight points:
 - Do the first and last frames provide useful edit points?
 
 Decide whether the clip is usable for its intended job. “Interesting” and “usable” are different standards.
+
+![Seedance generated video quality checklist](/uploads/blog/how-to-use-seedance/figure-4.png)
 
 Figure 4. Seedance generated video quality checklist
 
