@@ -77,7 +77,10 @@ const blogEntrySchema = z.object({
   });
 
 const blog = defineCollection({
-  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+  // Markdown depends on the current generated-image manifest, not just its text.
+  // Do not reuse HTML cached by an earlier content sync before media generation.
+  // https://docs.astro.build/en/reference/content-loader-reference/#deferrender
+  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}', deferRender: true }),
   schema: blogEntrySchema,
 });
 

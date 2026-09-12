@@ -13,6 +13,8 @@ eyebrow: SEEDANCE GUIDES
 heroDescription: Write better Seedance prompts with a simple shot formula,
   copy-ready examples, camera directions, continuity controls, and fixes for
   common AI video failures.
+coverImage: /uploads/blog/seedance-prompts/hero.png
+coverAlt: Seedance Prompts That Give You More Usable Video
 coverCaption: Original editorial illustration generated for this article.
 ctaHeading: Try the prompt
 ctaLabel: Create with Seedance AI →
@@ -37,6 +39,8 @@ Here is a complete example:
 *Medium tracking shot of a woman in a yellow raincoat walking through a narrow Tokyo side street at night. She looks into one shop window and smiles. The camera moves beside her at walking speed with a 50mm lens. Wet pavement reflects warm signs. Natural motion, realistic skin, continuous shot, no cuts, no readable text.*
 
 Keep the action simple. If the first result works, add one new idea in the next generation.
+
+![Seedance prompt formula with shot subject action camera lighting style and constraints](/uploads/blog/seedance-prompts/figure-1.png)
 
 Figure 1. Seedance prompt formula with shot subject action camera lighting style and constraints
 
@@ -80,6 +84,8 @@ Compare these versions:
 
 **Stronger:** Medium lateral tracking shot of the same woman in a yellow raincoat walking beneath storefront awnings. She takes six steady steps and glances at one window. Camera remains at shoulder height and matches her speed. Wet street, warm practical lights, realistic night photography, stable face and clothing, continuous take, no cuts.
 
+![Weak and improved Seedance prompt example](/uploads/blog/seedance-prompts/figure-2.png)
+
 Figure 2. Weak and improved Seedance prompt example
 
 ## 12 copy-ready Seedance prompt examples
@@ -105,6 +111,8 @@ Simple camera moves usually produce cleaner results. A **dolly-in** moves the ca
 
 An orbit asks the model to reveal changing sides of a subject and background at the same time. It can work, but a full orbit around a moving person is demanding. Begin with a short quarter orbit around a stationary subject. If geometry bends, switch to a slow lateral move or use a reference image.
 
+![Seedance camera movement prompt examples](/uploads/blog/seedance-prompts/figure-3.png)
+
 Figure 3. Seedance camera movement prompt examples
 
 ## Keep characters and scenes consistent
@@ -126,6 +134,8 @@ Change one variable per iteration. If you change wardrobe, camera, weather, and 
 | Ignored style | Several competing styles | One medium, palette, and lighting treatment |
 
 If the composition is right but identity keeps changing, switch from text-to-video to image-to-video. If hands break during contact, separate the action into a before shot, a brief contact shot, and an after shot.
+
+![How to fix failed Seedance prompts](/uploads/blog/seedance-prompts/figure-4.png)
 
 Figure 4. How to fix failed Seedance prompts
 
