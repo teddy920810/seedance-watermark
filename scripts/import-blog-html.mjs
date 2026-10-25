@@ -54,7 +54,7 @@ export function importBlogHtml(html, publishedAt) {
   const nodes = all(parse(html));
   const first = (predicate) => nodes.find(predicate);
   const canonical = attr(first((node) => attr(node, 'rel') === 'canonical') ?? {}, 'href');
-  const match = canonical && new URL(canonical).pathname.match(/^\/(?:blog|applications)\/([a-z0-9-]+)\/?$/);
+  const match = canonical && new URL(canonical).pathname.match(/^\/(?:blog|applications|alternative-tips)\/([a-z0-9-]+)\/?$/);
   if (!match) throw new Error('Expected an explicit Blog canonical URL');
   const article = first((node) => node.tagName === 'article' && hasClass(node, 'blogArticle'));
   const heading = first((node) => node.tagName === 'h1');
@@ -79,13 +79,16 @@ export function importBlogHtml(html, publishedAt) {
   };
   const cover = all(byClass('blogCover') ?? {}).find((node) => node.tagName === 'img');
   const coverImage = cover ? imagePath(cover, 'cover') : undefined;
+  const eyebrow = normalized(text(byClass('blogEyebrow') ?? {}));
+  const category = eyebrow.includes('APPLICATIONS') ? 'Seedance Applications'
+    : eyebrow.includes('ALTERNATIVE TIPS') ? 'Seedance Alternative Tips' : 'Seedance Guides';
   const metadata = {
     slug: match[1], title: normalized(text(heading)),
     seoTitle: normalized(text(first((node) => node.tagName === 'title') ?? {})),
     description: meta('description'), publishedAt,
     readTime: normalized(text(children(byClass('blogMeta') ?? {}).find((node) => node.tagName === 'span') ?? {})) || '8 min read',
-    author: meta('author'), category: text(byClass('blogEyebrow') ?? {}).includes('APPLICATIONS') ? 'Seedance Applications' : 'Seedance Guides',
-    eyebrow: normalized(text(byClass('blogEyebrow') ?? {})) || undefined,
+    author: meta('author'), category,
+    eyebrow: eyebrow || undefined,
     heroDescription: normalized(text(byClass('blogDek') ?? {})) || undefined,
     coverImage, coverAlt: cover ? attr(cover, 'alt') || undefined : undefined,
     coverCaption: normalized(text(all(byClass('blogCover') ?? {}).find((node) => node.tagName === 'figcaption') ?? {})) || undefined,

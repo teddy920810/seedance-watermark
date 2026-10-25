@@ -1,0 +1,117 @@
+[
+  {
+    "number": 18,
+    "slug": "kling-4-vs-seedance-2-5",
+    "zip": "18-kling-4-vs-seedance-2-5-static-html.zip",
+    "zipSha256": "3db62aa13dfc2d11c2dd53aecbaa6f749f9c08d73ce58dfbdaeed8dfa14f479f",
+    "sourceHtmlSha256": "f84013aa511bc41d4f691c239458a8304d7a547f1079e0434ff9d0ef470a2daf",
+    "metadata": {
+      "slug": "kling-4-vs-seedance-2-5",
+      "title": "Kling 4 vs Seedance 2.5: Control, Quality and Real Costs",
+      "seoTitle": "Kling 4 vs Seedance 2.5: Control, Quality and Costs",
+      "description": "Compare Kling 4 and Seedance 2.5 on keyframes, clothing videos, references, quality, speed and real workflow costs, with practical checks and FAQs.",
+      "publishedAt": "2026-10-25",
+      "readTime": "11 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare Kling 4 keyframe control with Seedance 2.5 multimodal guidance across longer shots, product consistency, iteration, and real production costs.",
+      "coverImage": "/uploads/blog/kling-4-vs-seedance-2-5/hero.png",
+      "coverAlt": "Editorial illustration for Kling 4 vs Seedance 2.5: Control, Quality and Real Costs",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "98e88e0992b065e7a4649eddeff1df23b23026f11b638cd24d564746b77f64e7",
+    "bodyTextCharacters": 12889,
+    "structure": {
+      "h2": 11,
+      "h3": 8,
+      "ul": 0,
+      "ol": 1,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/kling-4-vs-seedance-2-5/hero.png",
+        "alt": "Editorial illustration for Kling 4 vs Seedance 2.5: Control, Quality and Real Costs",
+        "role": "cover",
+        "sha256": "c7182c5e9ed6f9413eeab2e4c58e0f838520261242c061cd6d4e8d8284023764"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/kling-4-vs-seedance-2-5/figure-1.png",
+        "alt": "Original apparel brief prepared in Kling's public composer. No reference file was uploaded and no generation was submitted.",
+        "role": "body",
+        "sha256": "4cc6d2a13623d8cffe462e8ca4e2e1300b826ffe1426949c9c0ba2af2a9fd3f4"
+      },
+      {
+        "source": "assets/figure-2.png",
+        "target": "/uploads/blog/kling-4-vs-seedance-2-5/figure-2.png",
+        "alt": "ByteDance's published long-narrative showcase, captured on its model page. This is a vendor demonstration, not footage generated or scored for this article.",
+        "role": "body",
+        "sha256": "291d464074e372a1f37d4e93040a635a3fbd09ae8195314740690be6aa38dc7d"
+      }
+    ]
+  },
+  {
+    "number": 17,
+    "slug": "seedance-vs-wan",
+    "zip": "17-seedance-vs-wan-static-html.zip",
+    "zipSha256": "3d2535767583c0dfc0817a1b61916ab245a07435f153ca9703cbe16334ccdb3e",
+    "sourceHtmlSha256": "897bba8f495ac8dac71405e40b7d329ae9e7553bd568b0096979afac880accef",
+    "metadata": {
+      "slug": "seedance-vs-wan",
+      "title": "Seedance vs Wan: Local Control or a Managed Video Workflow?",
+      "seoTitle": "Seedance vs Wan: 2.2, 2.6 and 2.7 Compared for Creators",
+      "description": "Compare Seedance 2.0 with Wan 2.2, 2.6 and 2.7 on local control, quality, speed, deployment and the real cost of getting your first usable clip.",
+      "publishedAt": "2026-10-25",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Decide between local Wan workflows and managed Seedance or Wan services by weighing control, hardware effort, deployment, and first-usable-clip cost.",
+      "coverImage": "/uploads/blog/seedance-vs-wan/hero.png",
+      "coverAlt": "Editorial illustration for Seedance vs Wan: Local Control or a Managed Video Workflow?",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "a1517af822e7af974be10bfc0ecbd95f2276bfef90413876f2fcc168976be9a9",
+    "bodyTextCharacters": 10676,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-wan/hero.png",
+        "alt": "Editorial illustration for Seedance vs Wan: Local Control or a Managed Video Workflow?",
+        "role": "cover",
+        "sha256": "ca1fa64cdcce8eb19e6f0ff8800ea1f46dd411465fafdf989f32d631ff59157c"
+      },
+      {
+        "source": "assets/figure-1.jpg",
+        "target": "/uploads/blog/seedance-vs-wan/figure-1.jpg",
+        "alt": "ComfyUI's official Wan 2.2 tutorial shows a musician example for the 5B workflow. This is published documentation, not a local render performed for this article.",
+        "role": "body",
+        "sha256": "057d35f50d1c91782fd2b08c8088ba9de0a2cab5a83ef111af4dadbe64bb7799"
+      }
+    ]
+  }
+]
