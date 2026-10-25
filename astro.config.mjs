@@ -21,6 +21,8 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: { type: 'shiki', excludeLangs: ['math', 'text'] },
     processor: unified({
+      // Keep editorial punctuation verbatim, including straight quotes and apostrophes.
+      smartypants: false,
       remarkPlugins: [[omitMissingBlogImages, { blogDirectory: blogContentDirectory }]],
       rehypePlugins: [rehypeBlogPrompt, rehypeResponsiveImages],
     }),

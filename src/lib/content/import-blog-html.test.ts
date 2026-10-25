@@ -34,6 +34,27 @@ describe('editorial HTML import', () => {
     expect(result.metadata.category).toBe('Seedance Applications');
   });
 
+  it('imports Alternative Tips into the existing Blog with original wording and media', async () => {
+    const source = '<title>Original comparison SEO</title><meta name="description" content="Original comparison summary"><link rel="canonical" href="https://seedances.co/alternative-tips/comparison"><h1>Original comparison title</h1><p class="blogEyebrow">SEEDANCE ALTERNATIVE TIPS</p><figure class="blogCover"><img src="assets/hero.png" alt="Original cover"><figcaption>Original cover caption.</figcaption></figure><article class="blogArticle"><h2>Original section</h2><p>Keep A &amp; B, [control] and real costs.</p><figure><img src="assets/figure-1.jpg" alt="Original figure"><figcaption>Original figure caption.</figcaption></figure></article><section class="blogCta"><h2>Original CTA</h2><p>Original CTA explanation.</p><a href="/seedance-ai-generated">Original button</a></section>';
+    const result = importBlogHtml(source, '2026-10-26');
+    expect(result.metadata).toMatchObject({
+      slug: 'comparison', title: 'Original comparison title',
+      seoTitle: 'Original comparison SEO', description: 'Original comparison summary',
+      category: 'Seedance Alternative Tips', eyebrow: 'SEEDANCE ALTERNATIVE TIPS',
+      publishedAt: '2026-10-26', coverImage: '/uploads/blog/comparison/hero.png',
+      coverAlt: 'Original cover', coverCaption: 'Original cover caption.',
+      ctaHeading: 'Original CTA', ctaLabel: 'Original button', ctaHref: '/seedance-ai-generated',
+    });
+    expect(result.images).toEqual([
+      { source: 'assets/hero.png', target: '/uploads/blog/comparison/hero.png', alt: 'Original cover', role: 'cover' },
+      { source: 'assets/figure-1.jpg', target: '/uploads/blog/comparison/figure-1.jpg', alt: 'Original figure', role: 'body' },
+    ]);
+    expect(result.body).toContain('![Original figure](/uploads/blog/comparison/figure-1.jpg)');
+    const processor = await createMarkdownProcessor();
+    const rendered = await processor.render(result.body);
+    expect(visibleText(parse(rendered.code)).replace(/\s/g, '')).toBe(result.bodyText.replace(/\s/g, ''));
+  });
+
   it('imports the original hero and every body image, retaining alt, captions and order', () => {
     const source = `<link rel="canonical" href="https://seedances.co/blog/example"><h1>Title</h1><header><img src="assets/logo.svg"></header><figure class="blogCover"><img src="assets/hero.png" alt="Original hero"><figcaption>Original caption</figcaption></figure><article class="blogArticle"><p>Before.</p><figure><img src="assets/figure-1.jpg" alt="A &amp; [B]"><figcaption>Figure one.</figcaption></figure><p>After.</p><img src="assets/figure-2.jpeg" alt="Two"></article>`;
     const result = importBlogHtml(source, '2026-09-13');
