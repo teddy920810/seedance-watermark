@@ -1,0 +1,132 @@
+[
+  {
+    "number": 16,
+    "slug": "seedance-vs-sora-vs-veo-vs-kling",
+    "zip": "16-seedance-vs-sora-vs-veo-vs-kling-static-html.zip",
+    "zipSha256": "8449c19bbb2b2108561e49d7860d49109eda371d48b5a07c8a67aed7b11ea951",
+    "sourceHtmlSha256": "64541b981502e77cb19ebf4e2dc47ca288f392a03ec296096cc07cc0a1015fa5",
+    "metadata": {
+      "slug": "seedance-vs-sora-vs-veo-vs-kling",
+      "title": "Kling vs Veo vs Seedance and Where Sora 2 Fits Now",
+      "seoTitle": "Kling vs Veo vs Seedance and Sora 2 Compared",
+      "description": "Compare Seedance, Kling, Veo and Sora 2 through current access, version-specific controls, sound, cost and a consistent video evaluation framework.",
+      "publishedAt": "2026-10-26",
+      "readTime": "8 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Use one consistent evaluation framework to compare Seedance, Kling, Veo, and Sora across access, control, sound, cost, and reproducible results.",
+      "coverImage": "/uploads/blog/seedance-vs-sora-vs-veo-vs-kling/hero.png",
+      "coverAlt": "Editorial illustration for Kling vs Veo vs Seedance and Where Sora 2 Fits Now",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "5befb895156944434877c1b0cb6c9dcc7b9ba7a25b7f611c92f4679fe3f4bdfc",
+    "bodyTextCharacters": 10435,
+    "structure": {
+      "h2": 10,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 3
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-sora-vs-veo-vs-kling/hero.png",
+        "alt": "Editorial illustration for Kling vs Veo vs Seedance and Where Sora 2 Fits Now",
+        "role": "cover",
+        "sha256": "3be7b093fb0ce858ab25549dd131271271b6e649891052ab818f4dae92128361"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-sora-vs-veo-vs-kling/figure-1.png",
+        "alt": "A detail of Kuaishou's published Kling storyboard example. This is an official interface illustration, not a project generated for this comparison.",
+        "role": "body",
+        "sha256": "e89d3ac09f4e9a8f21630d1cc9280a075d7d0e57a0f51dd726fa5727db53b396"
+      }
+    ],
+    "links": [
+      "https://developers.openai.com/api/docs/models/sora-2",
+      "https://ai.google.dev/gemini-api/docs/deprecations",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://ir.kuaishou.com/news-releases/news-release-details/kling-ai-launches-30-model-ushering-era-where-everyone-can-be",
+      "https://seed.bytedance.com/en/seedance2_5",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0",
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://ai.google.dev/gemini-api/docs/veo",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+      "https://dreamina.capcut.com/tools/seedance-2-0",
+      "https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-seedance"
+    ]
+  },
+  {
+    "number": 15,
+    "slug": "seedance-vs-seedream",
+    "zip": "15-seedance-vs-seedream-static-html.zip",
+    "zipSha256": "3bf17dd62234165a34b2426adb54aa4fcaf9b9718958862c4438e80e09871312",
+    "sourceHtmlSha256": "3564a4032dc11c473c00abc6397259eeba2d0931de9b72b1d51ed10a46aa057b",
+    "metadata": {
+      "slug": "seedance-vs-seedream",
+      "title": "Seedance vs Seedream: Where Dreamina Fits in Your Workflow",
+      "seoTitle": "Seedance vs Seedream: Image, Video and Dreamina Explained",
+      "description": "Learn how Seedance, Seedream and Dreamina differ, then plan a frame-first workflow from an approved image to a short video with practical handoff checks.",
+      "publishedAt": "2026-10-26",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Clarify the roles of Seedance, Seedream, and Dreamina, then build a frame-first workflow from an approved still image to a short motion asset.",
+      "coverImage": "/uploads/blog/seedance-vs-seedream/hero.png",
+      "coverAlt": "Editorial illustration for Seedance vs Seedream: Where Dreamina Fits in Your Workflow",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "4a815f2088a01c729aa0b0e57515610e6a7f5ed3a9ac32f0feec4c1455a7862d",
+    "bodyTextCharacters": 10615,
+    "structure": {
+      "h2": 9,
+      "h3": 11,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 1
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-seedream/hero.png",
+        "alt": "Editorial illustration for Seedance vs Seedream: Where Dreamina Fits in Your Workflow",
+        "role": "cover",
+        "sha256": "088bf062bdf47d3042035d11429e3186890b6703e1e4a67c6f512a20c70416d8"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-seedream/figure-1.png",
+        "alt": "ByteDance's official Seedream 4.5 multi-image editing showcase. These vendor examples illustrate image creation, not videos or results generated for this article.",
+        "role": "body",
+        "sha256": "fa1dc6f46aa510ad82ac03933bdfb9247a11a04842d8e2333e5585b653022dca"
+      }
+    ],
+    "links": [
+      "https://dreamina.capcut.com/tools/seedance-2-0",
+      "https://seed.bytedance.com/en/models",
+      "https://seed.bytedance.com/en/seedream4_5",
+      "https://seed.bytedance.com/en/seedream5_0_pro",
+      "https://seed.bytedance.com/en/blog/deeper-thinking-more-accurate-generation-introducing-seedream-5-0-lite",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0"
+    ]
+  }
+]
