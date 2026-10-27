@@ -1,0 +1,147 @@
+[
+  {
+    "number": 14,
+    "slug": "kling-ai-vs-seedance",
+    "zip": "14-kling-ai-vs-seedance-static-html.zip",
+    "zipSha256": "3a16ab3330ccd1600a624dcb6df02abe3c8a02ace3177b8c7453348fb13d29e3",
+    "sourceHtmlSha256": "b9d42552c63c5574436d0d594c691f10e0fcb1ca61fb53a23d8cdc76936d087b",
+    "metadata": {
+      "slug": "kling-ai-vs-seedance",
+      "title": "Kling AI vs Seedance for Clothing and Product Videos",
+      "seoTitle": "Kling AI vs Seedance for Clothing and Product Videos",
+      "description": "Compare Kling 2.5 and 3.0 with Seedance 1.5 and 2.0 on pricing, image-to-video, clothing detail and workflow, with key limits for US creators.",
+      "publishedAt": "2026-10-27",
+      "readTime": "10 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare Kling and Seedance for clothing and product videos, with emphasis on subject references, garment consistency, shot planning, and review criteria.",
+      "coverImage": "/uploads/blog/kling-ai-vs-seedance/hero.png",
+      "coverAlt": "Editorial illustration for Kling AI vs Seedance for Clothing and Product Videos",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "2f73186e3de7968c3405f49f953ed1e2568afc48e2fc05698b081c73f6574f12",
+    "bodyTextCharacters": 11763,
+    "structure": {
+      "h2": 10,
+      "h3": 5,
+      "ul": 1,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 3
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/kling-ai-vs-seedance/hero.png",
+        "alt": "Editorial illustration for Kling AI vs Seedance for Clothing and Product Videos",
+        "role": "cover",
+        "sha256": "eb99f458c482b5e49842cfe59a59c3455b69c35b85e824431099557b4507f3bf"
+      },
+      {
+        "source": "assets/figure-1.jpg",
+        "target": "/uploads/blog/kling-ai-vs-seedance/figure-1.jpg",
+        "alt": "Kling's published workplace example shows how a start frame and subject references are organized. This is a vendor-selected example, not our matched model test. Source: Kling 3.0 guide.",
+        "role": "body",
+        "sha256": "d217e59f38eabf0e68d769acc772a450f27c06e098c841c8db46f63ce2933fbe"
+      }
+    ],
+    "links": [
+      "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms",
+      "https://kling.ai/quickstart/klingai-video-3-model-user-guide",
+      "https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://kling.ai/blog/kling-ai-introduces-native-4k-video-model",
+      "https://docs.byteplus.com/en/docs/modelark/create-video-generation-task-api?redirect=1",
+      "https://ir.kuaishou.com/node/10961/pdf",
+      "https://docs.byteplus.com/en/docs/modelark/seedance-1-5-pro",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://docs.byteplus.com/zh-TW/docs/modelark/model-deprecation-notice",
+      "https://kling.ai/quickstart/klingai-video-3-model-user-guide",
+      "https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://kling.ai/quickstart/klingai-video-3-model-user-guide",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://docs.byteplus.com/en/docs/modelark/seedance-1-5-pro",
+      "https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide",
+      "https://kling.ai/blog/kling-ai-introduces-native-4k-video-model",
+      "https://docs.byteplus.com/en/docs/modelark/create-video-generation-task-api?redirect=1",
+      "https://ir.kuaishou.com/node/10961/pdf",
+      "https://kling.ai/quickstart/klingai-video-3-model-user-guide",
+      "https://docs.byteplus.com/en/docs/modelark/model-pricing?redirect=1",
+      "https://kling.ai/blog/kling-video-3-0-credit-cost-guide",
+      "https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://ir.kuaishou.com/node/10961/pdf"
+    ]
+  },
+  {
+    "number": 13,
+    "slug": "seedance-vs-google-veo",
+    "zip": "13-seedance-vs-google-veo-static-html.zip",
+    "zipSha256": "f72fae532dc96e56c83a5eeeda5e379ac0f64d2ae46389b047a016253ad92114",
+    "sourceHtmlSha256": "eb6e35e70f3c5d2ae8822549badf9c75feb971fcfc41829042969ab8652f0652",
+    "metadata": {
+      "slug": "seedance-vs-google-veo",
+      "title": "Seedance vs Veo 3: Which Fits Your Product Video Workflow?",
+      "seoTitle": "Seedance vs Veo 3: Product Video, Audio and Cost Compared",
+      "description": "Compare Seedance 2.0 and Google Veo 3/3.1 for product videos, audio, consistency, access and cost—with an important October 2026 API warning.",
+      "publishedAt": "2026-10-27",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Assess Seedance and Google Veo for product video through reference controls, audio, consistency checks, API availability, and per-shot cost.",
+      "coverImage": "/uploads/blog/seedance-vs-google-veo/hero.png",
+      "coverAlt": "Editorial illustration for Seedance vs Veo 3: Which Fits Your Product Video Workflow?",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "79a1ddf3fb322069dec2cd102d799ae34f8e5e54aa16fc3381d730641a52b081",
+    "bodyTextCharacters": 10157,
+    "structure": {
+      "h2": 8,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-google-veo/hero.png",
+        "alt": "Editorial illustration for Seedance vs Veo 3: Which Fits Your Product Video Workflow?",
+        "role": "cover",
+        "sha256": "c5441a4c47c8eade292b2efea3715cbeca820d50d3a4fe1235963ccfdd5bf848"
+      },
+      {
+        "source": "assets/figure-1.jpg",
+        "target": "/uploads/blog/seedance-vs-google-veo/figure-1.jpg",
+        "alt": "Google's published reference-image workflow uses separate fashion assets. This is a screenshot of the official guide, not a test generated for this comparison.",
+        "role": "body",
+        "sha256": "235c48a58bf96fd56a75810a44f8073c53e19edbd123aa7a9de34c2e2385a1db"
+      }
+    ],
+    "links": [
+      "https://ai.google.dev/gemini-api/docs/deprecations",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://ai.google.dev/gemini-api/docs/veo?hl=en",
+      "https://seed.bytedance.com/en/seedance1_5_pro",
+      "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms",
+      "https://support.google.com/flow/answer/16352836?hl=en",
+      "https://ai.google.dev/gemini-api/docs/pricing"
+    ]
+  }
+]
