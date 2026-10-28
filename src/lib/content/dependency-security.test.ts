@@ -21,6 +21,11 @@ const lock = JSON.parse(readFileSync(new URL('../../../package-lock.json', impor
 // https://github.com/advisories/GHSA-xjj6-f33q-929c
 // https://github.com/advisories/GHSA-587h-7wmj-h5pm
 // https://github.com/advisories/GHSA-ch52-4w7c-c8xp (affected through 4.2.0)
+// Better Auth 1.7.7 security release (no database migration):
+// https://github.com/better-auth/better-auth/releases/tag/v1.7.7
+// https://github.com/advisories/GHSA-965c-763c-88jm
+// https://github.com/advisories/GHSA-r4xp-prcw-77qf
+// https://github.com/advisories/GHSA-44jh-23m7-hpcf
 const patched = {
   astro: '7.3.3', sharp: '0.35.5', 'fast-uri': '3.1.9',
   'js-yaml': '4.3.2', svgo: '4.1.0', vitest: '4.1.12',
@@ -28,6 +33,8 @@ const patched = {
   zod: '4.6.6', devalue: '5.9.3', 'postcss-selector-parser': '7.1.6',
   'smol-toml': '1.9.0', 'source-map-js': '1.2.2', undici: '8.12.2',
   vite: '8.2.4', 'http-cache-semantics': '4.3.0',
+  'better-auth': '1.7.7', '@better-auth/drizzle-adapter': '1.7.7',
+  '@better-auth/kysely-adapter': '1.7.0',
 };
 
 function atLeast(version: string, floor: string) {
