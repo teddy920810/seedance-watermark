@@ -1,0 +1,139 @@
+[
+  {
+    "number": 12,
+    "slug": "seedance-vs-gemini-omni-flash",
+    "zip": "12-seedance-vs-gemini-omni-flash-static-html.zip",
+    "zipSha256": "0bf2fe293cd97fb1380239eeac0056d8e0340e5c703c7f9c0bdc2e795c79d4a3",
+    "sourceHtmlSha256": "0ddc26bb2bcfcc3bdda16898f29c61f14e74492d411d11e80262ab1873dbb59a",
+    "metadata": {
+      "slug": "seedance-vs-gemini-omni-flash",
+      "title": "Omni Flash vs Seedance for Video Creation and Editing",
+      "seoTitle": "Omni Flash vs Seedance Models Workflows and Access",
+      "description": "Compare Omni Flash and Seedance for video creation, references and editing. Separate current versions, API and Flow access, speed claims and practical costs.",
+      "publishedAt": "2026-10-28",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare conversational multimodal creation with reference-guided video generation, including current access routes, editing behavior, and workflow boundaries.",
+      "coverImage": "/uploads/blog/seedance-vs-gemini-omni-flash/hero.png",
+      "coverAlt": "Editorial illustration for Omni Flash vs Seedance for Video Creation and Editing",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "f3ab6a3230d717c2257856ccfb17748626423ab84878c2901aa8d0fe514bf073",
+    "bodyTextCharacters": 10343,
+    "structure": {
+      "h2": 10,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 1
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-gemini-omni-flash/hero.png",
+        "alt": "Editorial illustration for Omni Flash vs Seedance for Video Creation and Editing",
+        "role": "cover",
+        "sha256": "32a4dde59e62ecf7ce702a153dd53658782dc8e6a30c16856fd4e8eb045a7c1e"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-gemini-omni-flash/figure-1.png",
+        "alt": "Google's official Omni guide uses a fish drawing to explain motion reference. This published example is not an output generated for this article.",
+        "role": "body",
+        "sha256": "1fb2c3a5f2dfe43390960ccee04a3b7c368ac1bb9fdb39e6dd0522dc5e81f744"
+      }
+    ],
+    "links": [
+      "https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0",
+      "https://seed.bytedance.com/en/seedance2_5",
+      "https://ai.google.dev/gemini-api/docs/deprecations",
+      "https://ai.google.dev/gemini-api/docs/omni",
+      "https://ai.google.dev/gemini-api/docs/omni#limitations",
+      "https://seed.bytedance.com/en/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5",
+      "https://ai.google.dev/gemini-api/docs/omni#stateful-video-editing",
+      "https://support.google.com/flow/answer/16352836?hl=en",
+      "https://ai.google.dev/gemini-api/docs/changelog?release=09-18-2026",
+      "https://support.google.com/flow/answer/16352836?hl=en",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://docs.dev.runwayml.com/guides/pricing/"
+    ]
+  },
+  {
+    "number": 11,
+    "slug": "seedance-vs-adjacent-ai-tools",
+    "zip": "11-seedance-vs-adjacent-ai-tools-static-html.zip",
+    "zipSha256": "a587d89cf038755b24194b5ca50d6f9ee29d803232b4edef2502195378ddb505",
+    "sourceHtmlSha256": "713a8096a2b741e8e98025d12e2087f4814af833e3829e160c9435bc7fa00a5f",
+    "metadata": {
+      "slug": "seedance-vs-adjacent-ai-tools",
+      "title": "Nano Banana vs Seedance: Choose the Right Production Task",
+      "seoTitle": "Nano Banana vs Seedance: Images, Video and Workflow Roles",
+      "description": "Choose Nano Banana or Seedance by deliverable, then see how FLUX, Midjourney, HeyGen, InVideo, ComfyUI and DeepSeek fit a practical content workflow.",
+      "publishedAt": "2026-10-28",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Match image, animation, editing, and video-generation tools to the correct production task instead of treating adjacent AI products as interchangeable.",
+      "coverImage": "/uploads/blog/seedance-vs-adjacent-ai-tools/hero.png",
+      "coverAlt": "Editorial illustration for Nano Banana vs Seedance: Choose the Right Production Task",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "70cf3f265289c59ef4848f5b79f5b964ede0b037fad2b719565ce18666127a17",
+    "bodyTextCharacters": 11104,
+    "structure": {
+      "h2": 7,
+      "h3": 13,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 1
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-adjacent-ai-tools/hero.png",
+        "alt": "Editorial illustration for Nano Banana vs Seedance: Choose the Right Production Task",
+        "role": "cover",
+        "sha256": "ed4c7950ca1a37cf1bb764c485473921807a6e3fd2c6f88c80b3821198e6b5d7"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-adjacent-ai-tools/figure-1.png",
+        "alt": "Midjourney's published Animate Image example, viewed in its official guide. This is a vendor interface illustration, not our generated project.",
+        "role": "body",
+        "sha256": "ee3f73737b4f99c6d50700df21a2d944799bf71959d38250387170c488b57147"
+      }
+    ],
+    "links": [
+      "https://ai.google.dev/gemini-api/docs/models/gemini-nano-banana-2.1?hl=en",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://ai.google.dev/gemini-api/docs/generate-content/image-generation",
+      "https://help.bfl.ai/articles/7655484417-what-flux-models-are-available",
+      "https://bfl.ai/blog/flux-3-video?trk=article-ssr-frontend-pulse_little-text-block",
+      "https://docs.midjourney.com/hc/en-us/articles/37460773864589-Video",
+      "https://help.heygen.com/en/articles/12402907-how-to-get-started-with-video-agent",
+      "https://help.invideo.io/en/articles/14755814-create-with-seedance-2-0",
+      "https://docs.comfy.org/basic-concepts/workflow",
+      "https://docs.comfy.org/tutorials/partner-nodes/overview",
+      "https://api-docs.deepseek.com/api/create-chat-completion/"
+    ]
+  }
+]
