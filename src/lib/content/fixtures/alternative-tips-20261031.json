@@ -1,0 +1,131 @@
+[
+  {
+    "number": 8,
+    "slug": "seedance-vs-runway",
+    "zip": "08-seedance-vs-runway-static-html.zip",
+    "zipSha256": "27ce174f112f5a5e8e34a82abaa443c4581bb771915b80c3895c4f9d194db316",
+    "sourceHtmlSha256": "02cb3ab0750e8a4b9addf7527651c5793d0e2fdf901e458972afd108651a90c0",
+    "metadata": {
+      "slug": "seedance-vs-runway",
+      "title": "Runway vs Seedance 2.0: Models, Editing and Real Costs",
+      "seoTitle": "Seedance 2.0 vs Runway: Models, Editing and Costs",
+      "description": "Compare Seedance 2.0 with Runway Gen-4.5 and older models, including editing tools, matched API costs and a practical campaign workflow.",
+      "publishedAt": "2026-10-31",
+      "readTime": "8 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare Seedance generation with Runway’s broader production environment across model access, editing controls, iteration, and total project cost.",
+      "coverImage": "/uploads/blog/seedance-vs-runway/hero.png",
+      "coverAlt": "Editorial illustration for Runway vs Seedance 2.0: Models, Editing and Real Costs",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "38461fb8f6ab384bf17dda6ca96fc64534e9249925f8e3ca5e38c1b094add953",
+    "bodyTextCharacters": 9967,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 1,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-runway/hero.png",
+        "alt": "Editorial illustration for Runway vs Seedance 2.0: Models, Editing and Real Costs",
+        "role": "cover",
+        "sha256": "0dd81a41b7e3f56f4c58fee7e0bb5ae94294bb872f2887e2b3018d805a496a69"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-runway/figure-1.png",
+        "alt": "Runway's official Edit Studio tutorial shows the keyframe-and-timeline editing workflow. This published example is not an edit performed for this comparison.",
+        "role": "body",
+        "sha256": "16513b29a99bdbd2c90719102aa98c4766f5f992dbdb18010961717e16e0cde1"
+      }
+    ],
+    "links": [
+      "https://runway.com/product/seedance",
+      "https://help.runwayml.com/hc/en-us/articles/33350169138323-Creating-with-Video-to-Video-on-Gen-3-Alpha-and-Turbo",
+      "https://help.runwayml.com/hc/en-us/articles/37327109429011-Creating-with-Gen-4-Video",
+      "https://help.runwayml.com/hc/en-us/articles/46974685288467-Creating-with-Gen-4-5",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0",
+      "https://help.runwayml.com/hc/en-us/articles/51683104370451-Creating-with-Edit-Studio",
+      "https://help.runwayml.com/hc/en-us/articles/54396547993491-Exporting-Videos-in-ProRes-and-PNG-Sequence-Formats",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+      "https://runway.com/pricing"
+    ]
+  },
+  {
+    "number": 7,
+    "slug": "seedance-2-vs-ltx-2-3",
+    "zip": "07-seedance-2-vs-ltx-2-3-static-html.zip",
+    "zipSha256": "54c27c59495a684db11c3731be241f63e4d88704a9f71cebe35a8fbbc187e812",
+    "sourceHtmlSha256": "943002b205508a751c515155d5f63af643128ddf244457074b3f2ff0be3d06f5",
+    "metadata": {
+      "slug": "seedance-2-vs-ltx-2-3",
+      "title": "LTX 2.3 vs Seedance 2.0: Which Workflow Fits Your Next Film?",
+      "seoTitle": "LTX 2.3 vs Seedance 2.0: Long Shots, Audio and Workflow",
+      "description": "Compare LTX 2.3 and Seedance 2.0 for longer shots, camera control, audio, speed and solo-creator workflows, using current model-specific limits.",
+      "publishedAt": "2026-10-31",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Evaluate LTX 2.3 and Seedance 2.0 through shot duration, audio options, camera direction, deployment choices, and the editing work after generation.",
+      "coverImage": "/uploads/blog/seedance-2-vs-ltx-2-3/hero.png",
+      "coverAlt": "Editorial illustration for LTX 2.3 vs Seedance 2.0: Which Workflow Fits Your Next Film?",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "4e41ba5880a48e0609d576bb5c4b390faa1b791636e29aea3e6eda31133021bf",
+    "bodyTextCharacters": 10073,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-2-vs-ltx-2-3/hero.png",
+        "alt": "Editorial illustration for LTX 2.3 vs Seedance 2.0: Which Workflow Fits Your Next Film?",
+        "role": "cover",
+        "sha256": "81c106cb42df1f59b79e9a814101c62e152f9425979add0d3003a043d87871b1"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-2-vs-ltx-2-3/figure-1.png",
+        "alt": "LTX's published camera-control examples illustrate distinct movement requests. This official showcase is not an independently executed comparison with Seedance.",
+        "role": "body",
+        "sha256": "fffba20083c3e0a98ba1c5ef520687b4658c17eedf51f7cd9280c150d25baa5c"
+      }
+    ],
+    "links": [
+      "https://docs.ltx.io/models/ltx-2-3",
+      "https://docs.byteplus.com/de/docs/modelark/seedance-2-0?redirect=1",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://github.com/Lightricks/LTX-2/blob/main/MODELS-LTX-2.3.md",
+      "https://ltx.io/model/ltx-2-3",
+      "https://docs.ltx.io/pricing/",
+      "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms",
+      "https://github.com/Lightricks/LTX-2/blob/main/LICENSE"
+    ]
+  }
+]
