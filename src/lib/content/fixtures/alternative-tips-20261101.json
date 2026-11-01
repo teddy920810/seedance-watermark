@@ -1,0 +1,134 @@
+[
+  {
+    "number": 6,
+    "slug": "seedance-vs-higgsfield-ai",
+    "zip": "06-seedance-vs-higgsfield-ai-static-html.zip",
+    "zipSha256": "eae69e337691c48ac886107c93b271ee9923166a5268a0179f4d69453474327a",
+    "sourceHtmlSha256": "e78abc4b48920b4be14605cb2488a12ddce4539cdef6840fe39dd6d84778aab1",
+    "metadata": {
+      "slug": "seedance-vs-higgsfield-ai",
+      "title": "Seedance 2.0 vs Higgsfield: Camera Control and Creator Costs",
+      "seoTitle": "Seedance 2.0 vs Higgsfield: Camera, Characters and Cost",
+      "description": "Compare Seedance 2.0 and Higgsfield workflows for cinematic shots, presets, character consistency and solo-creator budgets, including Fast and Unlimited.",
+      "publishedAt": "2026-11-01",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Separate the Seedance video model from Higgsfield’s creator platform, then compare camera tools, reusable assets, and realistic solo-creator costs.",
+      "coverImage": "/uploads/blog/seedance-vs-higgsfield-ai/hero.png",
+      "coverAlt": "Editorial illustration for Seedance 2.0 vs Higgsfield: Camera Control and Creator Costs",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "36f55c710ae733fad18abfc3fc66ceff78974db6a6442bfb7739b1a86c0109a9",
+    "bodyTextCharacters": 10608,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-higgsfield-ai/hero.png",
+        "alt": "Editorial illustration for Seedance 2.0 vs Higgsfield: Camera Control and Creator Costs",
+        "role": "cover",
+        "sha256": "4bb4909b03cbc7ad3f36ba2c0f95a5b8316cc0e6fafdb5914948f8722bfe88ea"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-higgsfield-ai/figure-1.png",
+        "alt": "Camera, lens and aperture controls in Higgsfield's public Cinema Studio demonstration, not a paid generation or a Seedance 2.0 test.",
+        "role": "body",
+        "sha256": "82491b92beb15f69f205ccf8ad9ecb7f57f55a05ee1e0cf5b3c48f9f87875d9f"
+      }
+    ],
+    "links": [
+      "https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-seedance",
+      "https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-dop",
+      "https://higgsfield.ai/creator-hub/help-center/tools/how-do-i-use-cinema-studio",
+      "https://higgsfield.ai/cinematic-video-generator",
+      "https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-create-and-use-a-soul-id-character",
+      "https://higgsfield.ai/blog/generating-with-seedance-2-0",
+      "https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-seedance",
+      "https://higgsfield.ai/pricing",
+      "https://higgsfield.ai/creator-hub/help-center/credits/how-credits-work",
+      "https://higgsfield.ai/creator-hub/help-center/credits/what-are-unlimited-models-and-which-plans-include-them"
+    ]
+  },
+  {
+    "number": 5,
+    "slug": "seedance-vs-grok-imagine",
+    "zip": "05-seedance-vs-grok-imagine-static-html.zip",
+    "zipSha256": "61482f16f614c5d4cb670a98dceb452b7b78887f31aa31cfdcee0deae9f0e8b2",
+    "sourceHtmlSha256": "cedf7c12e86a3ff66d3b74189d62a29c22cdf5ea428b68463f2c05ae556731b2",
+    "metadata": {
+      "slug": "seedance-vs-grok-imagine",
+      "title": "Seedance 2.0 vs Grok Imagine for Creative Drafts and Controlled Video",
+      "seoTitle": "Seedance 2.0 vs Grok Imagine Models Controls and Cost",
+      "description": "Compare Seedance 2.0 and Grok Imagine for creative drafts, image animation, control and cost, with current model distinctions and a practical review workflow.",
+      "publishedAt": "2026-11-01",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare rapid creative exploration with reference-led video direction across Seedance 2.0 and the current Grok Imagine video modes.",
+      "coverImage": "/uploads/blog/seedance-vs-grok-imagine/hero.png",
+      "coverAlt": "Editorial illustration for Seedance 2.0 vs Grok Imagine for Creative Drafts and Controlled Video",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "5ee4000e4576d867a29fef6b2612af60f6f3c569491c997597d2d19d675eb1d5",
+    "bodyTextCharacters": 10595,
+    "structure": {
+      "h2": 10,
+      "h3": 6,
+      "ul": 0,
+      "ol": 1,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-vs-grok-imagine/hero.png",
+        "alt": "Editorial illustration for Seedance 2.0 vs Grok Imagine for Creative Drafts and Controlled Video",
+        "role": "cover",
+        "sha256": "3afe6aa3f3187bbd75cbb8d170b5f3c2c4218433044341284cf38b9b2f9c921f"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/seedance-vs-grok-imagine/figure-1.png",
+        "alt": "Official Grok Imagine image-to-video examples with Video 1.5 selected. These are vendor demonstrations, not outputs generated or scored for this article.",
+        "role": "body",
+        "sha256": "5d6fddd4c040c78513bc4300133b9ec7d096d66cd8aea6bd176b5e7a91857238"
+      }
+    ],
+    "links": [
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://docs.x.ai/developers/model-capabilities/video/overview",
+      "https://docs.x.ai/developers/model-capabilities/video/image-to-video",
+      "https://docs.x.ai/developers/model-capabilities/video/reference-to-video",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0",
+      "https://docs.x.ai/developers/models/grok-imagine-video-1.5",
+      "https://docs.x.ai/developers/pricing?campaign=imagine-landing",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+      "https://x.ai/legal/acceptable-use-policy",
+      "https://docs.x.ai/developers/model-capabilities/video/generation"
+    ]
+  }
+]
