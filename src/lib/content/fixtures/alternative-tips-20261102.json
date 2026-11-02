@@ -1,0 +1,120 @@
+[
+  {
+    "number": 4,
+    "slug": "seedance-2-vs-1-5-pro",
+    "zip": "04-seedance-2-vs-1-5-pro-static-html.zip",
+    "zipSha256": "75c860de6b75d4ce364fdbe73e47d5682d03e791aceef91cbc4db7c14ee52735",
+    "sourceHtmlSha256": "884d9ea7c6023a8e750a564894944407a12732a7eeb562f0ece5ae29649da21f",
+    "metadata": {
+      "slug": "seedance-2-vs-1-5-pro",
+      "title": "Seedance 1.5 Pro vs 2.0 and Earlier Versions",
+      "seoTitle": "Seedance 1.5 Pro vs 2.0 and Earlier Versions",
+      "description": "Compare Seedance 1.0, 1.5 Pro, 2.0 and 2.5 on references, audio, picture quality and migration. Choose an upgrade for the work you actually need.",
+      "publishedAt": "2026-11-02",
+      "readTime": "8 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Understand what changes from Seedance 1.0 and 1.5 Pro to 2.0 and 2.5, then plan an upgrade around features your workflow will actually use.",
+      "coverImage": "/uploads/blog/seedance-2-vs-1-5-pro/hero.png",
+      "coverAlt": "Editorial illustration for Seedance 1.5 Pro vs 2.0 and Earlier Versions",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "b8aadd44db067806910a6f332f586e58492b11c29f763584227269971cd5a000",
+    "bodyTextCharacters": 9057,
+    "structure": {
+      "h2": 8,
+      "h3": 6,
+      "ul": 1,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 1
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-2-vs-1-5-pro/hero.png",
+        "alt": "Editorial illustration for Seedance 1.5 Pro vs 2.0 and Earlier Versions",
+        "role": "cover",
+        "sha256": "6bd7cabeb42ae0dad990e388e5a19fe9be81558426535ebb9ce1817e61e9efff"
+      }
+    ],
+    "links": [
+      "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms",
+      "https://seed.bytedance.com/en/seedance",
+      "https://seed.bytedance.com/en/seedance1_5_pro",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://seed.bytedance.com/en/seedance2_5",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://seed.bytedance.com/en/blog/sound-and-vision-all-in-one-take-the-official-release-of-seedance-1-5-pro",
+      "https://seed.bytedance.com/en/seedance2_5",
+      "https://docs.byteplus.com/en/docs/modelark/create-video-generation-task-api?redirect=1",
+      "https://docs.byteplus.com/zh-TW/docs/modelark/model-deprecation-notice"
+    ]
+  },
+  {
+    "number": 3,
+    "slug": "seedance-2-mini-vs-fast-vs-standard",
+    "zip": "03-seedance-2-mini-vs-fast-vs-standard-static-html.zip",
+    "zipSha256": "dc12f2bca2fe4c3218a5041a3928505703416bcd7d8d8d71ae5d458fe6ea83da",
+    "sourceHtmlSha256": "f965fe530ed689b5f1d0e43bb7ac164b6af8af8ed99d1ea8c78b088ddfef856d",
+    "metadata": {
+      "slug": "seedance-2-mini-vs-fast-vs-standard",
+      "title": "Seedance 2.0 Mini vs Fast vs Standard",
+      "seoTitle": "Seedance 2.0 Mini vs Fast vs Standard Compared",
+      "description": "Compare Seedance 2.0 Mini, Fast and Standard on cost, speed and quality. Decode Normal and Pro labels, then choose a model for your next video.",
+      "publishedAt": "2026-11-02",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Choose between Mini, Fast, and full Seedance 2.0 by balancing exploration cost, turnaround priorities, resolution, and final-delivery needs.",
+      "coverImage": "/uploads/blog/seedance-2-mini-vs-fast-vs-standard/hero.png",
+      "coverAlt": "Editorial illustration for Seedance 2.0 Mini vs Fast vs Standard",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "6f2637b8776d65d3b8e10e1ef9a019069651b9fe91840d866d3b3dbdd6c59505",
+    "bodyTextCharacters": 9679,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/seedance-2-mini-vs-fast-vs-standard/hero.png",
+        "alt": "Editorial illustration for Seedance 2.0 Mini vs Fast vs Standard",
+        "role": "cover",
+        "sha256": "c077fa00df3ea92be818dde100b907ccc1d3cb8dd74e8f0ddf16ab44180a088d"
+      }
+    ],
+    "links": [
+      "https://docs.byteplus.com/en/docs/modelark/seedance-2-0",
+      "https://docs.byteplus.com/en/docs/modelark/seedance-2-0",
+      "https://arxiv.org/abs/2604.14148",
+      "https://docs.byteplus.com/en/docs/modelark/create-video-generation-task-api?redirect=1",
+      "https://docs.byteplus.com/en/docs/modelark/model-pricing",
+      "https://arxiv.org/abs/2604.14148",
+      "https://docs.byteplus.com/en/docs/modelark/seedance-2-0",
+      "https://docs.byteplus.com/en/docs/modelark/model-pricing",
+      "https://docs.byteplus.com/en/docs/modelark/model-pricing",
+      "https://docs.byteplus.com/en/docs/modelark/seedance-2-0-mini-fast-limited-time-discount"
+    ]
+  }
+]
