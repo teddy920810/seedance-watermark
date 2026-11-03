@@ -1,0 +1,143 @@
+[
+  {
+    "number": 2,
+    "slug": "happy-horse-vs-seedance-2",
+    "zip": "02-happy-horse-vs-seedance-2-static-html.zip",
+    "zipSha256": "c7fe4f489a1a80523113e516e47c7303a465a2fa635f47f00ca758e57a5a1e66",
+    "sourceHtmlSha256": "cb33e8ce3b275fb4fc95d136c9c6bfc87a8f3f203a2246622e3043ad15d9a7e4",
+    "metadata": {
+      "slug": "happy-horse-vs-seedance-2",
+      "title": "Happy Horse vs Seedance 2.0: Versions, Quality and Speed",
+      "seoTitle": "Happy Horse vs Seedance 2.0: Versions, Quality and Speed",
+      "description": "Compare HappyHorse 1.0 and 1.1 with Seedance 2.0 using current capabilities, reference workflows, provider pricing and practical quality checks.",
+      "publishedAt": "2026-11-03",
+      "readTime": "8 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "See how HappyHorse 1.0 and 1.1 differ from Seedance 2.0 across reference inputs, output settings, provider access, and production costs.",
+      "coverImage": "/uploads/blog/happy-horse-vs-seedance-2/hero.png",
+      "coverAlt": "Editorial illustration for Happy Horse vs Seedance 2.0: Versions, Quality and Speed",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "1c3282b31a2fe7d20b01f0d8adcf3d4ca1870277579bb0a939ca2b47c15c2e9f",
+    "bodyTextCharacters": 10187,
+    "structure": {
+      "h2": 9,
+      "h3": 6,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/happy-horse-vs-seedance-2/hero.png",
+        "alt": "Editorial illustration for Happy Horse vs Seedance 2.0: Versions, Quality and Speed",
+        "role": "cover",
+        "sha256": "d290d34e478a0e13a9c9803c4abfe1397092b7781170d025d792900dcf6ea74a"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/happy-horse-vs-seedance-2/figure-1.png",
+        "alt": "The official HappyHorse interface with a desk-product brief in HH 1.1 reference mode. No reference images were uploaded and no generation was submitted.",
+        "role": "body",
+        "sha256": "f3eef73c49691f55b8ef6272887d1c79fdbbb8a485d7fd2595f536fc14e3e2f9"
+      }
+    ],
+    "links": [
+      "https://www.alibabacloud.com/blog/alibaba-rolls-out-happyhorse-1-0-in-limited-beta_603068/",
+      "https://www.alibabacloud.com/help/en/model-studio/video-generate-edit-model/",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://www.alibabacloud.com/help/en/model-studio/happyhorse-reference-to-video-api-reference",
+      "https://www.happyhorse.com/",
+      "https://help.runwayml.com/hc/en-us/articles/50488490233363-Creating-with-Seedance-2-0",
+      "https://www.alibabacloud.com/help/en/model-studio/happyhorse-1-1-r2v",
+      "https://www.alibabacloud.com/help/en/model-studio/happyhorse-text-to-video-api-reference",
+      "https://docs.dev.runwayml.com/guides/pricing/",
+      "https://www.alibabacloud.com/help/en/model-studio/happyhorse-1-1-r2v",
+      "https://www.alibabacloud.com/help/en/model-studio/happyhorse-text-to-video-api-reference",
+      "https://runway.com/product/seedance"
+    ]
+  },
+  {
+    "number": 1,
+    "slug": "best-seedance-alternatives",
+    "zip": "01-best-seedance-alternatives-static-html.zip",
+    "zipSha256": "9309b868274624f69a5154988c22bad3c1fad40563375c0d2684c787fe6a6341",
+    "sourceHtmlSha256": "ad321426f0622f33cc035b2555ef8cd2d2decb3707f6fb0e5c3a3cac3d7b87da",
+    "metadata": {
+      "slug": "best-seedance-alternatives",
+      "title": "Seedance Pro vs Alternatives: Best Options by Workflow",
+      "seoTitle": "Best Seedance Alternatives: Hailuo, PixVerse, Pika and Vidu",
+      "description": "Compare Seedance alternatives by the work they replace: multimodal references, photo animation, effects and recurring subjects, with pricing and migration checks.",
+      "publishedAt": "2026-11-03",
+      "readTime": "9 min read",
+      "author": "Seedances Editorial Team",
+      "category": "Seedance Alternative Tips",
+      "eyebrow": "SEEDANCE ALTERNATIVE TIPS",
+      "heroDescription": "Compare leading Seedance alternatives by creative workflow, reference control, pricing model, and the work required to reach an approved clip.",
+      "coverImage": "/uploads/blog/best-seedance-alternatives/hero.png",
+      "coverAlt": "Editorial illustration for Seedance Pro vs Alternatives: Best Options by Workflow",
+      "coverCaption": "Original editorial illustration generated for this article.",
+      "ctaHeading": "Turn the comparison into a real test",
+      "ctaLabel": "Create with Seedance AI →",
+      "ctaHref": "/seedance-ai-generated",
+      "featured": false,
+      "draft": false,
+      "contentMode": "markdown"
+    },
+    "bodyTextSha256": "1c4026022f2504cf9d36cd012c02045d5449210a7ccf009122fe626113cda6b8",
+    "bodyTextCharacters": 10636,
+    "structure": {
+      "h2": 7,
+      "h3": 11,
+      "ul": 0,
+      "ol": 0,
+      "blockquote": 0,
+      "table": 2
+    },
+    "images": [
+      {
+        "source": "assets/hero.png",
+        "target": "/uploads/blog/best-seedance-alternatives/hero.png",
+        "alt": "Editorial illustration for Seedance Pro vs Alternatives: Best Options by Workflow",
+        "role": "cover",
+        "sha256": "77906328fe59787fd20df3b7dc85e6ad9b36cbc2fa8fa4c3365d94d6a8196662"
+      },
+      {
+        "source": "assets/figure-1.png",
+        "target": "/uploads/blog/best-seedance-alternatives/figure-1.png",
+        "alt": "The current PixVerse model map used during selection. This is an actual documentation screen, not a generated video or quality test.",
+        "role": "body",
+        "sha256": "fc678ba1faa53cdd50211a1b1e6d8b2b43c7629eff327337b2abe6706959e7fd"
+      }
+    ],
+    "links": [
+      "https://www.minimax.io/blog/minimax-h3",
+      "https://seed.bytedance.com/en/seedance1_5_pro",
+      "https://seed.bytedance.com/en/seedance2_0",
+      "https://seed.bytedance.com/en/seedance2_5",
+      "https://platform.minimax.io/docs/guides/video-generation",
+      "https://platform.minimax.io/docs/pricing/overview",
+      "https://docs.platform.pixverse.ai/model-capability-map-2394982m0",
+      "https://docs.platform.pixverse.ai/pixverse-api-pricing-2394995m0",
+      "https://dev.pika.art/models/pika/pika-2.5/image-to-video/playground",
+      "https://dev.pika.art/pricing",
+      "https://platform.vidu.com/docs/api-reference/video-models/vidu-q3/reference-to-video",
+      "https://platform.vidu.com/pricing",
+      "https://higgsfield.ai/creator-hub/help-center/tools/how-do-i-use-cinema-studio",
+      "https://support.google.com/flow/answer/16352836?hl=en",
+      "https://ai.google.dev/gemini-api/docs/deprecations",
+      "https://kb.stability.ai/knowledge-base/how-to-access-stable-video-diffusion",
+      "https://developers.openai.com/api/docs/models/sora-2"
+    ]
+  }
+]
