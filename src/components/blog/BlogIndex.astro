@@ -1,0 +1,45 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { resolveBlogMetadata } from '../../lib/content/blog-metadata';
+import { resolveImageAlt } from '../../lib/content/image-metadata';
+import { buildCollectionPageSchema } from '../../lib/content/seo-schema';
+import type { BlogPage } from '../../lib/content/blog-pagination';
+import ResponsiveImage from '../ResponsiveImage.astro';
+
+interface Props { pagination: BlogPage<CollectionEntry<'blog'>> }
+const { pagination } = Astro.props;
+const [[settingsEntry], [siteEntry], [imageSettingsEntry]] = await Promise.all([
+  getCollection('blogIndexSettings'), getCollection('siteSettings'), getCollection('imageSettings'),
+]);
+if (!settingsEntry || !siteEntry || !imageSettingsEntry) throw new Error('Blog CMS settings are missing.');
+const settings = settingsEntry.data;
+const title = pagination.number === 1 ? settings.title : `${settings.title} — Page ${pagination.number}`;
+const schema = buildCollectionPageSchema({
+  canonicalOrigin: siteEntry.data.canonicalOrigin,
+  path: pagination.path,
+  name: pagination.number === 1 ? settings.heading : `${settings.heading} — Page ${pagination.number}`,
+  description: settings.description,
+});
+---
+<SiteLayout title={title} description={settings.description} image={settings.shareImage} schema={schema}>
+  <header class="blog-hero">
+    <span class="eyebrow">{settings.eyebrow}</span><h1>{settings.heading}</h1><p>{settings.intro}</p>
+    <p class="blog-pagination-summary">Showing {pagination.start}–{pagination.end} of {pagination.totalPosts} articles · Page {pagination.number} of {pagination.totalPages}</p>
+  </header>
+  <section class="blog-list">
+    {pagination.posts.map(({ data: post }) => <article class:list={{ 'has-cover': post.coverImage }}>
+      {post.coverImage && <ResponsiveImage class="blog-card-image" src={post.coverImage} alt={resolveImageAlt(post.coverImage, post.coverAlt, imageSettingsEntry.data.images, post.title)} loading="lazy" sizes="(max-width: 760px) 100vw, 180px" />}
+      <div><span class="article-category">{resolveBlogMetadata(post, siteEntry.data.contentDefaults, siteEntry.data.name).category}</span><h2><a href={`/blog/${post.slug}`}>{post.title}</a></h2><p>{post.description}</p></div>
+      <small>{post.readTime}</small>
+    </article>)}
+  </section>
+  {pagination.totalPages > 1 && <nav class="blog-pagination" aria-label="Blog pagination">
+    {pagination.previous && <a href={pagination.previous} rel="prev">Previous</a>}
+    <ol>{Array.from({ length: pagination.totalPages }, (_, index) => {
+      const number = index + 1;
+      return <li><a href={number === 1 ? '/blog' : `/blog/page/${number}`} aria-label={`Page ${number}`} aria-current={number === pagination.number ? 'page' : undefined}>{number}</a></li>;
+    })}</ol>
+    {pagination.next && <a href={pagination.next} rel="next">Next</a>}
+  </nav>}
+</SiteLayout>

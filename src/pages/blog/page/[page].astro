@@ -1,0 +1,21 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BlogIndex from '../../../components/blog/BlogIndex.astro';
+import { sortBlogEntries } from '../../../lib/content/entries';
+import { paginateBlogPosts, type BlogPage } from '../../../lib/content/blog-pagination';
+
+// Static URLs keep every listing reachable without JavaScript.
+// https://docs.astro.build/en/guides/routing/#static-ssg-mode
+export const prerender = true;
+export async function getStaticPaths() {
+  const [settings] = await getCollection('blogIndexSettings');
+  if (!settings) throw new Error('Blog index CMS settings are missing.');
+  const posts = sortBlogEntries(await getCollection('blog'));
+  return paginateBlogPosts(posts, settings.data.postsPerPage).slice(1).map((pagination) => ({
+    params: { page: String(pagination.number) }, props: { pagination },
+  }));
+}
+interface Props { pagination: BlogPage<CollectionEntry<'blog'>> }
+const { pagination } = Astro.props;
+---
+<BlogIndex pagination={pagination} />

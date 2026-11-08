@@ -181,6 +181,13 @@ img { display: block; max-width: 100%; }
 .blog-list h2 { margin: 0; font-size: clamp(2rem, 3vw, 2.25rem); }
 .blog-list p { margin: 0; color: var(--muted); }
 .blog-list small { grid-row: 1 / 3; grid-column: 2; color: var(--green); }
+.blog-hero .blog-pagination-summary { margin-top: 18px; font-size: .9rem; }
+.blog-pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; max-width: 960px; margin: -65px auto 80px; padding: 0 24px; }
+.blog-pagination ol { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.blog-pagination a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); text-decoration: none; }
+.blog-pagination a[aria-current="page"] { background: var(--ink); color: var(--paper); font-weight: 700; }
+.blog-pagination a:hover { border-color: var(--green); }
+.blog-pagination a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .article-header { max-width: 1040px; }
 .article-meta { color: var(--green); font-size: .76rem; font-weight: 750; }
 .article-header h1 { color: var(--ink); font-weight: 840; }
@@ -443,6 +450,33 @@ img { display: block; max-width: 100%; }
 .preview-workspace-action { width: 100%; min-height: 52px; border: 0; color: #fff; background: #181913; font: inherit; font-weight: 780; cursor: pointer; }
 .preview-workspace-action:disabled { opacity: .45; cursor: not-allowed; }
 .workspace-preview-note { margin: 14px 0 0; color: #5e6662; font-size: .74rem; text-align: center; }
+.generation-consent { display: flex; gap: 10px; align-items: flex-start; margin: 12px 0 18px; font-size: .85rem; line-height: 1.5; }
+.generation-consent input { flex: 0 0 auto; margin-top: 4px; }
+.generation-setup, .generation-error { padding: 12px; color: #5d2800; background: #fff2d6; font-size: .85rem; overflow-wrap: anywhere; }
+.generation-result { display: grid; gap: 12px; margin-top: 16px; }
+.generation-result p { margin: 0; font-size: .85rem; }
+.generation-task-id { overflow-wrap: anywhere; }
+.generation-prompt-count { margin: 8px 0; font-size: .8rem; }
+.generation-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; min-width: 0; margin: 16px 0 8px; padding: 0; border: 0; }
+.generation-options legend { margin-bottom: 10px; font-weight: 600; }
+.generation-options label { display: grid; gap: 6px; min-width: 0; font-size: .85rem; }
+.generation-options select { width: 100%; min-width: 0; padding: 10px 8px; border: 1px solid #777; border-radius: 6px; background: #fff; color: #181913; font: inherit; }
+.generation-options select:focus-visible { outline: 3px solid #5140d6; outline-offset: 2px; }
+.generation-options:disabled { opacity: .7; }
+.generation-advanced { grid-column: 1 / -1; }
+.generation-advanced summary { display: list-item; list-style: disclosure-closed inside; padding: 4px 0; cursor: pointer; font-size: .85rem; }
+.generation-advanced[open] summary { list-style-type: disclosure-open; }
+.generation-advanced summary:focus-visible { outline: 3px solid #5140d6; outline-offset: 2px; }
+.generation-advanced-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 10px; }
+.generation-result video { width: 100%; max-height: 360px; background: #111; }
+.generation-status-button, .generation-download { padding: 12px; border: 1px solid #777; color: #181913; background: #fff; font: inherit; text-align: center; }
+.generation-dialog { inset: 0; margin: auto; width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; box-sizing: border-box; padding: 24px; border: 1px solid #777; border-radius: 16px; color: #181913; background: #fff; box-shadow: 0 20px 80px #0004; }
+.generation-dialog::backdrop { background: #0009; }
+.generation-dialog h3 { margin: 0 0 12px; font-size: 1.3rem; }
+.generation-dialog p { line-height: 1.6; overflow-wrap: anywhere; }
+.generation-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 20px; }
+.generation-dialog-actions button { cursor: pointer; border-radius: 8px; }
+.generation-dialog-actions button:focus-visible { outline: 3px solid #5140d6; outline-offset: 3px; }
 .product-how { padding: 110px 7vw; color: #171812; background: var(--marketing-paper); text-align: center; }
 .product-how .section-heading h2 { font-size: clamp(2.8rem, 5vw, 4.3rem); }
 .product-how .steps { max-width: 1100px; margin: auto; gap: 15px; text-align: left; }
