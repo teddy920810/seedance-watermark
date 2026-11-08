@@ -1,4 +1,5 @@
 import type { SitemapChangeFrequency, SitemapSettings } from './sitemap-settings';
+import { paginateBlogPosts } from './blog-pagination';
 
 interface BlogSitemapSource {
   slug: string;
@@ -25,10 +26,12 @@ export function buildSitemapEntries({
   posts,
   landingPages,
   settings,
+  postsPerPage = 10,
 }: {
   posts: BlogSitemapSource[];
   landingPages: LandingSitemapSource[];
   settings: SitemapSettings;
+  postsPerPage?: number;
 }): SitemapEntry[] {
   const entries: SitemapEntry[] = [
     withRule('/', settings.lastmod, settings.groups.homepage),
@@ -39,6 +42,8 @@ export function buildSitemapEntries({
       .filter((post) => !post.draft)
       .map((post) => withRule(`/blog/${post.slug}`, post.publishedAt, settings.groups.blogPosts)),
     ...landingPages.map((page) => withRule(`/${page.slug}`, settings.lastmod, settings.groups.landingPages)),
+    ...paginateBlogPosts(posts.filter((post) => !post.draft), postsPerPage).slice(1)
+      .map((page) => withRule(page.path, settings.lastmod, settings.groups.blogIndex)),
   ];
 
   const overrides = new Map(settings.overrides.map((override) => [override.path, override]));

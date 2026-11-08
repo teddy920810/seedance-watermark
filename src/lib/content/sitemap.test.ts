@@ -48,5 +48,13 @@ describe('automatic sitemap', () => {
     expect(xml).toContain('<priority>1.0</priority>');
     expect(xml).not.toContain('<sitemapindex');
   });
+
+  it('includes every blog listing page and excludes drafts from the page count', () => {
+    const posts = Array.from({ length: 31 }, (_, index) => ({ slug: `post-${index}`, publishedAt: '2026-11-03', draft: false }));
+    posts.push({ slug: 'draft', publishedAt: '2026-11-03', draft: true });
+    const entries = buildSitemapEntries({ posts, landingPages: [], settings, postsPerPage: 10 });
+    expect(entries.filter((entry) => /^\/blog\/page\//.test(entry.path)).map((entry) => entry.path)).toEqual(['/blog/page/2', '/blog/page/3', '/blog/page/4']);
+    expect(entries.some((entry) => entry.path === '/blog/draft')).toBe(false);
+  });
 });
 

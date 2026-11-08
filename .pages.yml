@@ -510,10 +510,11 @@ content:
         required: true
         description: H1 下方的一段简短说明文字。
       - name: postsPerPage
-        label: 最多显示文章数
+        label: 每页文章数
         type: number
         required: true
-        default: 20
+        default: 10
+        description: 每页展示的文章数量，超出部分自动生成下一页。
         options:
           min: 1
           max: 100

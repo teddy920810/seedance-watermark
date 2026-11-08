@@ -1,6 +1,7 @@
 ---
 import ImageUploader from './uploader/ImageUploader';
 import PreviewToolWorkspace from './tools/PreviewToolWorkspace';
+import VideoGenerator from './tools/VideoGenerator';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
@@ -10,6 +11,18 @@ import ResponsiveImage from './ResponsiveImage.astro';
 
 interface Props { page: CollectionEntry<'landingPages'>['data'] }
 const { page } = Astro.props;
+const videoGenerator = page.slug === 'seedance-ai-generated';
+const localGenerator = import.meta.env.DEV;
+const hero = videoGenerator ? {
+  ...page,
+  title: localGenerator ? 'Seedance 1.5 Pro — Local video generation test | Seedances' : 'Seedance AI Video Generator — Settings Preview | Seedances',
+  eyebrow: localGenerator ? 'SEEDANCE 1.5 PRO · LOCAL TEST' : 'SEEDANCE 1.5 PRO · SETTINGS PREVIEW',
+  heading: 'Create AI video from',
+  intro: localGenerator
+    ? 'Test text-to-video generation with Seedance 1.5 Pro via fal. Choose duration, resolution, aspect ratio and audio. Defaults: 5 seconds, 480p, 16:9, no audio.'
+    : 'Draft a prompt and explore duration, resolution, aspect ratio and audio settings for Seedance 1.5 Pro.',
+  benefits: ['4–12 seconds', '480p–1080p output', 'Optional audio'],
+} : page;
 const [siteEntry] = await getCollection('siteSettings');
 if (!siteEntry) throw new Error('Site settings CMS content is missing.');
 const site = siteEntry.data;
@@ -32,17 +45,17 @@ const faqSchema = visibleFaqItems.length > 0 ? {
 } : undefined;
 ---
 
-<SiteLayout title={page.title} description={page.description} schema={faqSchema} variant="marketing">
+<SiteLayout title={hero.title} description={page.description} schema={faqSchema} variant="marketing">
   <div class:list={{ product: isOperations }}>
     <section class="product-hero">
       <div class="hero-copy">
-        <span class="eyebrow">{page.eyebrow}</span>
-        <h1>{page.heading}{page.highlightedHeading && <><br /><em>{page.highlightedHeading}</em></>}</h1>
-        <p>{page.intro}</p>
-        <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
+        <span class="eyebrow">{hero.eyebrow}</span>
+        <h1>{hero.heading}{page.highlightedHeading && <><br /><em>{page.highlightedHeading}</em></>}</h1>
+        <p>{hero.intro}</p>
+        <ul class="check-list">{hero.benefits.map((benefit) => <li>{benefit}</li>)}</ul>
       </div>
       <div id="tool" class="product-workspace">
-        {page.workspaceMode === 'image-upload'
+        {videoGenerator ? <VideoGenerator copy={page.workspace} preview={!localGenerator} client:load /> : page.workspaceMode === 'image-upload'
           ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
           : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
       </div>

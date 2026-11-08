@@ -43,13 +43,14 @@ export class R2ObjectStore {
     );
   }
 
-  async createDownloadUrl(key: string): Promise<string> {
+  async createDownloadUrl(key: string, filename = 'watermark-removed-image'): Promise<string> {
+    if (!/^[a-zA-Z0-9._-]+$/.test(filename)) throw new Error('Invalid download filename');
     return getSignedUrl(
       this.client,
       new GetObjectCommand({
         Bucket: this.config.bucket,
         Key: key,
-        ResponseContentDisposition: 'attachment; filename="watermark-removed-image"',
+        ResponseContentDisposition: `attachment; filename="${filename}"`,
       }),
       { expiresIn: 10 * 60 },
     );
@@ -97,6 +98,12 @@ export class R2ObjectStore {
         ContentType: 'application/json',
       }),
     );
+  }
+
+  async putVideo(key: string, bytes: Uint8Array): Promise<void> {
+    await this.client.send(new PutObjectCommand({
+      Bucket: this.config.bucket, Key: key, Body: bytes, ContentType: 'video/mp4',
+    }));
   }
 
   async getJson<T>(key: string): Promise<T | null> {

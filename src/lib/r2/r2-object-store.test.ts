@@ -21,6 +21,16 @@ function createStore() {
 afterEach(() => vi.restoreAllMocks());
 
 describe('R2ObjectStore', () => {
+  it('stores generated MP4 bytes and creates a video download filename', async () => {
+    const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValue({} as never);
+    const store = createStore();
+    await store.putVideo('results/video.mp4', new Uint8Array([1, 2]));
+    expect((send.mock.calls[0][0] as PutObjectCommand).input).toMatchObject({
+      Key: 'results/video.mp4', ContentType: 'video/mp4', Body: new Uint8Array([1, 2]),
+    });
+    const url = new URL(await store.createDownloadUrl('results/video.mp4', 'seedances-video.mp4'));
+    expect(url.searchParams.get('response-content-disposition')).toBe('attachment; filename="seedances-video.mp4"');
+  });
   it('generates path-style presigned upload and read URLs for R2', async () => {
     const store = createStore();
     const upload = new URL(await store.createUploadUrl('uploads/test.png', 'image/png'));
