@@ -55,9 +55,8 @@ Do not replace production OAuth or R2 configuration. Add the local OAuth callbac
 
 The result is copied to private R2 before signed preview/download links are shown.
 R2's existing one-day lifecycle applies; links last ten minutes. Status refresh renews
-links while the stored result still exists. Generation remains server-side and the
-API explicitly rejects production mode and non-loopback hosts. Production rollout
-requires separate quota, billing, retention, webhook and end-user-access design.
+links while the stored result still exists. The local pilot accepts requests only
+on loopback hosts. Production uses the separate free trial below.
 
 ## Vendor contracts
 
@@ -121,3 +120,20 @@ does not enable the preview pilot.
 
 References: https://developers.cloudflare.com/r2/api/s3/conditional-operations/
 and https://fal.ai/docs/documentation/model-apis/pricing.
+
+## Production free trial
+
+Set `SEEDANCE_FREE_VIDEO_ENABLED=true` for the Vercel **Production** environment,
+provide the existing server-only `FAL_KEY`, Google, Better Auth, and R2 settings,
+and redeploy. The entry point is `https://www.seedances.co/seedance-ai-generated`.
+The production `GET /api/video` should return `configured: true` and `enabled: true`,
+and an unauthenticated same-origin `POST /api/video` should return 401 with
+`FREE_LOGIN_REQUIRED`. Verify the Google sign-in dialog and then check a real task's
+completion, download length, and usage in fal.
+
+Each verified account can submit once. Five atomic R2 reservations with a live
+US$1 per-request price ceiling protect the US$5 first batch. Keep
+`free-video-reservations/` outside lifecycle rules. Failed or ambiguous submissions
+retain their claims. The trial sends fal's minimum 4-second preset and trims the
+result to a 3-second MP4 before saving it to private R2. To stop the trial, remove
+the flag and redeploy. Removing and restoring the flag retains existing claims.

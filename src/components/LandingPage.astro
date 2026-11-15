@@ -3,6 +3,7 @@ import ImageUploader from './uploader/ImageUploader';
 import PreviewToolWorkspace from './tools/PreviewToolWorkspace';
 import VideoGenerator from './tools/VideoGenerator';
 import { isHostedPilot } from '../lib/video/preview-pilot';
+import { isFreeVideoEnabled } from '../lib/video/free-rollout';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
@@ -13,6 +14,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
 interface Props { page: CollectionEntry<'landingPages'>['data'] }
 const { page } = Astro.props;
 const videoGenerator = page.slug === 'seedance-ai-generated';
+const freeVideo = videoGenerator && isFreeVideoEnabled(process.env);
 const localGenerator = import.meta.env.DEV;
 const hostedDemo = process.env.VERCEL_ENV === 'preview' && process.env.SEEDANCE_PREVIEW_DEMO === 'true';
 const [siteEntry] = await getCollection('siteSettings');
@@ -26,7 +28,11 @@ const featureItems = visibleItems(page.features.items, isCompleteFeature).map((i
 }));
 const showcaseItems = visibleItems(page.showcase?.items ?? [], (item) => Boolean(item.image && item.title && item.description));
 const visibleFaqItems = visibleItems(page.faq.items, isCompleteFaq);
-const processSteps = visibleItems(page.process.steps, isCompleteStep);
+const processSteps = freeVideo ? [
+  { number: '01', icon: '↑', title: 'Describe the scene', description: 'Tell us who or what to show and what happens.' },
+  { number: '02', icon: '✦', title: 'Sign in and generate', description: 'Sign in with Google to create your free 3-second video.' },
+  { number: '03', icon: '↓', title: 'Preview and download', description: 'Play your video and save the MP4 when it is ready.' },
+] : visibleItems(page.process.steps, isCompleteStep);
 const faqSchema = visibleFaqItems.length > 0 ? {
   '@type': 'FAQPage',
   mainEntity: visibleFaqItems.map((item) => ({
@@ -37,17 +43,19 @@ const faqSchema = visibleFaqItems.length > 0 ? {
 } : undefined;
 ---
 
-<SiteLayout title={page.title} description={page.description} schema={faqSchema} variant="marketing">
+<SiteLayout title={freeVideo ? 'Seedance 2.0 Fast Text-to-Video Generator | Seedances' : page.title}
+  description={freeVideo ? 'Sign in to generate one free 3-second video from a text prompt using Seedance 2.0 Fast, while trial slots last.' : page.description}
+  schema={faqSchema} variant="marketing">
   <div class:list={{ product: isOperations }}>
     <section class:list={['product-hero', { 'video-hero': videoGenerator }]}>
       <div class="hero-copy">
         <span class="eyebrow">{page.eyebrow}</span>
         <h1>{page.heading}{page.highlightedHeading && <><br /><em>{page.highlightedHeading}</em></>}</h1>
-        <p>{page.intro}</p>
+        <p>{freeVideo ? 'Turn a scene you describe into a free 3-second video, while trial slots last.' : page.intro}</p>
         {!videoGenerator && <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>}
       </div>
       <div id="tool" class="product-workspace">
-        {videoGenerator ? <VideoGenerator copy={page.workspace} preview={!localGenerator} hostedDemo={hostedDemo} hostedPilot={isHostedPilot(process.env)} client:load /> : page.workspaceMode === 'image-upload'
+        {videoGenerator ? <VideoGenerator copy={page.workspace} preview={!localGenerator} hostedDemo={hostedDemo} hostedPilot={isHostedPilot(process.env)} freeVideo={freeVideo} client:load /> : page.workspaceMode === 'image-upload'
           ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
           : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
       </div>
@@ -95,7 +103,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
       </section>
     )}
 
-    {isOperations ? (
+    {freeVideo ? null : isOperations ? (
       <section class="product-why">
         <span class="eyebrow">{page.features.eyebrow}</span>
         <h2>{page.features.heading}{page.features.highlightedHeading && <><br /><em>{page.features.highlightedHeading}</em></>}</h2>
@@ -119,7 +127,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
     </section>}
     <section class="final-cta">
       <h2>{page.finalCta.heading || page.heading}</h2>
-      <a class="marketing-button" href="#tool">{page.finalCta.label || 'Start now'} <span aria-hidden="true">→</span></a>
+      <a class="marketing-button" href="#tool">{freeVideo ? 'Generate now' : page.finalCta.label || 'Start now'} <span aria-hidden="true">→</span></a>
     </section>
   </div>
 </SiteLayout>

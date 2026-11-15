@@ -3,8 +3,9 @@ import { z } from 'zod';
 import { getSession } from '../../../lib/auth';
 import { json, readJson } from '../../../lib/api/response';
 import { parseGenerationInput } from '../../../lib/video/generation';
-import { getPromptError, videoNotices } from '../../../lib/video/errors';
+import { getPromptError, VideoProviderError, videoNotices } from '../../../lib/video/errors';
 import { generationReadiness, generationService } from '../../../lib/video/runtime';
+import { freeVideoOwner, FREE_VIDEO_OPTIONS, isFreeVideoEnabled } from '../../../lib/video/free-rollout';
 
 import { allowsPreviewTester, isHostedPilot, matchesPreviewOptions } from '../../../lib/video/preview-pilot';
 
@@ -15,20 +16,31 @@ export function isLocalPilot(request: Request) {
 
 export const GET: APIRoute = async ({ request }) => {
   if (isLocalPilot(request)) return json(generationReadiness());
+  if (isFreeVideoEnabled(process.env, new URL(request.url))) {
+    try {
+      const session = await getSession(request);
+      return json({ ...generationReadiness(true), missing: [], signedIn: Boolean(freeVideoOwner(session?.user)) });
+    } catch {
+      return json({ code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
+    }
+  }
   if (!isHostedPilot(process.env, new URL(request.url))) return json({ error: 'Not found' }, { status: 404 });
   return json({ ...generationReadiness(true), missing: [] }, { headers: { 'Cache-Control': 'no-store' } });
 };
 
 export const POST: APIRoute = async ({ request }) => {
   const hosted = isHostedPilot(process.env, new URL(request.url));
-  if (!hosted && !isLocalPilot(request)) return json({ error: 'Not found' }, { status: 404 });
+  const free = isFreeVideoEnabled(process.env, new URL(request.url));
+  if (!free && !hosted && !isLocalPilot(request)) return json({ error: 'Not found' }, { status: 404 });
   if (request.headers.get('origin') !== new URL(request.url).origin) return json({ error: 'Invalid origin' }, { status: 403 });
-  const readiness = generationReadiness(hosted);
-  if (!readiness.configured || !readiness.enabled) return json({ error: 'Local generation is not enabled or setup is incomplete.', code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
   try {
     const session = await getSession(request);
+    const freeOwner = free ? freeVideoOwner(session?.user) : null;
+    if (free && !freeOwner) return json({ error: videoNotices.FREE_LOGIN_REQUIRED.message, code: 'FREE_LOGIN_REQUIRED' }, { status: 401 });
     if (!session?.user.id) return json({ error: 'Sign in with Google before generating a video.', code: 'LOGIN_REQUIRED' }, { status: 401 });
     if (hosted && !allowsPreviewTester(process.env.SEEDANCE_PREVIEW_TESTER_EMAIL, session.user)) return json({ error: 'This preview is limited to the designated test account.' }, { status: 403 });
+    const readiness = generationReadiness(hosted || free);
+    if (!readiness.configured || !readiness.enabled) return json({ error: videoNotices.SERVICE_UNAVAILABLE.message, code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
     let input;
     try {
       const body = await readJson(request);
@@ -45,11 +57,15 @@ export const POST: APIRoute = async ({ request }) => {
       return json({ error: 'Check your prompt and video settings, then try again.' }, { status: 400 });
     }
     if (hosted && !matchesPreviewOptions(input.options)) return json({ code: 'INVALID_OPTIONS' }, { status: 400 });
+    if (free && input.options !== undefined) return json({ code: 'INVALID_OPTIONS' }, { status: 400 });
     if (hosted && !isHostedPilot(process.env, new URL(request.url))) return json({ code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
-    const service = generationService(hosted);
-    const job = await service.create(input, session.user.id);
+    const service = freeOwner ? (await import('../../../lib/video/free-runtime')).freeVideoService(freeOwner) : generationService(hosted);
+    const job = await service.create(freeOwner ? { ...input, options: FREE_VIDEO_OPTIONS } : input, freeOwner ?? session.user.id);
     return json(await service.present(job), { status: 201 });
   } catch (error) {
+    if (free && error instanceof VideoProviderError) {
+      return json({ error: error.message, code: error.code }, { status: error.code === 'FREE_VIDEO_LIMIT' ? 429 : 503 });
+    }
     if (error instanceof Error && error.message === 'The local test limit has been reached.') return json({ error: error.message }, { status: 429 });
     return json({ error: 'Unable to submit. Keep this task ID and check fal history before retrying.', code: 'SUBMISSION_UNKNOWN' }, { status: 503 });
   }
