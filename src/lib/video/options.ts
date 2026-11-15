@@ -1,7 +1,7 @@
-// Seedance 1.5 Pro text-to-video schema, verified 2026-11-08:
-// https://fal.ai/models/fal-ai/bytedance/seedance/v1.5/pro/text-to-video/api
+// Seedance 2.0 Fast text-to-video schema, verified 2026-11-15:
+// https://fal.ai/models/bytedance/seedance-2.0/fast/text-to-video/api
 export const VIDEO_DURATIONS = ['4', '5', '6', '7', '8', '9', '10', '11', '12'] as const;
-export const VIDEO_RESOLUTIONS = ['480p', '720p', '1080p'] as const;
+export const VIDEO_RESOLUTIONS = ['480p', '720p'] as const;
 export const VIDEO_ASPECT_RATIOS = ['16:9', '4:3', '1:1', '9:16', '3:4', '21:9', 'auto'] as const;
 export type VideoOptions = {
   duration: typeof VIDEO_DURATIONS[number];

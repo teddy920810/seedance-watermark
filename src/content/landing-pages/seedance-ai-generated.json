@@ -1,31 +1,31 @@
 {
   "slug": "seedance-ai-generated",
   "template": "operations",
-  "title": "Seedance 2.0 AI Generated Video – Text to Video | Seedances",
-  "description": "Create Seedance 2.0 AI generated videos from a text prompt with cinematic motion, consistent subjects and polished visual style.",
-  "eyebrow": "SEEDANCE 2.0 AI GENERATED VIDEO",
-  "heading": "Create Seedance 2.0 AI video from",
-  "highlightedHeading": "one clear prompt.",
-  "intro": "Create a Seedance 2.0 AI generated video by describing the subject, action, setting and camera movement. Get coherent motion and a consistent cinematic style.",
-  "benefits": ["No install", "Private files", "Free preview"],
+  "title": "Seedance 2.0 Fast Text-to-Video Settings Preview | Seedances",
+  "description": "Draft a text prompt and preview aspect ratio, resolution, duration, and audio settings for Seedance 2.0 Fast.",
+  "eyebrow": "Seedance 2.0 Fast · Text to video",
+  "heading": "Start with a prompt.",
+  "highlightedHeading": "",
+  "intro": "Write a scene and choose how your video should look and sound.",
+  "benefits": ["Text prompts", "Editable settings", "Local drafts"],
   "workspaceMode": "prompt-preview",
-  "workspace": { "eyebrow": "✦   DESCRIBE YOUR VIDEO", "heading": "", "inputLabel": "Describe your video", "inputHelp": "", "placeholder": "A cinematic close-up of a dancer moving through warm shafts of light, slow motion, 35mm film…", "options": ["16:9", "5 sec", "1080p"], "actionLabel": "Generate video", "previewNote": "AI video generation is not connected yet; prompts are not submitted to a provider." },
+  "workspace": { "eyebrow": "✦   DESCRIBE YOUR VIDEO", "heading": "", "inputLabel": "Describe your video", "inputHelp": "", "placeholder": "A cinematic close-up of a dancer moving through warm shafts of light, slow motion, 35mm film…", "options": ["16:9", "5 sec", "480p"], "actionLabel": "Review prompt", "previewNote": "AI video generation is not connected yet; prompts are not submitted to a provider." },
   "process": { "eyebrow": "HOW IT WORKS", "heading": "Three steps. That’s it.", "steps": [
     { "number": "01", "icon": "↑", "title": "Describe the scene", "description": "Tell us what you imagine in plain language." },
-    { "number": "02", "icon": "✦", "title": "Choose ratio and duration", "description": "Seedances reads the scene and handles the technical decisions." },
-    { "number": "03", "icon": "↓", "title": "Generate, preview & download", "description": "Preview the result and export when it feels right." }
+    { "number": "02", "icon": "✦", "title": "Choose ratio and duration", "description": "Choose your frame, resolution, clip length, and audio." },
+    { "number": "03", "icon": "↓", "title": "Review and save your settings", "description": "Check your prompt and keep the draft in this browser." }
   ] },
-  "showcase": { "eyebrow": "MADE WITH SEEDANCES", "heading": "See what a prompt", "highlightedHeading": "can become.", "intro": "Generated result above. Full prompt below.", "mode": "generator", "items": [
+  "showcase": { "eyebrow": "PROMPT EXAMPLES", "heading": "Find a starting point", "highlightedHeading": "", "intro": "Each image illustrates an example prompt you can copy into the workspace.", "mode": "generator", "items": [
     { "enabled": true, "image": "/uploads/generator-jellyfish-city-v2.png", "imageAlt": "Jellyfish above a neon city", "label": "SCENE 01", "title": "Jellyfish above a neon city", "description": "A translucent jellyfish drifting above a rain-soaked neon megacity at midnight, cinematic aerial camera, violet reflections, slow dreamlike motion." },
     { "enabled": true, "image": "/uploads/generator-2.png", "imageAlt": "Luxury product reveal", "label": "SCENE 02", "title": "Luxury product reveal", "description": "A luxury black-and-gold perfume bottle rising through a crown of liquid, macro product cinematography, controlled studio light, ultra-slow motion." },
     { "enabled": true, "image": "/uploads/generator-tiny-astronaut-v2.png", "imageAlt": "Tiny astronaut in a moss garden", "label": "SCENE 03", "title": "Tiny astronaut in a moss garden", "description": "A tiny astronaut exploring a luminous moss garden at dawn, miniature cinematic world, soft mist, shallow depth of field, gentle tracking shot." },
     { "enabled": true, "image": "/uploads/generator-4.png", "imageAlt": "Paper-cut winter story", "label": "SCENE 04", "title": "Paper-cut winter story", "description": "A handcrafted paper-cut winter village coming alive under falling snow, layered white paper textures, warm window light, storybook camera movement." }
   ] },
   "features": { "eyebrow": "WHY SEEDANCES", "heading": "Built for the work.", "highlightedHeading": "Designed for the flow.", "intro": "", "items": [
-    { "enabled": true, "number": "01", "heading": "Prompt-faithful scene creation", "description": "Fine detail without halos, flicker or the waxy AI look." },
-    { "enabled": true, "number": "02", "heading": "Consistent subjects and motion", "description": "A focused workflow that keeps you moving from idea to export." },
-    { "enabled": true, "number": "03", "heading": "Fast creative iteration", "description": "Encrypted transfer and automatic file deletion protect your work." }
+    { "enabled": true, "number": "01", "heading": "Describe one clear scene", "description": "Name the subject, the action, and where it happens." },
+    { "enabled": true, "number": "02", "heading": "Choose your video settings", "description": "Set the aspect ratio and resolution, then expand duration and audio for more control." },
+    { "enabled": true, "number": "03", "heading": "Keep your draft handy", "description": "The settings preview keeps your prompt and selections in this browser." }
   ] },
   "faq": { "eyebrow": "", "heading": "", "items": [] },
-  "finalCta": { "heading": "Your next scene starts with a sentence.", "label": "Generate now" }
+  "finalCta": { "heading": "Your next scene starts with a sentence.", "label": "Review a prompt" }
 }

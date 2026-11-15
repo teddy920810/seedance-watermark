@@ -6,24 +6,29 @@ import { parseGenerationInput } from '../../../lib/video/generation';
 import { getPromptError, videoNotices } from '../../../lib/video/errors';
 import { generationReadiness, generationService } from '../../../lib/video/runtime';
 
+import { allowsPreviewTester, isHostedPilot, matchesPreviewOptions } from '../../../lib/video/preview-pilot';
+
 export const prerender = false;
 export function isLocalPilot(request: Request) {
   return import.meta.env.DEV && ['localhost', '127.0.0.1', '[::1]'].includes(new URL(request.url).hostname);
 }
 
 export const GET: APIRoute = async ({ request }) => {
-  if (!isLocalPilot(request)) return json({ error: 'Not found' }, { status: 404 });
-  return json(generationReadiness());
+  if (isLocalPilot(request)) return json(generationReadiness());
+  if (!isHostedPilot(process.env, new URL(request.url))) return json({ error: 'Not found' }, { status: 404 });
+  return json({ ...generationReadiness(true), missing: [] }, { headers: { 'Cache-Control': 'no-store' } });
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  if (!isLocalPilot(request)) return json({ error: 'Not found' }, { status: 404 });
+  const hosted = isHostedPilot(process.env, new URL(request.url));
+  if (!hosted && !isLocalPilot(request)) return json({ error: 'Not found' }, { status: 404 });
   if (request.headers.get('origin') !== new URL(request.url).origin) return json({ error: 'Invalid origin' }, { status: 403 });
-  const readiness = generationReadiness();
+  const readiness = generationReadiness(hosted);
   if (!readiness.configured || !readiness.enabled) return json({ error: 'Local generation is not enabled or setup is incomplete.', code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
   try {
     const session = await getSession(request);
     if (!session?.user.id) return json({ error: 'Sign in with Google before generating a video.', code: 'LOGIN_REQUIRED' }, { status: 401 });
+    if (hosted && !allowsPreviewTester(process.env.SEEDANCE_PREVIEW_TESTER_EMAIL, session.user)) return json({ error: 'This preview is limited to the designated test account.' }, { status: 403 });
     let input;
     try {
       const body = await readJson(request);
@@ -39,7 +44,9 @@ export const POST: APIRoute = async ({ request }) => {
       }
       return json({ error: 'Check your prompt and video settings, then try again.' }, { status: 400 });
     }
-    const service = generationService();
+    if (hosted && !matchesPreviewOptions(input.options)) return json({ code: 'INVALID_OPTIONS' }, { status: 400 });
+    if (hosted && !isHostedPilot(process.env, new URL(request.url))) return json({ code: 'SERVICE_UNAVAILABLE' }, { status: 503 });
+    const service = generationService(hosted);
     const job = await service.create(input, session.user.id);
     return json(await service.present(job), { status: 201 });
   } catch (error) {

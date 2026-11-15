@@ -3,7 +3,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 const { fal } = vi.hoisted(() => ({ fal: { config: vi.fn(), queue: { submit: vi.fn(), status: vi.fn(), result: vi.fn() } } }));
 vi.mock('@fal-ai/client', () => ({ fal }));
 import { FalVideoProvider } from './fal-provider';
-import { MODEL } from './generation';
 afterEach(() => { vi.resetAllMocks(); vi.unstubAllGlobals(); });
 
 describe('fal video provider contract', () => {
@@ -13,19 +12,19 @@ describe('fal video provider contract', () => {
     const provider = new FalVideoProvider('test-key');
     expect(await provider.submit('a cat')).toBe('request-1');
     expect(fal.config).toHaveBeenCalledWith({ credentials: 'test-key' });
-    expect(fetcher.mock.calls[0][0]).toBe(`https://queue.fal.run/${MODEL}`);
+    expect(fetcher.mock.calls[0][0]).toBe('https://queue.fal.run/bytedance/seedance-2.0/fast/text-to-video');
     expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({
       prompt: 'a cat', resolution: '480p', aspect_ratio: '16:9', duration: '5',
-      generate_audio: false, enable_safety_checker: true,
+      generate_audio: false,
     });
     expect(fetcher.mock.calls[0][1].headers.Authorization).toBe('Key test-key');
     expect(fetcher).toHaveBeenCalledTimes(1);
   });
-  it('forwards selected model arguments while keeping safety enabled and never retries', async () => {
+  it('forwards selected model arguments using the new schema and only submits once', async () => {
     const fetcher = vi.fn().mockResolvedValue(Response.json({ request_id: 'r' }));
     vi.stubGlobal('fetch', fetcher);
-    await new FalVideoProvider('test-key').submit('cat', { duration: '12', resolution: '1080p', aspectRatio: '4:3', generateAudio: true });
-    expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({ prompt: 'cat', duration: '12', resolution: '1080p', aspect_ratio: '4:3', generate_audio: true, enable_safety_checker: true });
+    await new FalVideoProvider('test-key').submit('cat', { duration: '12', resolution: '720p', aspectRatio: '4:3', generateAudio: true });
+    expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({ prompt: 'cat', duration: '12', resolution: '720p', aspect_ratio: '4:3', generate_audio: true });
     expect(fetcher).toHaveBeenCalledTimes(1);
   });
   it('never retries a failed billable submission', async () => {
@@ -60,7 +59,7 @@ describe('fal video provider contract', () => {
     expect((await provider.poll('r')).status).toBe('running');
     expect(await provider.poll('r')).toEqual({ status: 'completed', videoUrl: 'https://v3.fal.media/video.mp4' });
     expect(fal.queue.result).toHaveBeenCalledTimes(1);
-    expect(fal.queue.status).toHaveBeenCalledWith(MODEL, { requestId: 'r', logs: false });
+    expect(fal.queue.status).toHaveBeenCalledWith('bytedance/seedance-2.0/fast/text-to-video', { requestId: 'r', logs: false });
   });
   it('maps provider-declared errors to a safe failed state', async () => {
     fal.queue.status.mockResolvedValue({ status: 'COMPLETED', error: 'private provider error' });

@@ -19,7 +19,7 @@ test('an expired session allows draft editing while retaining and protecting the
   await page.getByRole('button', { name: 'Check task status' }).click();
   await expect(dialog).not.toBeVisible();
   await expect(page.getByLabel('Describe your video')).toHaveValue('My new draft');
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('seedances-fal-local-task')!).id)).toBe(id);
   expect(submissions).toBe(0);
   await page.route('**/api/video/*', (route) => route.fulfill({ json: { id, status: 'running', options: { duration: '5', resolution: '480p', aspectRatio: '16:9', generateAudio: false } } }));
@@ -30,12 +30,12 @@ test('an expired session allows draft editing while retaining and protecting the
   await expect(page.getByLabel('Describe your video')).toHaveValue('My new draft');
   await expect(page.getByLabel('Aspect ratio', { exact: true })).toHaveValue('4:3');
   await expect(page.getByLabel('Aspect ratio', { exact: true })).toBeEnabled();
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
 });
 
 test('video settings retain defaults, persist selections and submit the selected settings once', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const options = { duration: '12', resolution: '1080p', aspectRatio: '4:3', generateAudio: true };
+  const options = { duration: '12', resolution: '720p', aspectRatio: '4:3', generateAudio: true };
   let submissions = 0;
   await page.route('**/api/video', async (route) => {
     if (route.request().method() === 'POST') {
@@ -46,6 +46,7 @@ test('video settings retain defaults, persist selections and submit the selected
   });
   await page.route('**/api/video/*', (route) => route.fulfill({ json: { id, status: 'running', options } }));
   await page.goto('/seedance-ai-generated');
+  await expect(page.getByText('· 5 sec · No audio', { exact: true })).toBeVisible();
   await expect(page.getByLabel('Duration', { exact: true })).toHaveValue('5');
   await expect(page.getByLabel('Duration', { exact: true })).toBeHidden();
   await expect(page.getByLabel('Audio', { exact: true })).toBeHidden();
@@ -62,13 +63,13 @@ test('video settings retain defaults, persist selections and submit the selected
   await expect(page.getByLabel('Duration', { exact: true })).toBeVisible();
   await expect(page.getByLabel('Audio', { exact: true })).toBeVisible();
   await page.getByLabel('Duration', { exact: true }).selectOption('12');
-  await page.getByLabel('Resolution', { exact: true }).selectOption('1080p');
+  await page.getByLabel('Resolution', { exact: true }).selectOption('720p');
   await page.getByLabel('Aspect ratio', { exact: true }).selectOption('4:3');
   await page.getByLabel('Audio', { exact: true }).selectOption('true');
   await page.reload();
   await expect(page.getByLabel('Duration', { exact: true })).toBeHidden();
   await expect(page.getByLabel('Duration', { exact: true })).toHaveValue('12');
-  await expect(page.getByLabel('Resolution', { exact: true })).toHaveValue('1080p');
+  await expect(page.getByLabel('Resolution', { exact: true })).toHaveValue('720p');
   await expect(page.getByLabel('Audio', { exact: true })).toHaveValue('true');
   await page.getByLabel('Describe your video').fill('A cat');
   await page.getByLabel(/I understand this uses paid fal credits/).check();
@@ -78,9 +79,17 @@ test('video settings retain defaults, persist selections and submit the selected
   await page.screenshot({ path: 'test-results/video-settings-mobile.png' });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.setViewportSize({ width: 1280, height: 900 });
+  const heading = await page.getByRole('heading', { level: 1 }).boundingBox();
+  const header = await page.getByRole('banner').boundingBox();
+  const workspace = await page.getByRole('region', { name: 'AI video generator' }).boundingBox();
+  const prompt = await page.getByLabel('Describe your video').boundingBox();
+  expect(heading!.y).toBeGreaterThan(header!.y + header!.height);
+  expect(workspace!.y).toBeGreaterThan(heading!.y + heading!.height);
+  expect(Math.abs(workspace!.x + workspace!.width / 2 - 640)).toBeLessThan(2);
+  expect(prompt!.height).toBeLessThanOrEqual(130);
   await page.getByRole('group', { name: 'Video settings' }).screenshot({ path: 'test-results/video-settings-desktop.png' });
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
+  await page.getByRole('button', { name: 'Generate now' }).click();
   await expect(page.getByLabel('Duration', { exact: true })).toBeDisabled();
   await page.reload();
   await expect(page.getByLabel('Aspect ratio', { exact: true })).toHaveValue('4:3');
@@ -98,7 +107,7 @@ test('server-rejected settings keep the draft and return focus to settings', asy
   await page.getByLabel('Duration', { exact: true }).selectOption('6');
   await page.getByText('Duration & audio', { exact: true }).click();
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
+  await page.getByRole('button', { name: 'Generate now' }).click();
   await expect(page.getByRole('dialog', { name: 'Check video settings' })).toBeVisible();
   await page.getByRole('button', { name: 'Edit settings' }).click();
   await expect(page.getByLabel('Duration', { exact: true })).toBeFocused();
@@ -137,9 +146,20 @@ for (const [prompt, title] of [
     const input = page.getByLabel('Describe your video');
     await input.fill(prompt);
     await page.getByLabel(/I understand this uses paid fal credits/).check();
-    await page.getByRole('button', { name: 'Generate video' }).click();
+    await page.getByRole('button', { name: 'Generate now' }).click();
     const dialog = page.getByRole('dialog', { name: title });
     await expect(dialog).toBeVisible();
+    const captionSize = await page.getByText('LOCAL TEST · PAID GENERATION', { exact: true })
+      .evaluate((caption) => getComputedStyle(caption).fontSize);
+    const reminder = dialog.locator('p').first();
+    await expect(reminder).toHaveCSS('font-size', captionSize);
+    await expect(reminder).toHaveCSS('color', 'rgb(162, 33, 33)');
+    const siteFont = await input.evaluate((element) => getComputedStyle(element).fontFamily.split(',')[0]);
+    for (const button of await dialog.getByRole('button').all()) {
+      await expect(button).toHaveCSS('font-size', captionSize);
+      expect(await button.evaluate((element) => getComputedStyle(element).fontFamily.split(',')[0])).toBe(siteFont);
+      expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    }
     if (prompt === '') await dialog.getByRole('button', { name: 'Edit prompt' }).click();
     else if (!prompt.trim()) await page.keyboard.press('Escape');
     else await dialog.getByRole('button', { name: 'Close', exact: true }).click();
@@ -149,7 +169,7 @@ for (const [prompt, title] of [
     expect(submissions).toBe(0);
     expect(await page.evaluate(() => localStorage.getItem('seedances-fal-local-task'))).toBeNull();
     await input.fill(prompt.length > 2000 ? 'x'.repeat(2000) : 'A cat');
-    await page.getByRole('button', { name: 'Generate video' }).click();
+    await page.getByRole('button', { name: 'Generate now' }).click();
     await expect.poll(() => submissions).toBe(1);
   });
 }
@@ -162,7 +182,7 @@ test('local setup reports missing configuration and cannot submit a paid request
   });
   await page.goto('/seedance-ai-generated');
   await page.getByLabel('Describe your video').fill('A cat walking through a garden');
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
   await expect(page.getByText(/Local setup needed/)).toBeVisible();
   expect(submissions).toBe(0);
 });
@@ -183,12 +203,12 @@ test('submits once, restores the task after refresh and exposes private result l
     ...(complete ? { videoUrl: '/fixture-video.mp4', downloadUrl: '/fixture-download.mp4' } : {}),
   } }));
   await page.goto('/seedance-ai-generated');
-  await expect(page.getByText('Seedance 1.5 Pro', { exact: true })).toBeVisible();
+  await expect(page.getByText('Seedance 2.0 Fast', { exact: true })).toBeVisible();
   await page.getByLabel('Describe your video').fill('A cat walking through a garden');
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Generate now' }).click();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
   await page.reload();
   complete = true;
   await expect(page.locator('video')).toHaveAttribute('src', '/fixture-video.mp4', { timeout: 15_000 });
@@ -207,7 +227,7 @@ test('a submission failure keeps the same task ID instead of automatically resub
   await page.goto('/seedance-ai-generated');
   await page.getByLabel('Describe your video').fill('A cat');
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
+  await page.getByRole('button', { name: 'Generate now' }).click();
   await expect(page.getByRole('alert')).toContainText('Check fal history');
   expect(submissions).toBe(1);
   expect(await page.evaluate(() => Boolean(localStorage.getItem('seedances-fal-local-task')))).toBe(true);
@@ -226,9 +246,9 @@ test('a sign-in rejection allows retry without leaving an ambiguous task receipt
   await page.goto('/seedance-ai-generated');
   await page.getByLabel('Describe your video').fill('A cat');
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
+  await page.getByRole('button', { name: 'Generate now' }).click();
   await expect(page.getByRole('alert')).toContainText('Sign in with Google');
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeEnabled();
   expect(await page.evaluate(() => localStorage.getItem('seedances-fal-local-task'))).toBeNull();
 });
 
@@ -250,7 +270,7 @@ for (const [code, title] of [
     await page.goto('/seedance-ai-generated');
     await page.getByLabel('Describe your video').fill('A cat');
     await page.getByLabel(/I understand this uses paid fal credits/).check();
-    await page.getByRole('button', { name: 'Generate video' }).click();
+    await page.getByRole('button', { name: 'Generate now' }).click();
     const dialog = page.getByRole('dialog', { name: title });
     await expect(dialog).toBeVisible();
     const bounds = await dialog.boundingBox();
@@ -263,7 +283,7 @@ for (const [code, title] of [
     await expect(dialog.getByRole('button').first()).toBeFocused();
     await page.keyboard.press('Escape');
     await expect(dialog).not.toBeVisible();
-    await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
     expect(submissions).toBe(1);
   });
 }
@@ -275,7 +295,7 @@ test('expired login preserves the prompt and offers sign in without another paid
   await page.goto('/seedance-ai-generated');
   await page.getByLabel('Describe your video').fill('My saved cat prompt');
   await page.getByLabel(/I understand this uses paid fal credits/).check();
-  await page.getByRole('button', { name: 'Generate video' }).click();
+  await page.getByRole('button', { name: 'Generate now' }).click();
   await expect(page.getByRole('dialog', { name: 'Sign in required' })).toBeVisible();
   await expect(page.getByRole('dialog').getByRole('button', { name: 'Sign in', exact: true })).toBeVisible();
   await page.reload();
@@ -313,5 +333,5 @@ test('expired task session retains its receipt and a failed link refresh keeps a
   await page.route('**/api/video/*', (route) => route.fulfill({ status: 503, json: { code: 'SERVICE_UNAVAILABLE' } }));
   await page.getByRole('button', { name: 'Refresh link' }).click();
   await expect(page.getByRole('dialog', { name: 'Service temporarily unavailable' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Generate video' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Generate now' })).toBeDisabled();
 });

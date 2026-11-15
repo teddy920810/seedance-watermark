@@ -454,11 +454,28 @@ img { display: block; max-width: 100%; }
 .generation-consent input { flex: 0 0 auto; margin-top: 4px; }
 .generation-setup, .generation-error { padding: 12px; color: #5d2800; background: #fff2d6; font-size: .85rem; overflow-wrap: anywhere; }
 .generation-result { display: grid; gap: 12px; margin-top: 16px; }
-.generation-result p { margin: 0; font-size: .85rem; }
+.generation-result p { margin: 0; font-size: .85rem; overflow-wrap: anywhere; }
+.generation-result h2 { margin: 0; font-size: 1rem; }
 .generation-task-id { overflow-wrap: anywhere; }
-.generation-prompt-count { margin: 8px 0; font-size: .8rem; }
-.generation-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; min-width: 0; margin: 16px 0 8px; padding: 0; border: 0; }
-.generation-options legend { margin-bottom: 10px; font-weight: 600; }
+.generation-demo-scenario { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .85rem; }
+.generation-demo-scenario select { max-width: 100%; padding: 7px; color: inherit; background: #fff; border: 1px solid #777; border-radius: 6px; font: inherit; }
+.generation-example-button { min-height: 44px; margin-top: 10px; padding: 6px 12px; border: 1px solid currentColor; border-radius: 6px; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+.video-generator { --generation-caption-size: .75rem; --generation-reminder-color: #a22121; gap: 10px; }
+.generation-caption, .video-generator .generation-reminder,
+.video-generator .generation-setup, .video-generator .generation-error,
+.video-generator .generation-dialog h3 { font-size: var(--generation-caption-size); }
+.generation-caption { color: #50554a; }
+.video-generator .generation-reminder, .video-generator .generation-setup,
+.video-generator .generation-error, .video-generator .generation-dialog h3 { color: var(--generation-reminder-color); }
+.video-generator > p, .video-generator .generation-consent { margin: 0; }
+.generation-prompt-header, .generation-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
+.generation-prompt-header label { font-weight: 650; }
+.video-hero .video-generator .preview-prompt { min-height: 100px; padding: 10px 12px; resize: vertical; border-radius: 6px; background: #fffdf7; font-size: 1rem; }
+.generation-actions { border-top: 1px solid #cfcec1; padding-top: 8px; }
+.generation-mode { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.video-hero .video-generator .preview-workspace-action { width: auto; min-height: 44px; padding: 8px 18px; border-radius: 6px; color: #181913; background: var(--marketing-lime); }
+.generation-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.generation-options legend { margin-bottom: 5px; font-weight: 600; }
 .generation-options label { display: grid; gap: 6px; min-width: 0; font-size: .85rem; }
 .generation-options select { width: 100%; min-width: 0; padding: 10px 8px; border: 1px solid #777; border-radius: 6px; background: #fff; color: #181913; font: inherit; }
 .generation-options select:focus-visible { outline: 3px solid #5140d6; outline-offset: 2px; }
@@ -472,10 +489,11 @@ img { display: block; max-width: 100%; }
 .generation-status-button, .generation-download { padding: 12px; border: 1px solid #777; color: #181913; background: #fff; font: inherit; text-align: center; }
 .generation-dialog { inset: 0; margin: auto; width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; box-sizing: border-box; padding: 24px; border: 1px solid #777; border-radius: 16px; color: #181913; background: #fff; box-shadow: 0 20px 80px #0004; }
 .generation-dialog::backdrop { background: #0009; }
-.generation-dialog h3 { margin: 0 0 12px; font-size: 1.3rem; }
-.generation-dialog p { line-height: 1.6; overflow-wrap: anywhere; }
-.generation-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 20px; }
-.generation-dialog-actions button { cursor: pointer; border-radius: 8px; }
+.generation-dialog h3 { margin: 0 0 8px; }
+.generation-dialog p { margin: 0 0 8px; line-height: 1.55; overflow-wrap: anywhere; }
+.generation-dialog .generation-task-id { font-size: var(--generation-caption-size); color: #50554a; }
+.generation-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.generation-dialog-actions button { min-height: 44px; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: var(--generation-caption-size); font-weight: 550; line-height: 1.25; }
 .generation-dialog-actions button:focus-visible { outline: 3px solid #5140d6; outline-offset: 3px; }
 .product-how { padding: 110px 7vw; color: #171812; background: var(--marketing-paper); text-align: center; }
 .product-how .section-heading h2 { font-size: clamp(2.8rem, 5vw, 4.3rem); }
@@ -492,6 +510,15 @@ img { display: block; max-width: 100%; }
 .product .product-hero .check-list li { gap: 5px; font-weight: 400; }
 .product .product-hero .check-list li::before { content: "✓"; }
 .product .product-workspace { min-height: 470px; }
+.product .product-hero.video-hero { min-height: 0; grid-template-columns: minmax(0, 1fr); gap: 18px; padding: calc(80px + clamp(24px, 4vw, 56px)) 5vw clamp(24px, 4vw, 56px); }
+.product .video-hero .hero-copy { text-align: center; }
+.product .video-hero h1 { margin: 6px 0 8px; font-size: clamp(2rem, 4.4vw, 4.25rem); line-height: 1.06; }
+.product .video-hero .hero-copy > p { margin: 0 auto; font-size: 1rem; }
+.product .video-hero .product-workspace { width: min(100%, 640px); min-height: 0; justify-self: center; padding: clamp(12px, 2.5vw, 20px); border-radius: 10px; }
+@media (max-width: 560px) {
+  .video-hero .video-generator .preview-workspace-action { width: 100%; }
+  .video-generator .generation-options select { min-height: 44px; font-size: 1rem; }
+}
 .product .preview-workspace-heading .eyebrow { display: block; margin-bottom: 14px; color: #181913; font-size: .7rem; font-weight: 500; }
 .product .preview-prompt { min-height: 300px; resize: none; border-color: #d2d1c9; font-size: 1.12rem; }
 .product .preview-options span { border-color: #d2d1c9; }
