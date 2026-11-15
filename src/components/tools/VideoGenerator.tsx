@@ -3,13 +3,13 @@ import type { PreviewWorkspaceCopy } from './PreviewToolWorkspace';
 import { authClient } from '../auth/auth-client';
 import { getPromptError, MAX_PROMPT_LENGTH, isVideoErrorCode, videoNotices, type VideoErrorCode } from '../../lib/video/errors';
 import { DEFAULT_VIDEO_OPTIONS, VIDEO_DURATIONS, VIDEO_RESOLUTIONS, VIDEO_ASPECT_RATIOS, isVideoOptions, type VideoOptions } from '../../lib/video/options';
+import { PREVIEW_OPTIONS } from '../../lib/video/preview-pilot';
 import { demoScenarios, type DemoScenario } from '../../lib/video/demo';
 import demoSample from '../../lib/video/demo-sample.webm?url';
 import { useVideoDemo } from './useVideoDemo';
 
 type Task = { id: string; status: 'submitting' | 'queued' | 'running' | 'completed' | 'failed'; options?: VideoOptions; error?: string; errorCode?: VideoErrorCode; videoUrl?: string; downloadUrl?: string; linksExpireAt?: number };
 type Readiness = { configured: boolean; enabled: boolean; missing: string[] };
-const storageKey = 'seedances-fal-local-task';
 const draftKey = 'seedances-video-prompt';
 const optionsKey = 'seedances-video-options';
 const draftModeKey = 'seedances-video-draft-for-task';
@@ -30,13 +30,16 @@ const demoStatus = {
   paused: 'Demo paused. Quota did not recover within the waiting window.',
 };
 
-export default function VideoGenerator({ copy, preview = false, hostedDemo = false }: {
+export default function VideoGenerator({ copy, preview = false, hostedDemo = false, hostedPilot = false }: {
   copy: PreviewWorkspaceCopy;
   preview?: boolean;
   hostedDemo?: boolean;
+  hostedPilot?: boolean;
 }) {
   const [mode, setMode] = useState<'preview' | 'demo' | 'pilot'>(hostedDemo ? 'demo' : preview ? 'preview' : 'pilot');
   const pilot = mode === 'pilot';
+  const paidPreview = hostedPilot && pilot;
+  const storageKey = hostedPilot ? 'seedances-fal-preview-task' : 'seedances-fal-local-task';
   const demo = useVideoDemo(mode === 'demo');
   const [scenario, setScenario] = useState<DemoScenario>('success');
   const [emptyPrompt, setEmptyPrompt] = useState(false);
@@ -100,7 +103,8 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
     const requestedMode = new URLSearchParams(window.location.search).get('mode');
     const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
     const nextMode = requestedMode === 'preview' ? 'preview'
-      : hostedDemo || (!preview && requestedMode === 'demo' && loopback) ? 'demo'
+      : hostedPilot && requestedMode === 'pilot' ? 'pilot'
+        : hostedDemo || (!preview && requestedMode === 'demo' && loopback) ? 'demo'
         : preview ? 'preview' : 'pilot';
     setMode(nextMode);
     if (nextMode === 'pilot') fetch('/api/video', { signal: controller.signal }).then(async (response) => {
@@ -113,7 +117,8 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       let savedOptions: unknown;
       try {
         savedOptions = JSON.parse(localStorage.getItem(optionsKey) || 'null');
-        if (isVideoOptions(savedOptions)) setOptions(savedOptions);
+        if (hostedPilot && nextMode === 'pilot') setOptions(PREVIEW_OPTIONS);
+        else if (isVideoOptions(savedOptions)) setOptions(savedOptions);
       } catch { /* Invalid saved settings fall back to the defaults. */ }
       const saved = nextMode !== 'pilot' ? null : JSON.parse(localStorage.getItem(storageKey) || 'null');
       if (saved?.id && /^[0-9a-f-]{36}$/i.test(saved.id)) {
@@ -123,12 +128,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         editingDraftRef.current = resumeDraft;
         setEditingDraft(resumeDraft);
         setPrompt(resumeDraft ? savedPrompt ?? saved.prompt ?? '' : saved.prompt || '');
-        setOptions(resumeDraft && isVideoOptions(savedOptions) ? savedOptions : submittedOptions);
+        setOptions(hostedPilot ? PREVIEW_OPTIONS : resumeDraft && isVideoOptions(savedOptions) ? savedOptions : submittedOptions);
       }
     } catch { /* A malformed receipt must never trigger a paid request. */ }
     setInitialized(true);
     return () => controller.abort();
-  }, [preview, hostedDemo, showNotice]);
+  }, [preview, hostedDemo, hostedPilot, showNotice, storageKey]);
 
   const checkStatus = useCallback(async (id: string) => {
     setChecking(true);
@@ -250,7 +255,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
 
   function changeOption(key: keyof VideoOptions, value: string | boolean) {
     const next = { ...options, [key]: value };
-    if (!isVideoOptions(next)) return;
+    if (paidPreview || !isVideoOptions(next)) return;
     setOptions(next);
     setConsent(false);
     try { localStorage.setItem(optionsKey, JSON.stringify(next)); } catch { /* In-memory settings remain available. */ }
@@ -315,7 +320,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         if (!task) setError('');
       }} />
     <p id={promptErrorId} className="generation-reminder" aria-live="polite" hidden={!inlinePromptError}>{inlinePromptError}</p>
-    <fieldset className="generation-options" disabled={draftLocked}>
+    <fieldset className="generation-options" disabled={draftLocked || paidPreview}>
       <legend>Video settings</legend>
       <label>Aspect ratio<select aria-label="Aspect ratio" value={options.aspectRatio} onChange={(event) => changeOption('aspectRatio', event.target.value)}>
         {VIDEO_ASPECT_RATIOS.map((value) => <option key={value} value={value}>{value === 'auto' ? 'Auto' : value}</option>)}
@@ -353,11 +358,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       Local setup needed. {readiness.missing.length > 0 && `Configure: ${readiness.missing.join(', ')}. `}
       {!readiness.enabled && 'Paid generation is locked until the local test is enabled.'}
     </p>}
+    {paidPreview && <p className="generation-caption">One private test video · 4 sec · 480p · 16:9 · No audio · US$1 maximum.</p>}
     {pilot && <label className="generation-consent"><input type="checkbox" checked={consent} disabled={!initialized || Boolean(task)} onChange={(event) => setConsent(event.target.checked)} />
       <span>I understand this uses paid fal credits and sends my prompt to fal. One local test only.</span>
     </label>}
     <div className="generation-actions">
-      <div className="generation-mode generation-caption"><span>Seedance 2.0 Fast</span><span>{pilot ? 'LOCAL TEST · PAID GENERATION' : mode === 'demo' ? 'DEMO · NO CHARGE' : 'Settings preview'}</span></div>
+      <div className="generation-mode generation-caption"><span>Seedance 2.0 Fast</span><span>{paidPreview ? 'PRIVATE PREVIEW · PAID GENERATION' : pilot ? 'LOCAL TEST · PAID GENERATION' : mode === 'demo' ? 'DEMO · NO CHARGE' : 'Settings preview'}</span></div>
       <button className="preview-workspace-action" type="button" onClick={() => { void generate(); }}
         disabled={!initialized || Boolean(task) || (pilot ? !readiness?.configured || !readiness.enabled || !consent : excess > 0 || demo.active)}>
         {pilot ? 'Generate now' : mode === 'demo' ? 'Run demo' : 'Review prompt'}

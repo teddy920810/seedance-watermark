@@ -100,6 +100,19 @@ export class R2ObjectStore {
     );
   }
 
+  async putJsonIfAbsent(key: string, value: unknown): Promise<boolean> {
+    try {
+      await this.client.send(new PutObjectCommand({
+        Bucket: this.config.bucket, Key: key, Body: JSON.stringify(value),
+        ContentType: 'application/json', IfNoneMatch: '*',
+      }));
+      return true;
+    } catch (error) {
+      if ((error as { $metadata?: { httpStatusCode?: number } }).$metadata?.httpStatusCode === 412) return false;
+      throw error;
+    }
+  }
+
   async putVideo(key: string, bytes: Uint8Array): Promise<void> {
     await this.client.send(new PutObjectCommand({
       Bucket: this.config.bucket, Key: key, Body: bytes, ContentType: 'video/mp4',

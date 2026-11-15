@@ -7,6 +7,11 @@ function fixture() {
   const store = {
     getJson: async <T>(key: string): Promise<T | null> => values.has(key) ? values.get(key) as T : null,
     putJson: vi.fn(async (key: string, value: unknown) => { values.set(key, structuredClone(value)); }),
+    putJsonIfAbsent: vi.fn(async (key: string, value: unknown) => {
+      if (values.has(key)) return false;
+      values.set(key, structuredClone(value));
+      return true;
+    }),
     putVideo: vi.fn().mockResolvedValue(undefined),
     createResultUrl: vi.fn().mockResolvedValue('https://storage.test/result.mp4'),
     createDownloadUrl: vi.fn().mockResolvedValue('https://storage.test/download.mp4'),
@@ -55,6 +60,19 @@ describe('local video generation', () => {
     expect(provider.submit).toHaveBeenCalledTimes(1);
     expect(store.putJson.mock.invocationCallOrder[0]).toBeLessThan(provider.submit.mock.invocationCallOrder[0]);
     await expect(service.create({ id: '00000000-0000-4000-8000-000000000002', prompt: 'dog' }, 'user-1')).rejects.toThrow('The local test limit has been reached.');
+  });
+
+  it('reserves one hosted slot across separate instances', async () => {
+    const { store, provider } = fixture();
+    const slot = { key: 'preview-test', atomic: true };
+    const first = new GenerationService(store, provider, slot);
+    const second = new GenerationService(store, provider, slot);
+    const one = { id, prompt: 'cat' };
+    const two = { id: '00000000-0000-4000-8000-000000000002', prompt: 'dog' };
+    const results = await Promise.allSettled([first.create(one, 'owner'), second.create(two, 'owner')]);
+    expect(results.filter(result => result.status === 'fulfilled')).toHaveLength(1);
+    expect(provider.submit).toHaveBeenCalledTimes(1);
+    expect(await second.read(id, 'another-user')).toBeNull();
   });
 
   it('retains the slot on an ambiguous provider failure and never retries submission', async () => {

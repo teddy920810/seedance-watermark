@@ -94,3 +94,28 @@ promise a refund. Browser drafts/receipts contain no credentials.
 
 Typed fal error contract checked 2026-11-08:
 https://fal.ai/docs/documentation/model-apis/errors
+
+## One paid test on the protected Vercel preview
+
+Use the preview branch with Vercel Deployment Protection. Scope variables to
+that branch in Preview. Keep the existing demo available. Set these only after
+the tester approves a new run:
+
+- `SEEDANCE_PREVIEW_PAID=true`
+- `SEEDANCE_PREVIEW_ORIGIN`: the stable HTTPS branch origin, with no trailing slash
+- `SEEDANCE_PREVIEW_TESTER_EMAIL`: the one verified Google account allowed to test
+- `SEEDANCE_PREVIEW_UNTIL`: an ISO timestamp up to two hours in the future
+- `FAL_KEY`, Google and R2 settings: configure server-side. Point
+  `BETTER_AUTH_URL` at the branch origin and allow its
+  `/api/auth/callback/google` in Google. Use the existing private R2 setup.
+
+Redeploy and open `/seedance-ai-generated?mode=pilot`. A real run sends one
+4-second, 480p, 16:9 silent request. The live price must pass the US$1 check.
+The same R2 bucket and test receipt protect the slot across instances and
+redeploys. Keep the receipt through the end of the two-hour window, including
+after an ambiguous submit. Do not reset it for a retry. Remove the paid flag
+and redeploy once the result has been downloaded. The production environment
+does not enable the preview pilot.
+
+References: https://developers.cloudflare.com/r2/api/s3/conditional-operations/
+and https://fal.ai/docs/documentation/model-apis/pricing.

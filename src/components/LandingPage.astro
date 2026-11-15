@@ -2,6 +2,7 @@
 import ImageUploader from './uploader/ImageUploader';
 import PreviewToolWorkspace from './tools/PreviewToolWorkspace';
 import VideoGenerator from './tools/VideoGenerator';
+import { isHostedPilot } from '../lib/video/preview-pilot';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { splitFeatureCopy } from '../lib/content/feature-copy';
@@ -46,7 +47,7 @@ const faqSchema = visibleFaqItems.length > 0 ? {
         {!videoGenerator && <ul class="check-list">{page.benefits.map((benefit) => <li>{benefit}</li>)}</ul>}
       </div>
       <div id="tool" class="product-workspace">
-        {videoGenerator ? <VideoGenerator copy={page.workspace} preview={!localGenerator} hostedDemo={hostedDemo} client:load /> : page.workspaceMode === 'image-upload'
+        {videoGenerator ? <VideoGenerator copy={page.workspace} preview={!localGenerator} hostedDemo={hostedDemo} hostedPilot={isHostedPilot(process.env)} client:load /> : page.workspaceMode === 'image-upload'
           ? <ImageUploader logo={site.logo} siteName={site.name} copy={site.uploader} client:load />
           : <PreviewToolWorkspace mode={page.workspaceMode} copy={page.workspace} client:load />}
       </div>

@@ -21,6 +21,16 @@ function createStore() {
 afterEach(() => vi.restoreAllMocks());
 
 describe('R2ObjectStore', () => {
+  it('only reserves a test key if it is absent and treats 412 as occupied', async () => {
+    const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValueOnce({} as never);
+    send.mockRejectedValueOnce({ $metadata: { httpStatusCode: 412 } });
+    send.mockRejectedValueOnce(new Error('R2 unreachable'));
+    const store = createStore();
+    await expect(store.putJsonIfAbsent('jobs/test.json', {})).resolves.toBe(true);
+    expect((send.mock.calls[0][0] as PutObjectCommand).input.IfNoneMatch).toBe('*');
+    await expect(store.putJsonIfAbsent('jobs/test.json', {})).resolves.toBe(false);
+    await expect(store.putJsonIfAbsent('jobs/test.json', {})).rejects.toThrow('R2 unreachable');
+  });
   it('stores generated MP4 bytes and creates a video download filename', async () => {
     const send = vi.spyOn(S3Client.prototype, 'send').mockResolvedValue({} as never);
     const store = createStore();
