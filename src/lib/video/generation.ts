@@ -39,7 +39,7 @@ export class GenerationService {
   constructor(
     private readonly store: GenerationStore,
     private readonly provider: VideoProvider,
-    private readonly slot: { key: string; atomic: boolean; reservationKey?: string } = { key: SLOT, atomic: false },
+    private readonly slot: { key: string; atomic: boolean; reservationKey?: string; limitCode?: VideoErrorCode; beforeReserve?: () => Promise<void>; persistProgress?: false; resultPrefix?: string } = { key: SLOT, atomic: false },
   ) {}
 
   private serial<T>(operation: () => Promise<T>): Promise<T> {
@@ -53,8 +53,9 @@ export class GenerationService {
       const existing = await this.store.getJson<GenerationJob>(this.slot.key);
       if (existing) {
         if (existing.id === input.id && existing.ownerId === ownerId) return existing;
-        throw new Error('The local test limit has been reached.');
+        throw this.reservationError();
       }
+      await this.slot.beforeReserve?.();
       let job: GenerationJob = { ...input, options: input.options || { ...DEFAULT_VIDEO_OPTIONS }, ownerId, status: 'submitting' };
       if (this.slot.atomic) {
         if (!this.store.putJsonIfAbsent) throw new Error('Atomic reservation unavailable');
@@ -65,7 +66,7 @@ export class GenerationService {
         if (!reserved) {
           const existing = await this.store.getJson<GenerationJob>(this.slot.key);
           if (existing?.id === input.id && existing.ownerId === ownerId) return existing;
-          throw new Error('The local test limit has been reached.');
+          throw this.reservationError();
         }
         if (reservationKey) await this.store.putJson(this.slot.key, job);
       } else {
@@ -83,6 +84,10 @@ export class GenerationService {
     });
   }
 
+  private reservationError() {
+    return this.slot.limitCode ? new VideoProviderError(this.slot.limitCode) : new Error('The local test limit has been reached.');
+  }
+
   read(id: string, ownerId: string): Promise<GenerationJob | null> {
     return this.serial(async () => {
       const job = await this.store.getJson<GenerationJob>(this.slot.key);
@@ -91,7 +96,7 @@ export class GenerationService {
       const update = await this.provider.poll(job.requestId);
       if (update.status === 'completed') {
         if (!update.videoUrl) throw new Error('Missing video result');
-        const resultKey = `results/fal-${job.id}.mp4`;
+        const resultKey = `${this.slot.resultPrefix ?? 'results/fal-'}${job.id}.mp4`;
         const bytes = await this.provider.download(update.videoUrl);
         await this.store.putVideo(resultKey, bytes);
         Object.assign(job, { status: 'completed', resultKey });
@@ -102,7 +107,11 @@ export class GenerationService {
           job.error = videoNotices[job.errorCode].message;
         }
       }
-      await this.store.putJson(this.slot.key, job);
+      // Production polls may run on different instances. A late running
+      // response must not overwrite a completed job saved by another poll.
+      if (update.status === 'completed' || update.status === 'failed' || this.slot.persistProgress !== false) {
+        await this.store.putJson(this.slot.key, job);
+      }
       return job;
     });
   }

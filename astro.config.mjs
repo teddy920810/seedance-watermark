@@ -4,6 +4,7 @@ import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { readFileSync } from 'node:fs';
+import { platform } from 'node:process';
 import { fileURLToPath, URL } from 'node:url';
 import { omitMissingBlogImages } from './src/lib/content/remark-missing-blog-images';
 import { rehypeBlogPrompt } from './src/lib/content/rehype-blog-prompt';
@@ -16,7 +17,8 @@ export default defineConfig({
   site: siteSettings.canonicalOrigin,
   trailingSlash: 'never',
   output: 'server',
-  adapter: vercel(),
+  // https://vercel.com/docs/frameworks/frontend/astro
+  adapter: vercel({ includeFiles: [`./node_modules/ffmpeg-static/${platform === 'win32' ? 'ffmpeg.exe' : 'ffmpeg'}`] }),
   integrations: [react()],
   markdown: {
     syntaxHighlight: { type: 'shiki', excludeLangs: ['math', 'text'] },

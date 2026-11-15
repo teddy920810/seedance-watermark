@@ -9,7 +9,7 @@ import demoSample from '../../lib/video/demo-sample.webm?url';
 import { useVideoDemo } from './useVideoDemo';
 
 type Task = { id: string; status: 'submitting' | 'queued' | 'running' | 'completed' | 'failed'; options?: VideoOptions; error?: string; errorCode?: VideoErrorCode; videoUrl?: string; downloadUrl?: string; linksExpireAt?: number };
-type Readiness = { configured: boolean; enabled: boolean; missing: string[] };
+type Readiness = { configured: boolean; enabled: boolean; missing: string[]; signedIn?: boolean };
 const draftKey = 'seedances-video-prompt';
 const optionsKey = 'seedances-video-options';
 const draftModeKey = 'seedances-video-draft-for-task';
@@ -30,16 +30,19 @@ const demoStatus = {
   paused: 'Demo paused. Quota did not recover within the waiting window.',
 };
 
-export default function VideoGenerator({ copy, preview = false, hostedDemo = false, hostedPilot = false }: {
+export default function VideoGenerator({ copy, preview = false, hostedDemo = false, hostedPilot = false, freeVideo = false }: {
   copy: PreviewWorkspaceCopy;
   preview?: boolean;
   hostedDemo?: boolean;
   hostedPilot?: boolean;
+  freeVideo?: boolean;
 }) {
-  const [mode, setMode] = useState<'preview' | 'demo' | 'pilot'>(hostedDemo ? 'demo' : preview ? 'preview' : 'pilot');
+  const [mode, setMode] = useState<'preview' | 'demo' | 'pilot' | 'free'>(freeVideo ? 'free' : hostedDemo ? 'demo' : preview ? 'preview' : 'pilot');
   const pilot = mode === 'pilot';
+  const free = mode === 'free';
+  const live = pilot || free;
   const paidPreview = hostedPilot && pilot;
-  const storageKey = hostedPilot ? 'seedances-fal-preview-task' : 'seedances-fal-local-task';
+  const storageKey = freeVideo ? 'seedances-fal-free-task' : hostedPilot ? 'seedances-fal-preview-task' : 'seedances-fal-local-task';
   const demo = useVideoDemo(mode === 'demo');
   const [scenario, setScenario] = useState<DemoScenario>('success');
   const [emptyPrompt, setEmptyPrompt] = useState(false);
@@ -102,25 +105,29 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
     const controller = new AbortController();
     const requestedMode = new URLSearchParams(window.location.search).get('mode');
     const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
-    const nextMode = requestedMode === 'preview' ? 'preview'
+    const nextMode = freeVideo ? 'free' : requestedMode === 'preview' ? 'preview'
       : hostedPilot && requestedMode === 'pilot' ? 'pilot'
         : hostedDemo || (!preview && requestedMode === 'demo' && loopback) ? 'demo'
         : preview ? 'preview' : 'pilot';
     setMode(nextMode);
-    if (nextMode === 'pilot') fetch('/api/video', { signal: controller.signal }).then(async (response) => {
+    if (nextMode === 'pilot' || nextMode === 'free') fetch('/api/video', { signal: controller.signal }).then(async (response) => {
       if (!response.ok) throw new Error('Local generation is unavailable.');
       setReadiness(await response.json());
-    }).catch(() => { if (!controller.signal.aborted) showNotice('SERVICE_UNAVAILABLE'); });
+    }).catch(() => {
+      if (controller.signal.aborted) return;
+      if (nextMode === 'free') setReadiness({ configured: false, enabled: false, missing: [] });
+      else showNotice('SERVICE_UNAVAILABLE');
+    });
     try {
       const savedPrompt = localStorage.getItem(draftKey);
       setPrompt(savedPrompt || '');
       let savedOptions: unknown;
       try {
         savedOptions = JSON.parse(localStorage.getItem(optionsKey) || 'null');
-        if (hostedPilot && nextMode === 'pilot') setOptions(PREVIEW_OPTIONS);
+        if (freeVideo || (hostedPilot && nextMode === 'pilot')) setOptions(PREVIEW_OPTIONS);
         else if (isVideoOptions(savedOptions)) setOptions(savedOptions);
       } catch { /* Invalid saved settings fall back to the defaults. */ }
-      const saved = nextMode !== 'pilot' ? null : JSON.parse(localStorage.getItem(storageKey) || 'null');
+      const saved = nextMode !== 'pilot' && nextMode !== 'free' ? null : JSON.parse(localStorage.getItem(storageKey) || 'null');
       if (saved?.id && /^[0-9a-f-]{36}$/i.test(saved.id)) {
         const submittedOptions = isVideoOptions(saved.options) ? saved.options : { ...DEFAULT_VIDEO_OPTIONS };
         setTask({ id: saved.id, status: 'submitting', options: submittedOptions });
@@ -128,12 +135,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         editingDraftRef.current = resumeDraft;
         setEditingDraft(resumeDraft);
         setPrompt(resumeDraft ? savedPrompt ?? saved.prompt ?? '' : saved.prompt || '');
-        setOptions(hostedPilot ? PREVIEW_OPTIONS : resumeDraft && isVideoOptions(savedOptions) ? savedOptions : submittedOptions);
+        setOptions(hostedPilot || freeVideo ? PREVIEW_OPTIONS : resumeDraft && isVideoOptions(savedOptions) ? savedOptions : submittedOptions);
       }
     } catch { /* A malformed receipt must never trigger a paid request. */ }
     setInitialized(true);
     return () => controller.abort();
-  }, [preview, hostedDemo, hostedPilot, showNotice, storageKey]);
+  }, [preview, hostedDemo, hostedPilot, freeVideo, showNotice, storageKey]);
 
   const checkStatus = useCallback(async (id: string) => {
     setChecking(true);
@@ -141,6 +148,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       const response = await fetch(`/api/video/${encodeURIComponent(id)}`);
       const data = await response.json();
       if (!response.ok) {
+        if (free && response.status === 404) {
+          localStorage.removeItem(storageKey);
+          setTask(null);
+          setEditingDraft(false);
+          editingDraftRef.current = false;
+        }
         const code: VideoErrorCode = response.status === 401 ? 'LOGIN_REQUIRED' :
           isVideoErrorCode(data.code) ? data.code : 'SERVICE_UNAVAILABLE';
         if (editingDraftRef.current) setError(data.error || videoNotices[code].message);
@@ -162,7 +175,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       else showNotice('SERVICE_UNAVAILABLE');
       return false;
     } finally { setChecking(false); }
-  }, [showNotice]);
+  }, [free, showNotice, storageKey]);
 
   useEffect(() => {
     if (!task || !['submitting', 'queued', 'running'].includes(task.status) || error || submitting.current) return;
@@ -172,10 +185,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
 
   async function generate() {
     if (!initialized || submitting.current || task) return;
+    if (free && readiness?.signedIn === false) { showNotice('FREE_LOGIN_REQUIRED'); return; }
+    if (free && (!readiness?.configured || !readiness.enabled)) { showNotice('SERVICE_UNAVAILABLE'); return; }
     if (pilot && (!readiness?.configured || !readiness.enabled || !consent)) return;
     const promptError = getPromptError(prompt);
     if (promptError) {
-      if (pilot) showNotice(promptError);
+      if (live) showNotice(promptError);
       else {
         setEmptyPrompt(promptError === 'PROMPT_REQUIRED');
         promptInput.current?.focus();
@@ -200,17 +215,17 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       localStorage.setItem(storageKey, JSON.stringify({ id, prompt, options }));
       setTask({ id, status: 'submitting', options });
       const response = await fetch('/api/video', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, prompt, options }),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(free ? { id, prompt } : { id, prompt, options }),
       });
       const data = await response.json();
       if (!response.ok) {
         // These route responses occur before any billable submission. Allow the
         // user to sign in or correct input; ambiguous failures keep the receipt.
-        if ([400, 401, 403].includes(response.status)) {
+        if ([400, 401, 403].includes(response.status) || (free && (response.status === 429 || data.code === 'SERVICE_UNAVAILABLE'))) {
           localStorage.removeItem(storageKey);
           setTask(null);
         }
-        const code = response.status === 401 ? 'LOGIN_REQUIRED' : isVideoErrorCode(data.code) ? data.code :
+        const code = response.status === 401 ? (free ? 'FREE_LOGIN_REQUIRED' : 'LOGIN_REQUIRED') : isVideoErrorCode(data.code) ? data.code :
           [400, 403, 429].includes(response.status) ? 'SERVICE_UNAVAILABLE' : 'SUBMISSION_UNKNOWN';
         showNotice(code, data.error);
         return;
@@ -230,7 +245,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         setNotice(null);
       } else if (notice === 'INVALID_OPTIONS') {
         setNotice(null);
-      } else if (notice === 'LOGIN_REQUIRED') {
+      } else if (signInNotice) {
         localStorage.setItem(draftKey, prompt);
         const result = await authClient.signIn.social({ provider: 'google', callbackURL: window.location.href });
         if (result.error) throw new Error('Sign in could not be started. Please try again.');
@@ -245,17 +260,18 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         setActionError('Task ID copied.');
       }
     } catch {
-      setActionError(notice === 'LOGIN_REQUIRED' ? 'Sign in could not be started. Please try again.' : 'Unable to copy the task ID. You can select and copy it below.');
+      setActionError(signInNotice ? 'Sign in could not be started. Please try again.' : 'Unable to copy the task ID. You can select and copy it below.');
     } finally { setActionPending(false); }
   }
 
   const isPromptNotice = notice === 'PROMPT_REQUIRED' || notice === 'PROMPT_TOO_LONG';
-  const noticeActionLabel = notice === 'INVALID_OPTIONS' ? 'Edit settings' : isPromptNotice ? 'Edit prompt' : notice === 'LOGIN_REQUIRED' ? 'Sign in' : notice === 'LINK_EXPIRED' ? 'Refresh link' :
+  const signInNotice = notice === 'LOGIN_REQUIRED' || notice === 'FREE_LOGIN_REQUIRED';
+  const noticeActionLabel = notice === 'INVALID_OPTIONS' ? 'Edit settings' : isPromptNotice ? 'Edit prompt' : signInNotice ? 'Sign in' : notice === 'LINK_EXPIRED' ? 'Refresh link' :
     notice === 'SUBMISSION_UNKNOWN' || notice === 'SERVICE_UNAVAILABLE' ? 'Check status' : 'Copy task ID';
 
   function changeOption(key: keyof VideoOptions, value: string | boolean) {
     const next = { ...options, [key]: value };
-    if (paidPreview || !isVideoOptions(next)) return;
+    if (free || paidPreview || !isVideoOptions(next)) return;
     setOptions(next);
     setConsent(false);
     try { localStorage.setItem(optionsKey, JSON.stringify(next)); } catch { /* In-memory settings remain available. */ }
@@ -270,7 +286,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
     try {
       if (task) localStorage.setItem(draftModeKey, task.id);
       localStorage.setItem(draftKey, prompt);
-      localStorage.setItem(optionsKey, JSON.stringify(options));
+      if (!free) localStorage.setItem(optionsKey, JSON.stringify(options));
     } catch { /* Editing still works without persistent storage. */ }
     if (!dialog.current?.open) promptInput.current?.focus();
   }
@@ -302,7 +318,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
   const submittedOptions = task?.options || DEFAULT_VIDEO_OPTIONS;
   const draftLocked = !initialized || (Boolean(task) && !editingDraft);
   const excess = Math.max(0, prompt.length - MAX_PROMPT_LENGTH);
-  const inlinePromptError = !pilot && (excess
+  const inlinePromptError = !live && (excess
     ? `Shorten your prompt by ${excess.toLocaleString('en-US')} character${excess === 1 ? '' : 's'}.`
     : emptyPrompt ? 'Enter a prompt to continue.' : '');
   const demoTask = demo.task;
@@ -320,7 +336,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         if (!task) setError('');
       }} />
     <p id={promptErrorId} className="generation-reminder" aria-live="polite" hidden={!inlinePromptError}>{inlinePromptError}</p>
-    <fieldset className="generation-options" disabled={draftLocked || paidPreview}>
+    {!free && <fieldset className="generation-options" disabled={draftLocked || paidPreview}>
       <legend>Video settings</legend>
       <label>Aspect ratio<select aria-label="Aspect ratio" value={options.aspectRatio} onChange={(event) => changeOption('aspectRatio', event.target.value)}>
         {VIDEO_ASPECT_RATIOS.map((value) => <option key={value} value={value}>{value === 'auto' ? 'Auto' : value}</option>)}
@@ -339,7 +355,8 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
           </select></label>
         </div>
       </details>
-    </fieldset>
+    </fieldset>}
+    {free && <p className="generation-caption">3 sec · 480p · 16:9 · No audio</p>}
     {mode === 'demo' ? <label className="generation-demo-scenario">Demo scenario
       <select value={scenario} onChange={(event) => {
         const next = demoScenarios.find((value) => value === event.target.value);
@@ -349,12 +366,12 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         <option value="failure">Generation fails</option><option value="expired-link">Download link expires</option>
         <option value="quota-timeout">Quota wait times out</option>
       </select>
-    </label> : <p className="generation-reminder">{pilot ? 'Longer videos, higher resolution and generated audio may cost more.' : 'Video generation is not open yet. You can review a prompt and save settings in this browser.'}</p>}
+    </label> : pilot && <p className="generation-reminder">Longer videos, higher resolution and generated audio may cost more.</p>}
     {task && <div className="generation-setup" role="status">
       {editingDraft ? 'You can edit your draft. Your existing task is unchanged; another generation is currently locked.' : 'An existing task is saved. You can edit a draft without starting another generation.'}
       {!editingDraft && <button type="button" className="generation-status-button" onClick={editDraft}>Edit draft</button>}
     </div>}
-    {readiness && (!readiness.configured || !readiness.enabled) && <p className="generation-setup" role="status">
+    {pilot && readiness && (!readiness.configured || !readiness.enabled) && <p className="generation-setup" role="status">
       Local setup needed. {readiness.missing.length > 0 && `Configure: ${readiness.missing.join(', ')}. `}
       {!readiness.enabled && 'Paid generation is locked until the local test is enabled.'}
     </p>}
@@ -363,10 +380,10 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
       <span>I understand this uses paid fal credits and sends my prompt to fal. One local test only.</span>
     </label>}
     <div className="generation-actions">
-      <div className="generation-mode generation-caption"><span>Seedance 2.0 Fast</span><span>{paidPreview ? 'PRIVATE PREVIEW · PAID GENERATION' : pilot ? 'LOCAL TEST · PAID GENERATION' : mode === 'demo' ? 'DEMO · NO CHARGE' : 'Settings preview'}</span></div>
+      <div className="generation-mode generation-caption"><span>Seedance 2.0 Fast</span><span>{free ? '1 free video per account' : paidPreview ? 'PRIVATE PREVIEW · PAID GENERATION' : pilot ? 'LOCAL TEST · PAID GENERATION' : mode === 'demo' ? 'DEMO · NO CHARGE' : 'Settings preview'}</span></div>
       <button className="preview-workspace-action" type="button" onClick={() => { void generate(); }}
-        disabled={!initialized || Boolean(task) || (pilot ? !readiness?.configured || !readiness.enabled || !consent : excess > 0 || demo.active)}>
-        {pilot ? 'Generate now' : mode === 'demo' ? 'Run demo' : 'Review prompt'}
+        disabled={!initialized || Boolean(task) || (free ? !readiness : pilot ? !readiness?.configured || !readiness.enabled || !consent : excess > 0 || demo.active)}>
+        {live ? 'Generate now' : mode === 'demo' ? 'Run demo' : 'Review prompt'}
       </button>
     </div>
     {promptChecked && <div className="generation-caption" role="status">
@@ -379,7 +396,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
     {task && <div className="generation-result">
       <p role="status" className={task.error || task.status === 'failed' ? 'generation-reminder' : undefined}>{task.error || statuses[task.status]}</p>
       <p className="generation-task-id">Task: {task.id}</p>
-      <p>Submitted settings: {submittedOptions.duration} sec · {submittedOptions.resolution} · {submittedOptions.aspectRatio} · {submittedOptions.generateAudio ? 'With audio' : 'No audio'}</p>
+      <p>Submitted settings: {free ? '3 sec · 480p · 16:9 · No audio' : `${submittedOptions.duration} sec · ${submittedOptions.resolution} · ${submittedOptions.aspectRatio} · ${submittedOptions.generateAudio ? 'With audio' : 'No audio'}`}</p>
       <button type="button" className="generation-status-button" disabled={checking} onClick={() => { void checkStatus(task.id); }}>{checking ? 'Checking…' : 'Check task status'}</button>
       {task.videoUrl && <video controls playsInline preload="metadata" src={task.videoUrl} aria-label="Generated video" onError={() => {
         // A player error alone does not prove that a signed link has expired.
@@ -452,7 +469,7 @@ export default function VideoGenerator({ copy, preview = false, hostedDemo = fal
         {actionError && <p className="generation-reminder" role="status">{actionError}</p>}
         <div className="generation-dialog-actions">
           {task && !editingDraft && <button type="button" className="generation-status-button" onClick={editDraft}>Edit draft</button>}
-          {(isPromptNotice || notice === 'INVALID_OPTIONS' || notice === 'LOGIN_REQUIRED' || task || (mode === 'demo' && notice === 'LINK_EXPIRED')) && <button type="button" className="generation-status-button" disabled={actionPending || checking} onClick={() => { void noticeAction(); }}>
+          {(isPromptNotice || notice === 'INVALID_OPTIONS' || signInNotice || task || (mode === 'demo' && notice === 'LINK_EXPIRED')) && <button type="button" className="generation-status-button" disabled={actionPending || checking} onClick={() => { void noticeAction(); }}>
             {actionPending ? 'Please wait…' : noticeActionLabel}
           </button>}
           <button type="button" className="generation-status-button" onClick={() => setNotice(null)}>Close</button>

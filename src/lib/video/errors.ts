@@ -1,5 +1,6 @@
 export type VideoErrorCode = 'LOGIN_REQUIRED' | 'SUBMISSION_UNKNOWN' | 'SERVICE_UNAVAILABLE' |
-  'CONTENT_RESTRICTED' | 'GENERATION_FAILED' | 'LINK_EXPIRED' | 'PROMPT_REQUIRED' | 'PROMPT_TOO_LONG' | 'INVALID_OPTIONS';
+  'CONTENT_RESTRICTED' | 'GENERATION_FAILED' | 'LINK_EXPIRED' | 'PROMPT_REQUIRED' | 'PROMPT_TOO_LONG' | 'INVALID_OPTIONS' |
+  'FREE_LOGIN_REQUIRED' | 'FREE_VIDEO_LIMIT' | 'FREE_VIDEO_QUOTA';
 
 export const MAX_PROMPT_LENGTH = 2000;
 export function getPromptError(prompt: string): 'PROMPT_REQUIRED' | 'PROMPT_TOO_LONG' | null {
@@ -12,6 +13,9 @@ export const videoNotices: Record<VideoErrorCode, { title: string; message: stri
   PROMPT_REQUIRED: { title: 'Prompt required', message: 'Please describe the video you want to create. A prompt containing only spaces cannot be submitted. No generation request has been sent.' },
   PROMPT_TOO_LONG: { title: 'Prompt too long', message: 'Your prompt exceeds the 2,000-character limit. Please shorten it and try again. Your text has been kept, and no generation request has been sent.' },
   LOGIN_REQUIRED: { title: 'Sign in required', message: 'Please sign in to generate a video or view your task. Your prompt and existing task will be kept.' },
+  FREE_LOGIN_REQUIRED: { title: 'Sign in to continue', message: 'Sign in with Google to generate one free 3-second video.' },
+  FREE_VIDEO_LIMIT: { title: 'Free trial already used', message: 'This account has already submitted its free video request.' },
+  FREE_VIDEO_QUOTA: { title: 'Free trial currently full', message: 'All free video slots in this round have been claimed.' },
   SUBMISSION_UNKNOWN: { title: 'Submission status unknown', message: 'We couldn’t confirm your submission. Check the task status before trying again to avoid duplicate charges. If it remains unknown, keep your task ID and contact support.' },
   SERVICE_UNAVAILABLE: { title: 'Service temporarily unavailable', message: 'Video generation or task retrieval is currently unavailable. Please try again later. If you already submitted a task, check its status instead of generating again.' },
   CONTENT_RESTRICTED: { title: 'Please revise your prompt', message: 'This request couldn’t be processed due to content restrictions. Please revise your prompt before a future generation. This task will not be retried automatically. Keep your task ID if you need help.' },
