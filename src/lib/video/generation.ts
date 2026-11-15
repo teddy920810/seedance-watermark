@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { MAX_PROMPT_LENGTH, VideoProviderError, videoNotices, type VideoErrorCode } from './errors';
 import { DEFAULT_VIDEO_OPTIONS, VIDEO_DURATIONS, VIDEO_RESOLUTIONS, VIDEO_ASPECT_RATIOS, type VideoOptions } from './options';
 
-export const MODEL = 'fal-ai/bytedance/seedance/v1.5/pro/text-to-video';
-export const MODEL_LABEL = 'Seedance 1.5 Pro';
+export const MODEL = 'bytedance/seedance-2.0/fast/text-to-video';
+export const MODEL_LABEL = 'Seedance 2.0 Fast';
 const SLOT = 'jobs/fal-local-test.json';
 const optionsSchema = z.object({ duration: z.enum(VIDEO_DURATIONS), resolution: z.enum(VIDEO_RESOLUTIONS),
   aspectRatio: z.enum(VIDEO_ASPECT_RATIOS), generateAudio: z.boolean() }).strict();

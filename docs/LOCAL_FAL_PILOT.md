@@ -3,11 +3,21 @@
 The public page previews video settings and validates prompts in the browser.
 Paid submission and task lookup are available only in the local pilot.
 
+On the local Astro dev server, add `?mode=preview` to review the public workflow
+or `?mode=demo` to run a simulation. The demo keeps the latest receipt in this
+browser and uses elapsed time to show the state after a refresh or reopening.
+Choose **Quota recovers** to watch the same receipt advance automatically.
+The demo uses a bundled sample for playback and download and never contacts fal
+or R2. To enable the same demo on a Vercel Preview deployment, set
+`SEEDANCE_PREVIEW_DEMO=true` under Preview for the test branch and redeploy it.
+It requires Vercel's system `VERCEL_ENV=preview` value. Use Vercel Deployment
+Protection for private review. Production still shows the settings preview.
+
 ## Model and budget
 
-- Endpoint: `fal-ai/bytedance/seedance/v1.5/pro/text-to-video`.
-- Default input settings: 16:9, 480p, 5 seconds, audio off. Safety checker is always on.
-- Dropdowns support 4–12 seconds (whole seconds), 480p/720p/1080p, audio off/on, and 16:9/4:3/1:1/9:16/3:4/21:9/auto. These enums are the model's documented schema, checked 2026-11-08; no different model is selected.
+- Endpoint: `bytedance/seedance-2.0/fast/text-to-video`.
+- Default input settings: 16:9, 480p, 5 seconds, audio off. The model handles content moderation.
+- Dropdowns support 4–12 seconds (whole seconds), 480p/720p, audio off/on, and 16:9/4:3/1:1/9:16/3:4/21:9/auto. These enums are the model's documented schema, checked 2026-11-15. This pilot exposes a subset of durations.
 - The first row shows Aspect ratio then Resolution. Duration and Audio are inside a keyboard-accessible native disclosure (Duration & audio), collapsed initially to keep the hero panel compact. Collapsing keeps selected values; returning from an invalid-settings dialog automatically expands it before focusing Duration.
 - Settings are validated server-side, sent in the one-shot fal request, stored with the task and returned in status responses. Old tasks without settings use the previous fixed defaults. Changing settings clears the paid-request consent; submitted tasks lock the controls. Draft settings survive refresh.
 - For a saved task, Edit draft (also offered in task dialogs) unlocks prompt/settings without signing in or clearing the receipt/quota. The task's submitted settings remain separately visible. Draft-edit mode persists for that task; status responses never overwrite an edited draft, and task lookup failures stay inline in this mode. Another generation remains locked while the saved task is present.
@@ -51,8 +61,8 @@ requires separate quota, billing, retention, webhook and end-user-access design.
 
 ## Vendor contracts
 
-- https://fal.ai/models/fal-ai/bytedance/seedance/v1.5/pro/text-to-video/api
-- https://fal.ai/models/fal-ai/bytedance/seedance/v1.5/pro/text-to-video
+- https://fal.ai/models/bytedance/seedance-2.0/fast/text-to-video/api
+- https://fal.ai/models/bytedance/seedance-2.0/fast/text-to-video
 - https://fal.ai/docs/documentation/model-apis/inference/queue
 - https://fal.ai/docs/documentation/model-apis/inference/client-setup
 
@@ -66,7 +76,7 @@ The video workspace uses a native modal dialog with keyboard dismissal, focus
 containment, an accessible title/description, and a persistent inline error after
 dismissal. Stable public codes select safe English copy:
 
-- `PROMPT_REQUIRED` / `PROMPT_TOO_LONG`: clicking Generate with an empty/whitespace-only prompt or more than 2,000 characters opens a validation dialog before allocating a task ID or sending a request. The full draft is kept; Edit prompt, Close, and Escape return focus to the input. The character counter and server validation use the same 2,000-character limit (JavaScript string length, including whitespace). Overlong paste is preserved rather than silently truncated.
+- `PROMPT_REQUIRED` / `PROMPT_TOO_LONG`: in the paid pilot, clicking Generate with an empty/whitespace-only prompt or more than 2,000 characters opens a validation dialog before allocating a task ID or sending a request. Preview and demo mode show these errors beside the field, and disable the action while the draft is over the limit. The full draft is kept. The character counter and server validation use the same 2,000-character limit (JavaScript string length, including whitespace).
 - `INVALID_OPTIONS`: unsupported or malformed settings are rejected before the generation service is called. The dialog allows returning to the settings controls.
 
 - `LOGIN_REQUIRED`: preserve the prompt and existing task; offer the existing Google sign-in flow. A pre-submit 401 removes only the unsubmitted receipt.

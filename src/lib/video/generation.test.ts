@@ -31,7 +31,7 @@ describe('local video generation', () => {
   });
 
   it('validates settings, forwards them once and restores the original settings', async () => {
-    const options = { duration: '12', resolution: '1080p', aspectRatio: '4:3', generateAudio: true } as const;
+    const options = { duration: '12', resolution: '720p', aspectRatio: '4:3', generateAudio: true } as const;
     const input = parseGenerationInput({ id, prompt: 'cat', options });
     expect(input.options).toEqual(options);
     for (const invalid of [{ ...options, duration: '30' }, { ...options, resolution: '4k' }, { ...options, aspectRatio: '2:1' }, { ...options, generateAudio: 'true' }, { ...options, model: 'other' }]) {

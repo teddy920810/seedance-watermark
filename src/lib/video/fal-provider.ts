@@ -3,8 +3,8 @@ import { MODEL, type VideoProvider } from './generation';
 import { isContentRestricted, VideoProviderError } from './errors';
 import { DEFAULT_VIDEO_OPTIONS, type VideoOptions } from './options';
 
-// Official SDK contracts, verified 2026-10-25:
-// https://fal.ai/models/fal-ai/bytedance/seedance/v1.5/pro/text-to-video/api
+// Official SDK contracts, verified 2026-11-15:
+// https://fal.ai/models/bytedance/seedance-2.0/fast/text-to-video/api
 // https://fal.ai/docs/documentation/model-apis/inference/client-setup
 export class FalVideoProvider implements VideoProvider {
   constructor(private readonly key: string) {
@@ -25,7 +25,6 @@ export class FalVideoProvider implements VideoProvider {
         aspect_ratio: options.aspectRatio,
         duration: options.duration,
         generate_audio: options.generateAudio,
-        enable_safety_checker: true,
       }),
     });
     if (!response.ok) {
