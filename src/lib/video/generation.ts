@@ -39,7 +39,7 @@ export class GenerationService {
   constructor(
     private readonly store: GenerationStore,
     private readonly provider: VideoProvider,
-    private readonly slot = { key: SLOT, atomic: false },
+    private readonly slot: { key: string; atomic: boolean; reservationKey?: string } = { key: SLOT, atomic: false },
   ) {}
 
   private serial<T>(operation: () => Promise<T>): Promise<T> {
@@ -58,11 +58,16 @@ export class GenerationService {
       let job: GenerationJob = { ...input, options: input.options || { ...DEFAULT_VIDEO_OPTIONS }, ownerId, status: 'submitting' };
       if (this.slot.atomic) {
         if (!this.store.putJsonIfAbsent) throw new Error('Atomic reservation unavailable');
-        if (!await this.store.putJsonIfAbsent(this.slot.key, job)) {
+        const reservationKey = this.slot.reservationKey;
+        const reserved = reservationKey
+          ? await this.store.putJsonIfAbsent(reservationKey, { reserved: true })
+          : await this.store.putJsonIfAbsent(this.slot.key, job);
+        if (!reserved) {
           const existing = await this.store.getJson<GenerationJob>(this.slot.key);
           if (existing?.id === input.id && existing.ownerId === ownerId) return existing;
           throw new Error('The local test limit has been reached.');
         }
+        if (reservationKey) await this.store.putJson(this.slot.key, job);
       } else {
         await this.store.putJson(this.slot.key, job);
       }

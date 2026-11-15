@@ -75,6 +75,16 @@ describe('local video generation', () => {
     expect(await second.read(id, 'another-user')).toBeNull();
   });
 
+  it('keeps the paid reservation after the short-lived job has expired', async () => {
+    const { store, provider, values } = fixture();
+    const slot = { key: 'jobs/preview.json', atomic: true, reservationKey: 'pilot-reservations/preview.json' };
+    await new GenerationService(store, provider, slot).create({ id, prompt: 'cat' }, 'owner');
+    expect(values.get(slot.reservationKey)).toEqual({ reserved: true });
+    values.delete(slot.key);
+    await expect(new GenerationService(store, provider, slot).create({ id, prompt: 'cat' }, 'owner')).rejects.toThrow('test limit');
+    expect(provider.submit).toHaveBeenCalledTimes(1);
+  });
+
   it('retains the slot on an ambiguous provider failure and never retries submission', async () => {
     const { service, provider } = fixture();
     provider.submit.mockRejectedValue(new Error('secret provider detail'));

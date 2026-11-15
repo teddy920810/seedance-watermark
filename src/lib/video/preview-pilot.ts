@@ -1,18 +1,16 @@
 import type { VideoOptions } from './options';
 
 export const PREVIEW_OPTIONS = { duration: '4', resolution: '480p', aspectRatio: '16:9', generateAudio: false } satisfies VideoOptions;
-const TEST_WINDOW_MS = 2 * 60 * 60 * 1000;
+const TEST_BRANCH = 'codex/seedance-2-fast-preview';
 
-export function isHostedPilot(env: Readonly<Record<string, string | undefined>>, requestUrl?: URL, now = Date.now()) {
+export function isHostedPilot(env: Readonly<Record<string, string | undefined>>, requestUrl?: URL) {
   if (env.VERCEL_ENV !== 'preview' || env.SEEDANCE_PREVIEW_PAID !== 'true' ||
-      !env.SEEDANCE_PREVIEW_TESTER_EMAIL?.trim()) return false;
-  const deadline = Date.parse(env.SEEDANCE_PREVIEW_UNTIL ?? '');
-  if (!(deadline > now && deadline - now <= TEST_WINDOW_MS)) return false;
-  try {
-    const origin = new URL(env.SEEDANCE_PREVIEW_ORIGIN ?? '');
-    return origin.protocol === 'https:' && origin.origin === env.SEEDANCE_PREVIEW_ORIGIN &&
-      (!requestUrl || requestUrl.origin === origin.origin);
-  } catch { return false; }
+      env.VERCEL_GIT_COMMIT_REF !== TEST_BRANCH || !env.SEEDANCE_PREVIEW_TESTER_EMAIL?.trim()) return false;
+  // Vercel provides the stable branch hostname without a protocol.
+  // https://vercel.com/docs/environment-variables/system-environment-variables#vercel_branch_url
+  const host = env.VERCEL_BRANCH_URL;
+  return Boolean(host && /^[a-z0-9-]+\.vercel\.app$/i.test(host) &&
+    (!requestUrl || requestUrl.origin === `https://${host.toLowerCase()}`));
 }
 
 export function allowsPreviewTester(email: string | undefined, user: { email?: string; emailVerified?: boolean } | undefined) {

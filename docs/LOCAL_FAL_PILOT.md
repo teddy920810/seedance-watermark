@@ -102,18 +102,20 @@ that branch in Preview. Keep the existing demo available. Set these only after
 the tester approves a new run:
 
 - `SEEDANCE_PREVIEW_PAID=true`
-- `SEEDANCE_PREVIEW_ORIGIN`: the stable HTTPS branch origin, with no trailing slash
 - `SEEDANCE_PREVIEW_TESTER_EMAIL`: the one verified Google account allowed to test
-- `SEEDANCE_PREVIEW_UNTIL`: an ISO timestamp up to two hours in the future
-- `FAL_KEY`, Google and R2 settings: configure server-side. Point
+Vercel's system variables identify the Preview environment, test branch and stable
+branch origin. Existing `FAL_KEY`, Google and R2 settings must be available to the
+preview deployment. Point
   `BETTER_AUTH_URL` at the branch origin and allow its
   `/api/auth/callback/google` in Google. Use the existing private R2 setup.
 
 Redeploy and open `/seedance-ai-generated?mode=pilot`. A real run sends one
 4-second, 480p, 16:9 silent request. The live price must pass the US$1 check.
-The same R2 bucket and test receipt protect the slot across instances and
-redeploys. Keep the receipt through the end of the two-hour window, including
-after an ambiguous submit. Do not reset it for a retry. Remove the paid flag
+The same R2 bucket and atomic reservation protect the slot across instances,
+redeploys and expiration of the job receipt. Keep the marker under
+`pilot-reservations/` private and outside the upload, result and job lifecycle
+rules. This marker contains no prompt or account data. Do not delete it to retry
+an ambiguous submission. Remove the paid flag
 and redeploy once the result has been downloaded. The production environment
 does not enable the preview pilot.
 

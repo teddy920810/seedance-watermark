@@ -21,8 +21,8 @@ beforeEach(() => {
   vi.resetAllMocks();
   vi.stubEnv('VERCEL_ENV', 'preview');
   vi.stubEnv('SEEDANCE_PREVIEW_PAID', 'true');
-  vi.stubEnv('SEEDANCE_PREVIEW_UNTIL', new Date(Date.now() + 3600_000).toISOString());
-  vi.stubEnv('SEEDANCE_PREVIEW_ORIGIN', host);
+  vi.stubEnv('VERCEL_GIT_COMMIT_REF', 'codex/seedance-2-fast-preview');
+  vi.stubEnv('VERCEL_BRANCH_URL', new URL(host).hostname);
   vi.stubEnv('SEEDANCE_PREVIEW_TESTER_EMAIL', 'tester@example.com');
 });
 afterEach(() => vi.unstubAllEnvs());

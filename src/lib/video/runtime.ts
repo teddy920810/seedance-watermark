@@ -48,7 +48,11 @@ export function generationService(hosted = false) {
     secretAccessKey: getSecret('R2_SECRET_ACCESS_KEY')!,
     bucket: getSecret('R2_BUCKET') || 'watermark',
   }), hosted ? new BudgetedFalVideoProvider(key) : new FalVideoProvider(key),
-  hosted ? { key: 'jobs/fal-preview-one-clip-v1.json', atomic: true } : undefined);
+  hosted ? {
+    key: 'jobs/fal-preview-one-clip-v1.json',
+    reservationKey: 'pilot-reservations/fal-preview-one-clip-v1.json',
+    atomic: true,
+  } : undefined);
   cached.set(hosted, service);
   return service;
 }

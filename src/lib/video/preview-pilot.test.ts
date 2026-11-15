@@ -1,15 +1,18 @@
 import { expect, it } from 'vitest';
 import { allowsPreviewTester, isHostedPilot, isWithinPreviewBudget, matchesPreviewOptions, PREVIEW_OPTIONS } from './preview-pilot';
 
-it('requires an explicit preview flag, expected HTTPS origin, and short active window', () => {
-  const now = Date.parse('2026-11-15T09:00:00Z');
-  const env = { VERCEL_ENV: 'preview', SEEDANCE_PREVIEW_PAID: 'true', SEEDANCE_PREVIEW_ORIGIN: 'https://test.vercel.app',
-    SEEDANCE_PREVIEW_UNTIL: '2026-11-15T10:00:00Z', SEEDANCE_PREVIEW_TESTER_EMAIL: 'tester@example.com' };
-  expect(isHostedPilot(env, new URL('https://test.vercel.app/api/video'), now)).toBe(true);
-  expect(isHostedPilot({ ...env, VERCEL_ENV: 'production' }, undefined, now)).toBe(false);
-  expect(isHostedPilot(env, new URL('https://other.vercel.app/api/video'), now)).toBe(false);
-  expect(isHostedPilot(env, undefined, now + 3600_000)).toBe(false);
-  expect(isHostedPilot({ ...env, SEEDANCE_PREVIEW_TESTER_EMAIL: '' }, undefined, now)).toBe(false);
+it('requires the explicit flag and exact Vercel branch origin without manual origin or expiry', () => {
+  const env = {
+    VERCEL_ENV: 'preview', VERCEL_GIT_COMMIT_REF: 'codex/seedance-2-fast-preview',
+    VERCEL_BRANCH_URL: 'test.vercel.app', SEEDANCE_PREVIEW_PAID: 'true',
+    SEEDANCE_PREVIEW_TESTER_EMAIL: 'tester@example.com',
+  };
+  expect(isHostedPilot(env, new URL('https://test.vercel.app/api/video'))).toBe(true);
+  expect(isHostedPilot({ ...env, VERCEL_ENV: 'production' })).toBe(false);
+  expect(isHostedPilot({ ...env, VERCEL_GIT_COMMIT_REF: 'other' })).toBe(false);
+  expect(isHostedPilot(env, new URL('https://other.vercel.app/api/video'))).toBe(false);
+  expect(isHostedPilot({ ...env, VERCEL_BRANCH_URL: 'test.vercel.app/other' })).toBe(false);
+  expect(isHostedPilot({ ...env, SEEDANCE_PREVIEW_TESTER_EMAIL: '' })).toBe(false);
 });
 
 it('allows only the verified tester and fixed in-budget Seedance settings', () => {
