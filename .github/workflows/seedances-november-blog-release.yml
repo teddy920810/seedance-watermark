@@ -69,7 +69,8 @@ jobs:
               ' <<<"$checks" >/dev/null
               gh api "repos/$GH_REPO/contents/$article_path?ref=$head" --jq .content |
                 base64 --decode | grep -Fx "publishedAt: $today" >/dev/null
-              gh pr merge "$number" --squash --match-head-commit "$head"
+              merged=$(gh api --method PUT "repos/$GH_REPO/pulls/$number/merge" -f merge_method=squash -f sha="$head" --jq '.merged')
+              test "$merged" = true
               ;;
             *) echo "::error::The scheduled PR is closed without merging."; exit 1 ;;
           esac
