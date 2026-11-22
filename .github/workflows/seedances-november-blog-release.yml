@@ -1,0 +1,89 @@
+name: Seedances November blog release
+
+on:
+  schedule:
+    # 21:20 in Asia/Shanghai. Only the five 2026 dates below have a queue entry.
+    - cron: '20 13 23-27 11 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+  checks: read
+  statuses: read
+
+concurrency:
+  group: seedances-november-blog-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Release only the article assigned to today's date
+        shell: bash
+        run: |
+          set -euo pipefail
+          today=$(TZ=Asia/Shanghai date +%F)
+          case "$today" in
+            2026-11-23) previous=how-long-can-ai-videos-be; slug=best-ai-image-generators ;;
+            2026-11-24) previous=best-ai-image-generators; slug=fix-ai-hands-fingers ;;
+            2026-11-25) previous=fix-ai-hands-fingers; slug=ai-image-prompts ;;
+            2026-11-26) previous=ai-image-prompts; slug=ai-video-for-youtube-shorts ;;
+            2026-11-27) previous=ai-video-for-youtube-shorts; slug=ai-product-video-guide ;;
+            *) echo "No article scheduled for $today"; exit 0 ;;
+          esac
+
+          site=https://www.seedances.co
+          article_path="src/content/blog/$slug.md"
+          sitemap=$(curl -fSs --max-time 20 "$site/sitemap.xml")
+          grep -Fq "<loc>$site/blog/$previous</loc>" <<<"$sitemap" || {
+            echo "::error::The previous article is still missing from production."
+            exit 1
+          }
+          if grep -Fq "<loc>$site/blog/$slug</loc>" <<<"$sitemap"; then
+            echo "Today's article is already live."
+            exit 0
+          fi
+
+          pr=$(gh pr view "codex/seedances-blog-$today" --json number,headRefOid,state,isDraft,author,baseRefName,isCrossRepository,files)
+          jq -e --arg article "$article_path" --arg assets "public/uploads/blog/$slug/" '
+            .author.login == "lindalei-bit" and .baseRefName == "main"
+            and (.isDraft | not) and (.isCrossRepository | not)
+            and ([.files[].path] | index($article) != null)
+            and all(.files[]; (.path == $article or (.path | startswith($assets))) and .deletions == 0)
+          ' <<<"$pr" >/dev/null
+          number=$(jq -r .number <<<"$pr")
+          head=$(jq -r .headRefOid <<<"$pr")
+          case "$(jq -r .state <<<"$pr")" in
+            MERGED) echo "The scheduled PR was already merged. Checking production." ;;
+            OPEN)
+              checks=$(gh pr checks "$number" --json name,workflow,bucket)
+              jq -e '
+                any(.[]; .workflow=="CI" and .name=="verify" and .bucket=="pass")
+                and any(.[]; .name=="Vercel" and .bucket=="pass")
+              ' <<<"$checks" >/dev/null
+              gh api "repos/$GH_REPO/contents/$article_path?ref=$head" --jq .content |
+                base64 --decode | grep -Fx "publishedAt: $today" >/dev/null
+              merged=$(gh api --method PUT "repos/$GH_REPO/pulls/$number/merge" -f merge_method=squash -f sha="$head" --jq '.merged')
+              test "$merged" = true
+              ;;
+            *) echo "::error::The scheduled PR is closed without merging."; exit 1 ;;
+          esac
+
+          for attempt in $(seq 1 20); do
+            if curl -fSs --max-time 15 "$site/sitemap.xml" > "$RUNNER_TEMP/seedances-sitemap.xml" &&
+              grep -Fq "<loc>$site/blog/$slug</loc>" "$RUNNER_TEMP/seedances-sitemap.xml" &&
+              curl -fSs --max-time 15 "$site/blog/$slug" > "$RUNNER_TEMP/seedances-blog.html" &&
+              grep -Fq "https://www.seedances.co/blog/$slug" "$RUNNER_TEMP/seedances-blog.html"; then
+              echo "Published and verified: $site/blog/$slug"
+              exit 0
+            fi
+            sleep 25
+          done
+          echo "::error::The article has not appeared in production after the merge."
+          exit 1
