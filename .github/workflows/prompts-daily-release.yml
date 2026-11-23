@@ -1,0 +1,28 @@
+name: Scheduled prompt articles
+on:
+  schedule:
+    # 17:20 Beijing time. Retry at 19:20 if GitHub or deployment was delayed.
+    - cron: '20 9,11 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: read
+  checks: read
+  statuses: read
+concurrency:
+  group: prompts-daily-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Publish approved articles due today and verify production
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python3 .github/scripts/publish-reviewed-prompts.py
