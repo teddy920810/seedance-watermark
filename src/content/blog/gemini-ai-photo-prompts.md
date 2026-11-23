@@ -9,7 +9,7 @@ author: "Seedances Editorial Team"
 category: "AI Image Guides"
 eyebrow: "AI IMAGE GUIDES"
 heroDescription: "Copy Gemini photo prompts for a natural headshot, a background change, or a two-person portrait. Check the face, lighting, and crop before saving your edit."
-coverImage: "/uploads/blog/gemini-ai-photo-prompts/cover.webp"
+coverImage: "/uploads/blog/gemini-ai-photo-prompts/cover.jpg"
 coverAlt: "Editorial illustration of a window-lit portrait with recognizable freckles and soft side light."
 coverCaption: "Editorial illustration of a window-lit portrait with recognizable freckles and soft side light."
 ctaHeading: "Plan a video shot around your finished portrait"
@@ -26,7 +26,7 @@ A useful Gemini AI photo prompt names the picture you are starting with, describ
 
 ## Decide what the original photo contributes
 
-![Compare how overhead and window light describe the same face before choosing a source portrait.](/uploads/blog/gemini-ai-photo-prompts/section-1.webp)
+![Compare how overhead and window light describe the same face before choosing a source portrait.](/uploads/blog/gemini-ai-photo-prompts/section-1.jpg)
 
 *Compare how overhead and window light describe the same face before choosing a source portrait.*
 
@@ -46,7 +46,7 @@ The second prompt gives Gemini freedom to cast a person and arrange a scene. The
 
 ## Change the lighting or background without losing the face
 
-![Check glasses, hair, and the shoulder shadow where the subject meets a replacement background.](/uploads/blog/gemini-ai-photo-prompts/section-2.webp)
+![Check glasses, hair, and the shoulder shadow where the subject meets a replacement background.](/uploads/blog/gemini-ai-photo-prompts/section-2.jpg)
 
 *Check glasses, hair, and the shoulder shadow where the subject meets a replacement background.*
 
@@ -66,7 +66,7 @@ Inspect the rims of the glasses and the space between the arm and the body. A sm
 
 ## Give two people separate places in the frame
 
-![Distinct shirt colors and positions give each person an anchor in a two-person prompt.](/uploads/blog/gemini-ai-photo-prompts/section-3.webp)
+![Distinct shirt colors and positions give each person an anchor in a two-person prompt.](/uploads/blog/gemini-ai-photo-prompts/section-3.jpg)
 
 *Distinct shirt colors and positions give each person an anchor in a two-person prompt.*
 
@@ -82,7 +82,7 @@ If you want an entirely different pose, start another version. Changing the ligh
 
 ## Check the profile crop and plan a companion video
 
-![Compare the face and accessories on two prints before choosing the final headshot.](/uploads/blog/gemini-ai-photo-prompts/section-4.webp)
+![Compare the face and accessories on two prints before choosing the final headshot.](/uploads/blog/gemini-ai-photo-prompts/section-4.jpg)
 
 *Compare the face and accessories on two prints before choosing the final headshot.*
 
@@ -98,7 +98,7 @@ For a companion clip, save your image-editing prompt so you can reuse its lighti
 
 ## Frequently asked questions
 
-![A small profile crop and a wider portrait serve different uses. Keep the original framing for future edits.](/uploads/blog/gemini-ai-photo-prompts/section-5.webp)
+![A small profile crop and a wider portrait serve different uses. Keep the original framing for future edits.](/uploads/blog/gemini-ai-photo-prompts/section-5.jpg)
 
 *A small profile crop and a wider portrait serve different uses. Keep the original framing for future edits.*
 
