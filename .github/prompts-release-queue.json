@@ -70,5 +70,61 @@
     "bodyAnchor": "Give the tool a reference and a clear job",
     "pr": 47,
     "head": "c30be1a4499e2404b9b73ac2dec540d8703252d1"
+  },
+  {
+    "date": "2026-11-30",
+    "slug": "cinematic-ai-video-prompts",
+    "title": "Cinematic AI Video Prompts for Shots You Can Direct",
+    "bodyAnchor": "Establish what the viewer sees first",
+    "pr": 48,
+    "head": "5662d78c70da31839d40a72f9512758bd540ddcf"
+  },
+  {
+    "date": "2026-11-30",
+    "slug": "krea-regional-prompting",
+    "title": "Krea Regional Prompting for Local Image Edits",
+    "bodyAnchor": "Quick Answer",
+    "pr": 49,
+    "head": "eda9986a320fc0e95261d55a76ed7fef4e638fcd"
+  },
+  {
+    "date": "2026-12-01",
+    "slug": "minimax-reference-prompting-guide",
+    "title": "MiniMax Reference Prompting Guide for Hailuo and H3",
+    "bodyAnchor": "Quick Answer",
+    "pr": 50,
+    "head": "18e67c5f012854e5f90f43a5aa65d213ab24dfa5"
+  },
+  {
+    "date": "2026-12-01",
+    "slug": "chatgpt-photo-editing-prompts",
+    "title": "ChatGPT Photo Editing Prompts for Clean, Controlled Edits",
+    "bodyAnchor": "Remove one object while preserving the scene",
+    "pr": 51,
+    "head": "7fd14a4ce665ab28cf4d083585f3530bf9ee428d"
+  },
+  {
+    "date": "2026-12-02",
+    "slug": "grok-ai-prompts-speed-slow-motion",
+    "title": "Grok Imagine Motion Prompts",
+    "bodyAnchor": "Quick Answer",
+    "pr": 52,
+    "head": "5a3485265d85e56abb7c2e9107862d9864a01f89"
+  },
+  {
+    "date": "2026-12-02",
+    "slug": "prompt-for-consistent-character",
+    "title": "AI Character Prompts for Consistent Video Dialogue",
+    "bodyAnchor": "Quick Answer",
+    "pr": 53,
+    "head": "9aebbe78b83a1474d07ef3aef65ca9b03cdecef2"
+  },
+  {
+    "date": "2026-12-03",
+    "slug": "veo-video-prompts",
+    "title": "Veo Prompts for Dialogue and Camera Control",
+    "bodyAnchor": "Check the model and block the shot",
+    "pr": 54,
+    "head": "5b79a2bb32b4a2f862c01256da7ee939ea34a2d7"
   }
 ]
