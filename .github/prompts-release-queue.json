@@ -126,5 +126,21 @@
     "bodyAnchor": "Check the model and block the shot",
     "pr": 54,
     "head": "5b79a2bb32b4a2f862c01256da7ee939ea34a2d7"
+  },
+  {
+    "date": "2026-12-03",
+    "slug": "image-to-video-prompts",
+    "title": "Image-to-Video Prompts for Natural Motion",
+    "bodyAnchor": "Read the still before you write the movement",
+    "pr": 56,
+    "head": "14ed3d660168a1cac5be32655effe0fce6e6c7af"
+  },
+  {
+    "date": "2026-12-04",
+    "slug": "wan-2-2-image-to-video-prompts",
+    "title": "Wan 2.2 Image-to-Video Prompts for Camera and Motion",
+    "bodyAnchor": "Quick Answer",
+    "pr": 57,
+    "head": "50350186ccbb2fb8cc26758462f926731e2ce8b8"
   }
 ]
